@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Registro</title>
+    <link rel="stylesheet" href="styleRegister.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <span class="logo">LOGO</span>
+            <nav>
+                <a href="#">Calendarios</a>
+                <a href="#">Notificación</a>
+                <a href="#">Foros</a>
+                <button class="login-btn">Login</button>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="register-container">
+            <h2>Register</h2>
+            <form>
+                <label>
+                    <div class="input-container">
+                        <img src="./imagenes/user-icon.png" alt="User Icon">
+                    </div>
+                    <input type="text" required placeholder="Enter your username">
+                </label>
+                <label>
+                    <div class="input-container">
+                        <img src="./imagenes/email-icon.png" alt="Email Icon">
+                    </div>
+                    <input type="email" required placeholder="Enter your email">
+
+                </label>
+                <label>
+                    <div class="input-container">
+                        <img src="./imagenes/verify-icon.png" alt="Verify Icon">
+                    </div>
+                    <input type="number" required>
+                    <button type="button" class="verify-email">Verify your email</button>
+
+                </label>
+
+                <label>
+                    <div class="input-container">
+                        <img src="./imagenes/password-icon.png" alt="Password Icon">
+                    </div>
+                    <input type="password" required placeholder="Enter your password">
+                </label>
+                <label>
+                    <div class="input-container">
+                        <img src="./imagenes/password-icon.png" alt="Password Icon">
+                    </div>
+                    <input type="password" required placeholder="Repeat password">
+                </label>
+                <div class="captcha">
+                    <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
+                </div>
+                <button type="submit" class="register-btn">Register</button>
+            </form>
+            <div class="haveaccount">
+                <p><a href="#">Already registered?  Log in!</a></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Footer</p>
+    </footer>
+</body>
+<!---->
+</html>
