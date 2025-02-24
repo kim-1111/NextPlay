@@ -1,3 +1,10 @@
+
+.main{
+    display: flex;
+    align-content: center;
+    width: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f5f5;
@@ -5,25 +12,9 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+
 }
-.navbar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.logo {
-    font-weight: bold;
-}
-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #333;
-}
+
 .login-btn {
     background-color: #d8a3ff;
     border: none;
