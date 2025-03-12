@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NextPlay</title>
     <link rel="icon" href="../imagenes/logo.png">
-    <link rel="stylesheet" href="principal.css">
-
+    <link rel="stylesheet" href="../CSS/principal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
 
 </head>
 
@@ -18,7 +20,7 @@
             <button>Eventos</button>
             <button>Noticias</button>
             <button>Foros</button>
-            <button id="login">Login</button>
+            <button id="login"><a href="login.html">Login</a></button>
             <button id="menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
                     viewBox="0 0 16 16">
@@ -26,21 +28,47 @@
                         d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                 </svg>
             </button>
+
+            <!-- 弹出导航栏容器 -->
             <div id="menu-dropdown">
-                <a href="">Eventos</a>
-                <a href="">Noticias</a>
-                <a href="">Foros</a>
+                <a href="">Perfil</a>
+                <a href="">Notification</a>
+                <a href="">Settings</a>
             </div>
         </nav>
-
     </header>
-    <div id="welcome">
-        <div>
-            <button>&lt;</button> <button>&gt;</button>
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <button class="carousel-btn left-btn" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+      
+        <div class="carousel-wrapper">
+          <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../games/game1.jpg" class="d-block" alt="Game1">
+              </div>
+              <div class="carousel-item">
+                <img src="../games/game2.jpg" class="d-block" alt="Game2">
+              </div>
+              <div class="carousel-item">
+                <img src="../games/game3.jpg" class="d-block" alt="Game3">
+              </div>
+            </div>
+          </div>
         </div>
-        <br>
-        <button>Button</button>
-    </div>
+      
+        <button class="carousel-btn right-btn" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      
+
+
+
+
     <div class="container" id="container1">
         <section>
             <img src="" alt="img1">
@@ -63,21 +91,40 @@
     </div>
     <div class="container" id="container2">
         <section>
-            <img src="" alt="imgA">
+            <img src="../games/game1.jpg" alt="imgA">
             <div><button>Button</button></div>
         </section>
         <section>
-            <img src="" alt="imgB">
+            <img src="../games/game2.jpg" alt="imgB">
             <div><button>Button</button></div>
         </section>
         <section>
-            <img src="" alt="imgC">
+            <img src="../games/game3.jpg" alt="imgC">
             <div> <button>Button</button></div>
         </section>
     </div>
     <footer>
         footer
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 点击菜单按钮切换 active 类
+        document.getElementById('menu').addEventListener('click', function (e) {
+            e.stopPropagation(); // 阻止事件冒泡，避免触发全局点击关闭逻辑
+            document.getElementById('menu-dropdown').classList.toggle('active');
+        });
+
+        // 点击页面其他位置时，关闭弹出导航
+        document.addEventListener('click', function (e) {
+            const menuDropdown = document.getElementById('menu-dropdown');
+            const menuButton = document.getElementById('menu');
+            if (!menuDropdown.contains(e.target) && !menuButton.contains(e.target)) {
+                menuDropdown.classList.remove('active');
+            }
+        });
+    </script>
+
 </body>
 
 </html>
