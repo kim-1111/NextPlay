@@ -1,0 +1,87 @@
+#welcome {
+  background-color: #ffcd29;
+  background-image: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+}
+
+#welcome>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#welcome>div>button {
+  background-color: black;
+  color: gray;
+  border: none;
+  margin: 0 10px 60px;
+}
+
+#welcome>div>button:hover {
+  text-decoration: none;
+}
+
+#welcome>button {
+  border: none;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: relative;
+  width: 100%;
+}
+
+#container1 img {
+  border: solid gray 0.1px;
+  width: 100%;
+  min-height: 100px;
+}
+
+#container2 img {
+  background-color: #bde3ff;
+  width: 100%;
+  min-height: 200px;
+  display: block;
+}
+
+#container2 div {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#container2 button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+section>p {
+  margin: 10px 0;
+}
+
+@media(max-width:500px) {
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

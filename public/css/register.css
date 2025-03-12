@@ -1,0 +1,98 @@
+.login-btn {
+  background-color: #d8a3ff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-container {
+  background-color: #e8d8ff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 15px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+label span {
+  flex-grow: 1;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-bottom: 3px solid #000;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-container img {
+  width: 24px;
+  height: 24px;
+}
+
+.verify-email {
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 5px 10px;
+  text-align: center;
+  border: none;
+  background-color: #666;
+  color: rgb(211, 209, 209);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input::placeholder {
+  font-size: 12px;
+  color: #888;
+}
+
+.captcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  transform: scale(0.80);
+  transform-origin: center;
+}
+
+.register-btn {
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.haveaccount a {
+  text-decoration: none;
+  color: #000;
+  text-decoration: underline;
+  font-size: 12px;
+}
