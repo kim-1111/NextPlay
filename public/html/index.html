@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextPlay</title>
   <link rel="icon" href="../assets/img/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/index.css">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
@@ -17,13 +16,27 @@
 <body>
   <header>
     <nav>
-      <a href="../html/index.html"><img src="../assets/img/logo.png" alt="logo-NextPlay"></a>
-      <ul nav justify-content-end>
-        <li><a href="">Events</a></li>
-        <li><a href="">News</a></li>
-        <li><a href="">Forums</a></li>
-        <li id="login"><a href="../html/login.html">Login</a></li>
-        <li id="menu"><i class="bi bi-list"></i>
+      <a href="./index.html"><img src="../assets/img/logo.png" alt="logo" id="logo"></a>
+      <ul>
+        <li id="search">
+          <label for="search-input"></i></label>
+          <input type="text" name="search-input" id="search-input" required>
+          <datalist></datalist>
+        </li>
+        <li>
+          <a href="">Events</a>
+        </li>
+        <li>
+          <a href="">News</a>
+        </li>
+        <li>
+          <a href="">Forums</a>
+        </li>
+        <li id="login">
+          <a href="./login.html">Login</a>
+        </li>
+        <li id="menu">
+          <i class="bi bi-list"></i>
           <ul id="menu-dropdown">
             <li><a href="">Events</a></li>
             <li><a href="">News</a></li>
@@ -43,40 +56,48 @@
         <br>
         <button>Button</button>
       </div>
-      <div class="container" id="container1">
-        <section>
-          <img src="" alt="img1">
+
+      <section id="container1">
+        <article>
+          <img src="" alt="/img1">
           <p>----------------------------------------------------<br>
             --------------<br>
             --
 
           </p>
-        </section>
-        <section>
-          <img src="" alt="img2">
+        </article>
+
+        <article>
+          <img src="" alt="/img2">
           <p>----------------------------------------<br>
             ------------------<br>
             -</p>
-        </section>
-        <section>
-          <img src="" alt="img3">
-          <p>-------</p>
-        </section>
-      </div>
-      <div class="container" id="container2">
-        <section>
-          <img src="" alt="imgA">
+        </article>
+
+        <article>
+          <img src="" alt="/img3">
+          <p>
+            ---------
+          </p>
+        </article>
+      </section>
+
+      <section id="container2">
+        <article>
+          <img src="" alt="/imgA">
           <div><button>Button</button></div>
-        </section>
-        <section>
-          <img src="" alt="imgB">
+        </article>
+
+        <article>
+          <img src="" alt="/imgB">
           <div><button>Button</button></div>
-        </section>
-        <section>
-          <img src="" alt="imgC">
+        </article>
+
+        <article>
+          <img src="" alt="/imgC">
           <div> <button>Button</button></div>
-        </section>
-      </div>
+        </article>
+      </section>
     </div>
   </main>
 

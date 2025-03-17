@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextPlay</title>
   <link rel="icon" href="../assets/img/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/login.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="stylesheet"
@@ -18,13 +17,26 @@
 <body>
   <header>
     <nav>
-      <a href="../html/index.html"><img src="../assets/img/logo.png" alt="logo-NextPlay"></a>
-      <ul nav justify-content-end>
-        <li><a href="">Events</a></li>
-        <li><a href="">News</a></li>
-        <li><a href="">Forums</a></li>
-        <li id="login"><a href="../html/login.html">Login</a></li>
-        <li id="menu"><i class="bi bi-list"></i>
+      <a href="../html/index.html"><img src="../assets/img/logo.png" alt="logo-NextPlay" id="logo-img"></a>
+      <ul>
+        <li id="search"><label for="search-input"></label>
+          <input type="text" name="search-input" id="search-input">
+          <datalist></datalist>
+        </li>
+        <li>
+          <a href="">Events</a>
+        </li>
+        <li>
+          <a href="">News</a>
+        </li>
+        <li>
+          <a href="">Forums</a>
+        </li>
+        <li id="login">
+          <a href="../html/login.html">Login</a>
+        </li>
+        <li id="menu">
+          <i class="bi bi-list"></i>
           <ul id="menu-dropdown">
             <li><a href="">Events</a></li>
             <li><a href="">News</a></li>
@@ -38,28 +50,29 @@
   <main>
     <section class="register-container">
       <h2>Login</h2>
-      <form>
-        <label>
-          <div class="input-container">
-            <img src="../assets/img/user-icon.png" alt="User Icon">
+      <form >
+        <label for="username" class="input-container">
+          <div>
+            <img src="../assets/img/user-icon.png" alt="Username">
           </div>
           <input type="text" required placeholder="Enter username">
         </label>
-        <label>
+
+        <label form="password">
           <div class="input-container">
-            <img src="../assets/img/password-icon.png" alt="Password Icon">
+            <img src="../assets/img/password-icon.png" alt="Password">
           </div>
-          <input type="password" required placeholder="Enter your password">
+          <input id="password" required placeholder="Enter your password">
         </label>
 
+
         <div class="box1">
-          <div class="rememberpassword">
+          <div class="rememberpassword"> 
 
             <label for="remember">
-              <input type="checkbox" id="remember"> Remember me
+              <input id="remember" type="checkbox"> Remember me
             </label>
           </div>
-
 
           <div class="forgotpassword">
             <a href="" class="wowow">Forgot password?</a>
@@ -74,7 +87,6 @@
       <div class="donthaveaccount">
         <p><a href="../html/register.html">Don't have an account? Register!</a></p>
       </div>
-
     </section>
   </main>
 

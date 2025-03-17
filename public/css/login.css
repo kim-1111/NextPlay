@@ -1,3 +1,10 @@
+@import url('./style.css');
+
+
+main{
+  width: auto;
+}
+
 .login-btn {
   background-color: #d8a3ff;
   border: none;
@@ -8,20 +15,20 @@
 
 .register-container {
   background-color: #e8d8ff;
+  box-shadow: var(--shadow);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 350px;
   text-align: center;
   margin-top: 20px;
 }
 
-form {
+main form {
   display: flex;
   flex-direction: column;
 }
 
-label {
+main label {
   margin-bottom: 15px;
   text-align: left;
   display: flex;
@@ -29,11 +36,11 @@ label {
   gap: 10px;
 }
 
-label span {
+main label span {
   flex-grow: 1;
 }
 
-input {
+main input {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -138,16 +145,16 @@ input {
 }
 
 .forgotpassword a {
-  text-decoration: none;
   color: #000;
+  text-decoration: none;
   text-decoration: underline;
 }
 
 .donthaveaccount a {
-  text-decoration: none;
   color: #000;
-  text-decoration: underline;
   font-size: 12px;
+  text-decoration: none;
+  text-decoration: underline;
 }
 
 .captcha {
