@@ -41,6 +41,24 @@
         <section class="register-container">
             <h2>Register</h2>
             <form>
+                <div class="role-selector">
+                    <div class="role" id="student">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Student">
+                        <span>USUARIO</span>
+                    </div>
+                    <div class="role selected" id="tutor">
+                        <img src="https://cdn-icons-png.flaticon.com/256/2995/2995703.png" alt="Tutor">
+                        <span>PROMOTOR  </span>
+                    </div>
+                </div>
+                                    <script>
+                                        document.querySelectorAll('.role').forEach(role => {
+                                            role.addEventListener('click', () => {
+                                                document.querySelectorAll('.role').forEach(el => el.classList.remove('selected'));
+                                                role.classList.add('selected');
+                                            });
+                                        });
+                                    </script>
                 <label>
                     <div class="input-container">
                         <img src="../imagenes/user-icon.png" alt="User Icon">
