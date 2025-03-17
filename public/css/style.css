@@ -1,11 +1,11 @@
 body {
   background-color: #f0f5f5;
-  display: flex;
+  display: grid;
   padding: 0;
-  margin: 0;
-  margin-top: 50px;
+  margin: 70px 0 0 0;
   font-family: Arial, sans-serif;
   flex-direction: column;
+  align-items: center;
 }
 
 nav {
@@ -13,25 +13,20 @@ nav {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   position: fixed;
-  justify-content: flex-end;
-  gap: 15px;
   top: 0;
   min-height: 50px;
   width: 100%;
   z-index: 1000;
   list-style: none;
-
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  margin-bottom: 10px;
+  
+  padding: 10px 0;
 }
 
 nav>a img {
   background-color: rgb(225, 225, 225);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: absolute;
-  margin-left: 10px;
   height: 70px;
   width: 70px;
   text-align: center;
@@ -40,18 +35,20 @@ nav>a img {
   font-weight: bold;
 }
 
-nav>ul>li {
-  color: #333;
-  text-decoration: none;
-  text-decoration: none;
+nav>a, ul>li {
   display: inline;
   font-size: 16px;
   margin: 0 15px;
   overflow: hidden;
 }
 
+a{
+  color: #333;
+  text-decoration: none;
+  text-decoration: none;
+}
+
 #menu {
-  display: none;
   position: relative;
 }
 
@@ -83,20 +80,21 @@ nav>ul>li {
   }
 
   #menu, #login {
-    display: block;
+    display: inline;
   }
 }
 
 main {
+  display: grid;
   align-items: center;
   align-content: center;
 }
 
 footer {
   background-color: gainsboro;
+  display: grid;
   margin-top: 20px;
   padding: 25px 0;
-  bottom: 0;
   align-items: center;
   align-content: center;
   text-align: center;
