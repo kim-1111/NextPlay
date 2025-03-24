@@ -27,6 +27,13 @@ body {
   background: linear-gradient(45deg, #0a0a12, #1a1a2e);
   /* Animación del fondo con degradado */
   animation: bg-gradient var(--gradient-duration) ease infinite;
+
+
+
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100dvh;
 }
 
 /* ================= 导航栏模块 ================= */
@@ -236,11 +243,10 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas responsivas */
   gap: 30px;                 /* Espacio entre elementos del grid */
   color: var(--main-color);  /* Color principal heredado */
-  position: relative;        /* Para posicionar elementos hijos absolutos */
   background: linear-gradient(45deg, /* Degradado sofisticado */
     rgba(10, 10, 18, 0.95),
     rgba(26, 26, 46, 0.9));
-  margin-top: 30dvh;
+  width: 100%;
 }
 
 /* Elemento decorativo antes del footer */
@@ -248,9 +254,8 @@ footer::before {
   content: "▲";              /* Triángulo Unicode */
   position: absolute;        /* Posicionamiento absoluto */
   left: 50%;                 /* Centrado horizontal */
-  transform: translateX(-50%); /* Ajuste fino de centrado */
-  top: -20px;                /* Posición sobre el footer */
   font-size: 2rem;           /* Tamaño grande */
+  margin-top: -60px;
 }
 
 
