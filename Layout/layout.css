@@ -1,45 +1,64 @@
-/* principal.css - 优化整合版 */
+/* Importamos fuentes desde Google Fonts para usarlas en los estilos del sitio */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
 
-/* ================= 基础变量 ================= */
+/* ================= Definición de Variables Globales ================= */
 :root {
+  /* Color principal en tonos azul celeste */
   --main-color: #00f7ff;
+  /* Color de fondo oscuro */
   --dark-bg: #0a0a12;
+  /* Color de fondo de los contenedores con opacidad */
   --content-bg: rgba(18, 18, 36, 0.8);
+  /* Gradiente de los botones */
   --button-gradient: linear-gradient(45deg, #00f7ff, #0066ff);
+  /* Duración de la animación de fondo */
   --gradient-duration: 10s;
 }
 
 /* ================= 全局基础样式 ================= */
 body {
+  /* Eliminamos el margen predeterminado */
   margin: 0;
+  /* Margen superior para evitar que el contenido quede oculto por el nav fijo */
   margin-top: 50px;
-  color: #e0e0ff;
+  /* Fuente principal del sitio */
   font-family: 'Orbitron', sans-serif;
+  /* Fondo con degradado */
   background: linear-gradient(45deg, #0a0a12, #1a1a2e);
+  /* Animación del fondo con degradado */
   animation: bg-gradient var(--gradient-duration) ease infinite;
 }
 
 /* ================= 导航栏模块 ================= */
 nav {
+  /* Fijamos la barra en la parte superior */
   position: fixed;
   top: 0;
   width: 100%;
   height: 50px;
+  /* Aseguramos que esté por encima del contenido */
   z-index: 1000;
+  /* Distribución de los elementos alineados a la derecha */
   display: flex;
   justify-content: flex-end;
+  /* Espaciado entre los elementos */
   gap: 15px;
+  /* Espaciado interno en los lados */
   padding: 0 20px;
+  /* Fondo con degradado y opacidad */
   background: linear-gradient(90deg,
     rgba(10, 10, 18, 0.95) 0%,
     rgba(26, 26, 46, 0.9) 50%,
     rgba(10, 10, 18, 0.95) 100%);
+  /* Borde inferior para resaltar la barra */
   border-bottom: 2px solid #4a4a8e;
+  /* Sombra para dar efecto de elevación */
   box-shadow: 0 4px 15px rgba(42, 42, 78, 0.3);
+  /* Transición suave para los cambios de estilo */
   transition: all 0.3s ease;
 }
 
+/* Efecto al pasar el cursor sobre la barra de navegación */
 nav:hover {
   background: linear-gradient(90deg,
     rgba(26, 26, 46, 0.95) 0%,
@@ -48,223 +67,253 @@ nav:hover {
   border-bottom-color: #6a6aae;
 }
 
+/* Estilos para el logo dentro de la barra de navegación */
 nav > img {
+  /* Posición absoluta dentro del nav */
   position: absolute;
   left: 10px;
   top: 10px;
+  /* Tamaño del logo */
   height: 70px;
   width: 70px;
+  /* Borde redondeado para un estilo circular */
   border-radius: 50%;
+  /* Ajuste de imagen para que cubra el espacio sin deformarse */
   object-fit: cover;
+  /* Borde inicial transparente */
   border: 2px solid transparent;
+  /* Transición suave */
   transition: all 0.3s ease;
 }
 
+/* Efecto al pasar el cursor sobre el logo */
 nav > img:hover {
   transform: rotate(15deg) scale(1.1);
   border-color: var(--main-color);
   box-shadow: 0 0 20px var(--main-color);
 }
 
+/* ================ ESTILOS PARA BOTONES DE NAVEGACIÓN ================ */
 nav > button {
-  background: none;
-  border: none;
-  color: var(--main-color);
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.8rem;
-  padding: 8px 15px;
-  transition: all 0.3s ease;
+  background: none;          /* Fondo transparente */
+  border: none;             /* Sin borde */
+  color: var(--main-color); /* Color principal definido en variables */
+  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
+  font-size: 0.8rem;        /* Tamaño de fuente pequeño */
+  padding: 8px 15px;        /* Espaciado interno */
+  transition: all 0.3s ease; /* Transición suave para efectos */
 }
 
+/* Efectos al pasar el ratón sobre botones de navegación */
 nav > button:hover {
-  text-shadow: 0 0 10px var(--main-color);
-  transform: scale(1.1);
+  text-shadow: 0 0 10px var(--main-color); /* Sombra brillante */
+  transform: scale(1.1);                   /* Escala un 10% */
 }
 
-/* ================= 侧边栏菜单 ================= */
+/* ================ MENÚ DESPLEGABLE LATERAL ================ */
 #menu-dropdown {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 250px;
-  height: 100%;
-  background: var(--dark-bg);
-  border-left: 1px solid var(--main-color);
-  padding: 20px;
-  transition: right 0.3s ease;
-  z-index: 1200;
+  position: fixed;         /* Posicionamiento fijo */
+  top: 0;                  /* Alineado arriba */
+  right: -250px;           /* Oculto fuera de pantalla */
+  width: 250px;            /* Ancho del menú */
+  height: 100%;            /* Altura completa */
+  background: var(--dark-bg); /* Fondo oscuro de variables */
+  border-left: 1px solid var(--main-color); /* Borde izquierdo color principal */
+  padding: 20px;           /* Espaciado interno */
+  transition: right 0.3s ease; /* Transición para mostrar/ocultar */
+  z-index: 1200;           /* Capa superior */
 }
 
+/* Clase activa para mostrar el menú */
 #menu-dropdown.active {
-  right: 0;
+  right: 0;                /* Muestra el menú deslizándolo */
 }
 
+/* Estilos para enlaces del menú */
 #menu-dropdown a {
-  display: block;
-  padding: 10px 0;
-  color: var(--main-color);
-  text-decoration: none;
+  display: block;          /* Muestra como bloque */
+  padding: 10px 0;         /* Espaciado vertical */
+  color: var(--main-color); /* Color principal */
+  text-decoration: none;   /* Sin subrayado */
 }
 
+/* Efecto hover para enlaces del menú */
 #menu-dropdown a:hover {
-  background: rgba(0, 247, 255, 0.1);
+  background: rgba(0, 247, 255, 0.1); /* Fondo semi-transparente */
 }
 
-/* ================= 内容容器系统 ================= */
+/* ================ SISTEMA DE CONTENEDORES ================ */
 .container {
-  display: grid;
-  gap: 30px;
-  padding: 40px 20px;
+  display: grid;           /* Usa CSS Grid */
+  gap: 30px;               /* Espacio entre elementos */
+  padding: 40px 20px;      /* Relleno interno */
 }
 
+/* Estilos específicos para container1 */
 #container1 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-top: 50px !important;
-  padding-top: 0 !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
+  margin-top: 50px !important; /* Margen superior forzado */
+  padding-top: 0 !important;   /* Sin relleno superior */
 }
 
+/* Secciones dentro de container1 */
 #container1 section {
-  background: var(--content-bg);
-  border: 1px solid #2d2d5a;
-  border-radius: 12px;
-  padding: 15px;
-  transition: transform 0.3s ease;
+  background: var(--content-bg); /* Fondo del contenido */
+  border: 1px solid #2d2d5a;    /* Borde sutil */
+  border-radius: 12px;          /* Esquinas redondeadas */
+  padding: 15px;                /* Relleno interno */
+  transition: transform 0.3s ease; /* Transición para efecto hover */
 }
 
+/* Efecto hover para secciones */
 #container1 section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2);
+  transform: translateY(-5px);  /* Eleva ligeramente */
+  box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2); /* Sombra neon */
 }
 
+/* Estilos para container2 */
 #container2 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
 }
 
+/* Divs dentro de container2 */
 #container2 section div {
-  text-align: center;
-  margin-top: 10px;
+  text-align: center;      /* Centrado de texto */
+  margin-top: 10px;        /* Margen superior */
 }
 
-/* ================= 图片通用样式 ================= */
+/* ================ ESTILOS GENÉRICOS PARA IMÁGENES ================ */
 .container img {
-  width: 100%;
-  object-fit: cover;
-  border-bottom: 2px solid var(--main-color);
+  width: 100%;             /* Ancho completo */
+  object-fit: cover;       /* Ajuste de imagen */
+  border-bottom: 2px solid var(--main-color); /* Borde inferior color principal */
 }
 
+/* Imágenes en container1 */
 #container1 img {
-  height: 200px;
+  height: 200px;           /* Altura fija */
 }
 
+/* Imágenes en container2 */
 #container2 img {
-  height: 350px;
-  transition: transform 0.3s ease;
+  height: 350px;           /* Altura mayor */
+  transition: transform 0.3s ease; /* Transición para efecto hover */
 }
 
+/* Efecto hover para imágenes en container2 */
 #container2 img:hover {
-  transform: scale(1.05);
+  transform: scale(1.05);  /* Escala ligeramente */
 }
 
-/* ================= 按钮系统 ================= */
+
+
+/* ================ SISTEMA DE BOTONES ================ */
+/* Animación de pulso para botones */
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); } /* Efecto de expansión */
   100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
 }
 
+/* Estilos para botones en container2 */
 #container2 button {
-  background: var(--button-gradient);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-weight: bold;
-  text-transform: uppercase;
-  animation: pulse 2s infinite;
-  font-family: 'Press Start 2P', cursive;
+  background: var(--button-gradient); /* Degradado de variables */
+  color: white;            /* Texto blanco */
+  border: none;            /* Sin bordes */
+  padding: 12px 30px;      /* Relleno interno */
+  border-radius: 25px;     /* Bordes muy redondeados */
+  font-weight: bold;       /* Texto en negrita */
+  text-transform: uppercase; /* Mayúsculas */
+  animation: pulse 2s infinite; /* Aplica animación continua */
+  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
 }
 
-/* ================= 页脚模块 ================= */
+/* ================ MÓDULO DE PIE DE PÁGINA ================ */
 footer {
-  padding: 40px 20px;
-  border-top: 2px solid var(--main-color);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  color: var(--main-color);
-  position: relative;
-  background: linear-gradient(45deg,
+  padding: 40px 20px;        /* Espaciado interno generoso */
+  border-top: 2px solid var(--main-color); /* Borde superior decorativo */
+  display: grid;              /* Usa grid para layout */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas responsivas */
+  gap: 30px;                 /* Espacio entre elementos del grid */
+  color: var(--main-color);  /* Color principal heredado */
+  position: relative;        /* Para posicionar elementos hijos absolutos */
+  background: linear-gradient(45deg, /* Degradado sofisticado */
     rgba(10, 10, 18, 0.95),
     rgba(26, 26, 46, 0.9));
-  margin-top: 100%;
+  margin-top: 30dvh;
 }
 
+/* Elemento decorativo antes del footer */
 footer::before {
-  content: "▲";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -20px;
-  font-size: 2rem;
+  content: "▲";              /* Triángulo Unicode */
+  position: absolute;        /* Posicionamiento absoluto */
+  left: 50%;                 /* Centrado horizontal */
+  transform: translateX(-50%); /* Ajuste fino de centrado */
+  top: -20px;                /* Posición sobre el footer */
+  font-size: 2rem;           /* Tamaño grande */
 }
 
-/* ================= 轮播图模块 ================= */
+
+/* ================ MÓDULO DE CARRUSEL ================ */
 .carousel-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 15px auto;
-  position: relative;
-  padding-bottom: 0 !important;
+  display: flex;              /* Flexbox para alineación */
+  align-items: center;       /* Centrado vertical */
+  justify-content: center;   /* Centrado horizontal */
+  width: 100%;               /* Ancho completo */
+  margin: 15px auto;         /* Margen vertical y centrado horizontal */
+  position: relative;        /* Para posicionar botones */
+  padding-bottom: 0 !important; /* Elimina padding inferior */
 }
 
 .carousel-wrapper {
-  width: 90%;
-  max-width: 900px;
-  height: 400px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
+  width: 90%;                /* Ancho relativo */
+  max-width: 900px;          /* Máximo ancho permitido */
+  height: 400px;             /* Altura fija */
+  position: relative;        /* Contexto de posicionamiento */
+  overflow: hidden;          /* Oculta contenido que sobresale */
+  transition: all 0.3s ease-in-out; /* Transición suave */
 }
 
 #carouselExample {
-  width: 100%;
-  height: 100%;
-  margin-bottom: 0 !important;
+  width: 100%;               /* Ocupa todo el espacio disponible */
+  height: 100%;              /* Altura completa */
+  margin-bottom: 0 !important; /* Elimina margen inferior */
 }
 
+/* Imágenes del carrusel */
 #carouselExample .carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  margin: auto;
+  width: 100%;               /* Ancho completo del contenedor */
+  height: 100%;              /* Altura completa */
+  object-fit: contain;       /* Mantiene relación de aspecto */
+  object-position: center;   /* Centra la imagen */
+  display: block;            /* Elimina espacio inferior */
+  margin: auto;              /* Centrado adicional */
 }
 
+/* Botones de control del carrusel */
 .carousel-btn {
-  width: 50px;
-  height: 50px;
-  background: rgba(75, 116, 177, 0.5);
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-  transition: opacity 0.3s ease-in-out;
+  width: 50px;               /* Tamaño fijo */
+  height: 50px;              /* Tamaño cuadrado */
+  background: rgba(75, 116, 177, 0.5); /* Fondo semitransparente */
+  border-radius: 50%;        /* Forma circular */
+  border: none;              /* Sin bordes */
+  display: flex;             /* Flex para centrar ícono */
+  align-items: center;       /* Centrado vertical */
+  justify-content: center;   /* Centrado horizontal */
+  cursor: pointer;           /* Cursor tipo pointer */
+  z-index: 1000;             /* Asegura visibilidad */
+  transition: opacity 0.3s ease-in-out; /* Efecto al desaparecer */
 }
 
-.left-btn { margin-right: 50px; }
-.right-btn { margin-left: 50px; }
-.carousel-btn span { filter: invert(1); }
+/* Posicionamiento de botones laterales */
+.left-btn { margin-right: 50px; } /* Espacio a la derecha */
+.right-btn { margin-left: 50px; }  /* Espacio a la izquierda */
+.carousel-btn span { filter: invert(1); } /* Invierte color del ícono */
 
-/* ================= 动画系统 ================= */
+/* ================ SISTEMA DE ANIMACIONES ================ */
 @keyframes bg-gradient {
   0% { background: linear-gradient(45deg, #0a0a12, #1a1a2e); }
-  50% { background: linear-gradient(135deg, #1a1a2e, #2a2a4e); }
+  50% { background: linear-gradient(135deg, #1a1a2e, #2a2a4e); } /* Cambio dirección */
   100% { background: linear-gradient(225deg, #2a2a4e, #0a0a12); }
 }
 

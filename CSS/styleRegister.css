@@ -1,10 +1,9 @@
-
 .main{
     display: flex;
     align-content: center;
     width: 100%;
 }
-
+ 
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f5f5;
@@ -12,9 +11,9 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-
+ 
 }
-
+ 
 .login-btn {
     background-color: #d8a3ff;
     border: none;
@@ -65,22 +64,22 @@ input {
     height: 24px;
 }
 .verify-email {
-    font-size: 12px; 
-    white-space: nowrap; 
-    padding: 5px 10px; 
-    text-align: center; 
+    font-size: 12px;
+    white-space: nowrap;
+    padding: 5px 10px;
+    text-align: center;
     border: none;
     background-color: #666;
     color: rgb(211, 209, 209);
     border-radius: 3px;
     cursor: pointer;
 }
-
+ 
 input::placeholder {
-    font-size: 12px; 
-    color: #888; 
+    font-size: 12px;
+    color: #888;
 }
-
+ 
 .captcha {
         display: flex;
         justify-content: center;
@@ -103,16 +102,16 @@ input::placeholder {
         text-decoration: underline;
         font-size: 12px;
      
-
+ 
 }
 footer {
     margin-top: 20px;
     text-align: center;
 }
-
-
+ 
+ 
 /* Role selectors */
-
+ 
 .role-selector {
     display: flex;
     justify-content: center;

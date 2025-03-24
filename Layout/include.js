@@ -6,7 +6,7 @@
 
 
 $(document).ready(function(){
-  $("#navbar").load("navbar.html", function(response, status, xhr) {
+  $("#navbar").load("/NextPlay/Layout/navbar.html", function(response, status, xhr) {
       if (status == "error") {
           console.error("Error al cargar:", xhr.status, xhr.statusText);
       } else {
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-  $("#footer").load("footer.html", function(response, status, xhr) {
+  $("#footer").load("/NextPlay/Layout/footer.html", function(response, status, xhr) {
       if (status == "error") {
           console.error("Error al cargar:", xhr.status, xhr.statusText);
       } else {
