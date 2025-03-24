@@ -178,17 +178,22 @@ nav > button:hover {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
 }
 
-/* Divs dentro de container2 */
-#container2 section div {
-  text-align: center;      /* Centrado de texto */
-  margin-top: 10px;        /* Margen superior */
+/* Secciones dentro de container2 */
+#container2 section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-/* ================ ESTILOS GENÉRICOS PARA IMÁGENES ================ */
-.container img {
+/* Videos en container2 */
+#container2 video {
   width: 100%;             /* Ancho completo */
-  object-fit: cover;       /* Ajuste de imagen */
-  border-bottom: 2px solid var(--main-color); /* Borde inferior color principal */
+  height: 350px;           /* Altura fija */
+  object-fit: cover;       /* Ajuste del video */
+  border-bottom: 2px solid var(--main-color); /* Borde inferior */
+  transition: transform 0.3s ease; /* Efecto de hover */
+  border-radius: 12px; /* Opcional: esquinas redondeadas */
 }
 
 /* Imágenes en container1 */
@@ -202,9 +207,15 @@ nav > button:hover {
   transition: transform 0.3s ease; /* Transición para efecto hover */
 }
 
-/* Efecto hover para imágenes en container2 */
-#container2 img:hover {
+/* Efecto hover para videos en container2 */
+#container2 video:hover {
   transform: scale(1.05);  /* Escala ligeramente */
+}
+
+/* Botón dentro de container2 */
+#container2 section div {
+  text-align: center;
+  margin-top: 10px;
 }
 
 /* ================ SISTEMA DE BOTONES ================ */
