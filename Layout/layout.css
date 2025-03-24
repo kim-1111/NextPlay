@@ -28,9 +28,6 @@ body {
   /* Animación del fondo con degradado */
   animation: bg-gradient var(--gradient-duration) ease infinite;
 
-
-
-
   display: grid;
   grid-template-rows: 1fr auto;
   min-height: 100dvh;
@@ -149,91 +146,6 @@ nav > button:hover {
   background: rgba(0, 247, 255, 0.1); /* Fondo semi-transparente */
 }
 
-/* ================ SISTEMA DE CONTENEDORES ================ */
-.container {
-  display: grid;           /* Usa CSS Grid */
-  gap: 30px;               /* Espacio entre elementos */
-  padding: 40px 20px;      /* Relleno interno */
-}
-
-/* Estilos específicos para container1 */
-#container1 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
-  margin-top: 50px !important; /* Margen superior forzado */
-  padding-top: 0 !important;   /* Sin relleno superior */
-}
-
-/* Secciones dentro de container1 */
-#container1 section {
-  background: var(--content-bg); /* Fondo del contenido */
-  border: 1px solid #2d2d5a;    /* Borde sutil */
-  border-radius: 12px;          /* Esquinas redondeadas */
-  padding: 15px;                /* Relleno interno */
-  transition: transform 0.3s ease; /* Transición para efecto hover */
-}
-
-/* Efecto hover para secciones */
-#container1 section:hover {
-  transform: translateY(-5px);  /* Eleva ligeramente */
-  box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2); /* Sombra neon */
-}
-
-/* Estilos para container2 */
-#container2 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
-}
-
-/* Divs dentro de container2 */
-#container2 section div {
-  text-align: center;      /* Centrado de texto */
-  margin-top: 10px;        /* Margen superior */
-}
-
-/* ================ ESTILOS GENÉRICOS PARA IMÁGENES ================ */
-.container img {
-  width: 100%;             /* Ancho completo */
-  object-fit: cover;       /* Ajuste de imagen */
-  border-bottom: 2px solid var(--main-color); /* Borde inferior color principal */
-}
-
-/* Imágenes en container1 */
-#container1 img {
-  height: 200px;           /* Altura fija */
-}
-
-/* Imágenes en container2 */
-#container2 img {
-  height: 350px;           /* Altura mayor */
-  transition: transform 0.3s ease; /* Transición para efecto hover */
-}
-
-/* Efecto hover para imágenes en container2 */
-#container2 img:hover {
-  transform: scale(1.05);  /* Escala ligeramente */
-}
-
-
-
-/* ================ SISTEMA DE BOTONES ================ */
-/* Animación de pulso para botones */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); } /* Efecto de expansión */
-  100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
-}
-
-/* Estilos para botones en container2 */
-#container2 button {
-  background: var(--button-gradient); /* Degradado de variables */
-  color: white;            /* Texto blanco */
-  border: none;            /* Sin bordes */
-  padding: 12px 30px;      /* Relleno interno */
-  border-radius: 25px;     /* Bordes muy redondeados */
-  font-weight: bold;       /* Texto en negrita */
-  text-transform: uppercase; /* Mayúsculas */
-  animation: pulse 2s infinite; /* Aplica animación continua */
-  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
-}
 
 /* ================ MÓDULO DE PIE DE PÁGINA ================ */
 footer {
@@ -258,62 +170,6 @@ footer::before {
   margin-top: -60px;
 }
 
-
-/* ================ MÓDULO DE CARRUSEL ================ */
-.carousel-container {
-  display: flex;              /* Flexbox para alineación */
-  align-items: center;       /* Centrado vertical */
-  justify-content: center;   /* Centrado horizontal */
-  width: 100%;               /* Ancho completo */
-  margin: 15px auto;         /* Margen vertical y centrado horizontal */
-  position: relative;        /* Para posicionar botones */
-  padding-bottom: 0 !important; /* Elimina padding inferior */
-}
-
-.carousel-wrapper {
-  width: 90%;                /* Ancho relativo */
-  max-width: 900px;          /* Máximo ancho permitido */
-  height: 400px;             /* Altura fija */
-  position: relative;        /* Contexto de posicionamiento */
-  overflow: hidden;          /* Oculta contenido que sobresale */
-  transition: all 0.3s ease-in-out; /* Transición suave */
-}
-
-#carouselExample {
-  width: 100%;               /* Ocupa todo el espacio disponible */
-  height: 100%;              /* Altura completa */
-  margin-bottom: 0 !important; /* Elimina margen inferior */
-}
-
-/* Imágenes del carrusel */
-#carouselExample .carousel-item img {
-  width: 100%;               /* Ancho completo del contenedor */
-  height: 100%;              /* Altura completa */
-  object-fit: contain;       /* Mantiene relación de aspecto */
-  object-position: center;   /* Centra la imagen */
-  display: block;            /* Elimina espacio inferior */
-  margin: auto;              /* Centrado adicional */
-}
-
-/* Botones de control del carrusel */
-.carousel-btn {
-  width: 50px;               /* Tamaño fijo */
-  height: 50px;              /* Tamaño cuadrado */
-  background: rgba(75, 116, 177, 0.5); /* Fondo semitransparente */
-  border-radius: 50%;        /* Forma circular */
-  border: none;              /* Sin bordes */
-  display: flex;             /* Flex para centrar ícono */
-  align-items: center;       /* Centrado vertical */
-  justify-content: center;   /* Centrado horizontal */
-  cursor: pointer;           /* Cursor tipo pointer */
-  z-index: 1000;             /* Asegura visibilidad */
-  transition: opacity 0.3s ease-in-out; /* Efecto al desaparecer */
-}
-
-/* Posicionamiento de botones laterales */
-.left-btn { margin-right: 50px; } /* Espacio a la derecha */
-.right-btn { margin-left: 50px; }  /* Espacio a la izquierda */
-.carousel-btn span { filter: invert(1); } /* Invierte color del ícono */
 
 /* ================ SISTEMA DE ANIMACIONES ================ */
 @keyframes bg-gradient {
@@ -374,4 +230,4 @@ footer::before {
     padding: 8px 20px;
     font-size: 0.7rem;
   }
-}
+} 
