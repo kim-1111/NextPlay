@@ -1,18 +1,19 @@
 @import url('./style.css');
 
-main{
+body main {
   margin-top: 0;
+  gap: 3%;
 }
 
 #welcome {
-  background-color: #ffcd29;
+  background: #ffcd29;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
   min-height: 200px;
-  position: relative;
 }
 
 #welcome div {
@@ -23,14 +24,21 @@ main{
 }
 
 #welcome>div>button {
-  background-color: black;
+  background: black;
   color: gray;
   border: none;
   margin: 0 10px 60px;
 }
 
 #welcome>div>button:hover {
-  text-decoration: none;
+  opacity: 0.8;
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+}
+
+#welcome>div>button:active {
+  opacity: 0;
+  transform: scale(1);
 }
 
 #welcome>button {
@@ -41,52 +49,63 @@ main{
 main section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3%;
-  padding: 20px;
-  margin: 20px;
+  justify-content: center;
+  padding: 25px;
+  gap: 5%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media(max-width:500px) {
   main section {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
+    padding-bottom: 20%;
   }
 }
 
-main article {
+main section article {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  position: relative;
+  align-items: center;
 }
 
 #container1 img {
-  border: solid gray 0.1px;
+  border: solid gray 1px;
   aspect-ratio: 16 / 9;
 }
 
-main p {
-  margin: 10px;
+#container1 div {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px;
+  width: 100%;
 }
 
-main{
-  width: 100%;
-  object-fit: cover;
+#container1 p {
+  margin: 0;
 }
+
+#container2 article {
+  position: relative;
+}
+
 #container2 img {
-  background-color: #bde3ff;
-  display: block;
-  aspect-ratio: 10 / 9;
+  background: #bde3ff;
+  border-radius: 5px;
+  aspect-ratio: 4 / 3;
 }
 
 #container2 div {
   position: absolute;
-  bottom: 10px;
+  bottom: 5%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  width: max-content;
 }
 
 #container2 button {
-  background-color: black;
+  background: black;
   color: white;
   border: none;
   padding: 5px 10px;

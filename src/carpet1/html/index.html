@@ -16,27 +16,22 @@
 <body>
   <header>
     <nav>
-      <a href="./index.html"><img src="../assets/img/logo.png" alt="logo" id="logo"></a>
+      <a href="./index.html">
+        <img src="../assets/img/logo.png" alt="Logo" id="logo">
+      </a>
       <ul>
         <li id="search">
-          <label for="search-input"></label>
-          <input type="text" name="search-input" id="search-input" required>
-          <datalist></datalist>
+          <form action="" method="post">
+            <button aria-label="Search" type="submit"><i class="bi bi-search"></i></button>
+            <input type="text" name="search-input" id="search-input" placeholder="Search...">
+          </form>
         </li>
-        <li>
-          <a href="">Events</a>
-        </li>
-        <li>
-          <a href="">News</a>
-        </li>
-        <li>
-          <a href="">Forums</a>
-        </li>
-        <li id="login">
-          <a href="./login.html">Login</a>
-        </li>
+        <li><a href="">Events</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Forums</a></li>
+        <li id="login"><a href="./login.html">Login</a></li>
         <li id="menu">
-          <i class="bi bi-list"></i>
+          <button><i class="bi bi-list"></i></button>
           <ul id="menu-dropdown">
             <li><a href="">Events</a></li>
             <li><a href="">News</a></li>
@@ -53,32 +48,37 @@
         <div>
           <button>&lt;</button> <button>&gt;</button>
         </div>
-        <br>
         <button>Button</button>
       </div>
 
       <section id="container1">
         <article>
           <img src="" alt="/img1">
-          <p>----------------------------------------------------<br>
-            --------------<br>
-            --
+          <div>
+            <p>----------------------------------------------------
+              --------------
+              --
 
-          </p>
+            </p>
+          </div>
         </article>
 
         <article>
           <img src="" alt="/img2">
-          <p>----------------------------------------<br>
-            ------------------<br>
-            -</p>
+          <div>
+            <p>-------------</p>
+            <p>---------</p>
+            <p>------------------</p>
+          </div>
         </article>
 
         <article>
           <img src="" alt="/img3">
-          <p>
-            ---------
-          </p>
+          <div>
+            <p>
+              ---------
+            </p>
+          </div>
         </article>
       </section>
 
@@ -102,7 +102,8 @@
   </main>
 
   <footer>
-    footer
+    <p>&copy; 2025 NextPlay.</p>
+    <address><a href="">About Us</a> <a href="">Contact</a></address>
   </footer>
 </body>
 
