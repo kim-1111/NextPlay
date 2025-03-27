@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 class UserController
-{   
+{
     private $conn;
     function __construct()
     {
@@ -38,6 +38,18 @@ class UserController
         'password' => '1234'
     ];
 
+
+
+    /* if ($username == $this->staticUser['username'] && $passwd == $this->staticUser['password']) {
+            $_SESSION['user'] = $username;
+            $_SESSION['logged'] = "Inicio de sesión exitoso!";
+            echo $_SESSION['logged'];
+            echo $_SESSION['user'];
+        } else {
+            $_SESSION['error'] = "Credenciales inválidas";
+            echo $_SESSION['error'];
+        }*/
+
     public function login()
     {
 
@@ -48,36 +60,30 @@ class UserController
         $stmt->bind_param("ss", $username, $passwd);
         $stmt->execute();
 
-        if($stmt->fetch()){
+        if ($stmt->fetch()) {
             $_SESSION['logged'] = true;
             $_SESSION['user'] = $username;
 
             $this->conn->close();
 
-            header(header: "Location: ../HTML/xxxx");
+            header(header: "Location: ../HTML/principal.html");
             exit();
-            
-        }else{
-            $_SESSION['logged'] = false;
-            
-
-        }
-        
-        
-
-
-        /* if ($username == $this->staticUser['username'] && $passwd == $this->staticUser['password']) {
-            $_SESSION['user'] = $username;
-            $_SESSION['logged'] = "Inicio de sesión exitoso!";
-            echo $_SESSION['logged'];
-            echo $_SESSION['user'];
         } else {
-            $_SESSION['error'] = "Credenciales inválidas";
-            echo $_SESSION['error'];
-        }*/
+            $_SESSION['logged'] = false;
+        }
     }
 
-    public function logout() {}
+    public function logout()
+    {
+        if (isset($_POST["logout"])) {
+            session_start();
+            session_unset();
+            session_destroy();
+            header("Location: ../HTML/login.html");
+            exit();
+        }
+    }
+
 
     public function register() {}
 }
