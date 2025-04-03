@@ -20,9 +20,9 @@ class UserController
     function __construct()
     {
 
-        $servername = "localhost";
-        $username = "root";
-        $password = " ";
+        $servername = "nextplay-nextplay.l.aivencloud.com:11948";
+        $username = "avnadmin";
+        $password = "";
         $dbname = "nextplay";
 
         // Create connection
@@ -33,14 +33,12 @@ class UserController
         }
     }
 
-    private $staticUser = [
+    /*private $staticUser = [
         'username' => 'user',
         'password' => '1234'
     ];
 
-
-
-    /* if ($username == $this->staticUser['username'] && $passwd == $this->staticUser['password']) {
+     if ($username == $this->staticUser['username'] && $passwd == $this->staticUser['password']) {
             $_SESSION['user'] = $username;
             $_SESSION['logged'] = "Inicio de sesión exitoso!";
             echo $_SESSION['logged'];
@@ -48,7 +46,8 @@ class UserController
         } else {
             $_SESSION['error'] = "Credenciales inválidas";
             echo $_SESSION['error'];
-        }*/
+        }
+    */
 
     public function login()
     {
@@ -59,17 +58,39 @@ class UserController
         $stmt = $this->conn->prepare(query: "SELECT nombre, contrasena FROM usuarios WHERE nombre = ? AND contrasena = ?");
         $stmt->bind_param("ss", $username, $passwd);
         $stmt->execute();
-
         if ($stmt->fetch()) {
             $_SESSION['logged'] = true;
             $_SESSION['user'] = $username;
 
             $this->conn->close();
 
-            header(header: "Location: ../HTML/principal.html");
+            header(header: "Location: ../HTML/perfil.html");
             exit();
         } else {
             $_SESSION['logged'] = false;
+        }
+        $stmt->close();
+
+        $stmtP = $this->conn->prepare(query: "SELECT nombre, contrasena FROM promotores WHERE nombre = ? AND contrasena = ?");
+        $stmtP->bind_param("ss", $username, $passwd);
+        $stmtP->execute();
+
+        if ($stmtP->fetch()) {
+            $_SESSION['logged'] = true;
+            $_SESSION['user'] = $username;
+
+            $this->conn->close();
+
+            header(header: "Location: ../HTML/perfil.html");
+            exit();
+        } else {
+            $_SESSION['logged'] = false;
+        }
+        $stmtP->close();
+
+        if ($_SESSION['logged'] == false) {
+            header("Location: ../HTML/err.html");
+            exit();
         }
     }
 
@@ -85,5 +106,17 @@ class UserController
     }
 
 
-    public function register() {}
+    public function register()
+    {
+    // Retrieve form data from POST request
+    $password = $_POST['password'];
+    $repeat_password = $_POST['repeat_password'];
+
+    // Check if the two passwords match
+    if ($password != $repeat_password) {
+        $_SESSION['error'] = "Las contraseñas no coinciden";
+        header("Location: ../HTML/register.html");
+        exit();
+    }
+    }
 }

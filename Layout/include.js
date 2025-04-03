@@ -25,50 +25,50 @@ Este script detectará automáticamente divs con estas ids específicas e insert
 
 /*INCLUDE NAVBAR*/
 
-$(document).ready(function(){
-  $("#navbar").load("/dam1/PROYECTO/Layout/navbar.html", function(response, status, xhr) {
-      if (status == "error") {
-          console.error("Error al cargar:", xhr.status, xhr.statusText);
-      } else {
-          console.log("layout.html cargado correctamente.");
-      }
+$(document).ready(function () {
+  $("#navbar").load("/dam1/PROYECTO/Layout/navbar.html", function (response, status, xhr) {
+    if (status == "error") {
+      console.error("Error al cargar:", xhr.status, xhr.statusText);
+    } else {
+      console.log("layout.html cargado correctamente.");
+    }
   });
 });
 
 
 /*INCLUDE FOOTER*/
 
-$(document).ready(function(){
-  $("#footer").load("/dam1/PROYECTO/Layout/footer.html", function(response, status, xhr) {
-      if (status == "error") {
-          console.error("Error al cargar:", xhr.status, xhr.statusText);
-      } else {
-          console.log("layout.html cargado correctamente.");
-      }
+$(document).ready(function () {
+  $("#footer").load("/dam1/PROYECTO/Layout/footer.html", function (response, status, xhr) {
+    if (status == "error") {
+      console.error("Error al cargar:", xhr.status, xhr.statusText);
+    } else {
+      console.log("layout.html cargado correctamente.");
+    }
   });
 });
 
 
 /*INCLUDE LOGIN WINDOW*/
 
-$(document).ready(function(){
-    $("#loginwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/login.html", function(response, status, xhr) {
-        if (status == "error") {
-            console.error("Error al cargar:", xhr.status, xhr.statusText);
-        } else {
-            console.log("layout.html cargado correctamente.");
-        }
-    });
+$(document).ready(function () {
+  $("#loginwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/login.html", function (response, status, xhr) {
+    if (status == "error") {
+      console.error("Error al cargar:", xhr.status, xhr.statusText);
+    } else {
+      console.log("layout.html cargado correctamente.");
+    }
   });
+});
 
-  /*INCLUDE REGISTER WINDOW*/
+/*INCLUDE REGISTER WINDOW*/
 
-  $(document).ready(function(){
-    $("#registerwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/register.html", function(response, status, xhr) {
-        if (status == "error") {
-            console.error("Error al cargar:", xhr.status, xhr.statusText);
-        } else {
-            console.log("layout.html cargado correctamente.");
-        }
-    });
+$(document).ready(function () {
+  $("#registerwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/register.html", function (response, status, xhr) {
+    if (status == "error") {
+      console.error("Error al cargar:", xhr.status, xhr.statusText);
+    } else {
+      console.log("layout.html cargado correctamente.");
+    }
   });
+});

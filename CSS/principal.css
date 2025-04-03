@@ -10,9 +10,9 @@
   z-index: 500;
 }
 */
-
 .principal{
-  position: relative;
+  grid-template-rows: 70px 1fr auto;
+  min-height: 100dvh;
 }
 
 #loginwindow {
@@ -30,10 +30,8 @@
   display: none; /* 保持默认隐藏 */
 }
 
-.principal.blur-effect {
-  filter: blur(5px);
-  pointer-events: none;
-  user-select: none;
+#registerwindow{
+  display: none;
 }
 
 

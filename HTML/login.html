@@ -2,62 +2,62 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login</title>
-    <link rel="stylesheet" href="../CSS/styleLogin.css">
-    <link rel="stylesheet" href="../Layout/layout.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+  <link rel="stylesheet" href="../CSS/styleLogin.css">
+  <link rel="stylesheet" href="../Layout/layout.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
-    <center>
-        <main>
-            <section class="register-container">
-                <h2 class="title">Login</h2>
-                <form action="../php/controller.php" method="post">
-                    <label>
-                        <div class="input-container">
-                            <img src="../imagenes/user-icon.png" alt="User Icon">
-                        </div>
-                        <input type="text" required placeholder="Enter username" name="username">
-                    </label>
-                    <label>
-                        <div class="input-container">
-                            <img src="../imagenes/password-icon.png" alt="Password Icon">
-                        </div>
-                        <input type="password" required placeholder="Enter your password" name="password">
-                    </label>
+  <center>
+    <main>
+      <section class="register-container">
+        <h2 class="title">Login</h2>
+        <form action="../php/controller.php" method="post">
+          <label>
+            <div class="input-container">
+              <img src="../imagenes/user-icon.png" alt="User Icon">
+            </div>
+            <input type="text" required placeholder="Enter username" name="username">
+          </label>
+          <label>
+            <div class="input-container">
+              <img src="../imagenes/password-icon.png" alt="Password Icon">
+            </div>
+            <input type="password" required placeholder="Enter your password" name="password">
+          </label>
 
-                    <div class="box1">
-                        <div class="rememberpassword">
+          <div class="box1">
+            <div class="rememberpassword">
 
-                            <label for="remember">
-                                <input type="checkbox" id="remember"> Remember me
-                            </label>
-                        </div>
-                        <div class="forgotpassword">
-                            <a href="" class="wowow">Forgot password?</a>
-                        </div>
-                    </div>
-                    <!--<div class="captcha">
+              <label for="remember">
+                <input type="checkbox" id="remember"> Remember me
+              </label>
+            </div>
+            <div class="forgotpassword">
+              <a href="" class="wowow">Forgot password?</a>
+            </div>
+          </div>
+          <!--<div class="captcha">
                     <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
                 </div> -->
 
-                    <button type="submit" class="register-btn" name="login">Login</button>
-                </form>
-                <div class="donthaveaccount">
-                    <p><a href="./register.html">Don't have an account? Register!</a></p>
-                </div>
-                
+          <button type="submit" class="register-btn" name="login">Login</button>
+        </form>
+        <div class="donthaveaccount">
+          <p><a href="./register.html">Don't have an account? Register!</a></p>
+        </div>
 
-            </section>
-        </main>
-    </center>
 
-    <footer>
-        <p>Footer</p>
-    </footer>
+      </section>
+    </main>
+  </center>
+
+  <footer>
+    <p>Footer</p>
+  </footer>
 </body>
 
 </html>

@@ -51,9 +51,9 @@ nav {
   padding: 0 20px;
   /* Fondo con degradado y opacidad */
   background: linear-gradient(90deg,
-    rgba(10, 10, 18, 0.95) 0%,
-    rgba(26, 26, 46, 0.9) 50%,
-    rgba(10, 10, 18, 0.95) 100%);
+      rgba(10, 10, 18, 0.95) 0%,
+      rgba(26, 26, 46, 0.9) 50%,
+      rgba(10, 10, 18, 0.95) 100%);
   /* Borde inferior para resaltar la barra */
   border-bottom: 2px solid #4a4a8e;
   /* Sombra para dar efecto de elevación */
@@ -65,14 +65,14 @@ nav {
 /* Efecto al pasar el cursor sobre la barra de navegación */
 nav:hover {
   background: linear-gradient(90deg,
-    rgba(26, 26, 46, 0.95) 0%,
-    rgba(42, 42, 78, 0.9) 50%,
-    rgba(26, 26, 46, 0.95) 100%);
+      rgba(26, 26, 46, 0.95) 0%,
+      rgba(42, 42, 78, 0.9) 50%,
+      rgba(26, 26, 46, 0.95) 100%);
   border-bottom-color: #6a6aae;
 }
 
 /* Estilos para el logo dentro de la barra de navegación */
-nav > img {
+nav>img {
   /* Posición absoluta dentro del nav */
   position: absolute;
   left: 10px;
@@ -91,103 +91,255 @@ nav > img {
 }
 
 /* Efecto al pasar el cursor sobre el logo */
-nav > img:hover {
+nav>img:hover {
   transform: rotate(15deg) scale(1.1);
   border-color: var(--main-color);
   box-shadow: 0 0 20px var(--main-color);
 }
 
 /* ================ ESTILOS PARA BOTONES DE NAVEGACIÓN ================ */
-nav > button {
-  background: none;          /* Fondo transparente */
-  border: none;             /* Sin borde */
-  color: var(--main-color); /* Color principal definido en variables */
-  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
-  font-size: 0.8rem;        /* Tamaño de fuente pequeño */
-  padding: 8px 15px;        /* Espaciado interno */
-  transition: all 0.3s ease; /* Transición suave para efectos */
+nav>button {
+  background: none;
+  /* Fondo transparente */
+  border: none;
+  /* Sin borde */
+  color: var(--main-color);
+  /* Color principal definido en variables */
+  font-family: 'Press Start 2P', cursive;
+  /* Fuente estilo retro */
+  font-size: 0.8rem;
+  /* Tamaño de fuente pequeño */
+  padding: 8px 15px;
+  /* Espaciado interno */
+  transition: all 0.3s ease;
+  /* Transición suave para efectos */
 }
 
 /* Efectos al pasar el ratón sobre botones de navegación */
-nav > button:hover {
-  text-shadow: 0 0 10px var(--main-color); /* Sombra brillante */
-  transform: scale(1.1);                   /* Escala un 10% */
+nav>button:hover {
+  text-shadow: 0 0 10px var(--main-color);
+  /* Sombra brillante */
+  transform: scale(1.1);
+  /* Escala un 10% */
+}
+
+nav a {
+  text-decoration: none;
+
 }
 
 /* ================ MENÚ DESPLEGABLE LATERAL ================ */
 #menu-dropdown {
-  position: fixed;         /* Posicionamiento fijo */
-  top: 0;                  /* Alineado arriba */
-  right: -250px;           /* Oculto fuera de pantalla */
-  width: 250px;            /* Ancho del menú */
-  height: 100%;            /* Altura completa */
-  background: var(--dark-bg); /* Fondo oscuro de variables */
-  border-left: 1px solid var(--main-color); /* Borde izquierdo color principal */
-  padding: 20px;           /* Espaciado interno */
-  transition: right 0.3s ease; /* Transición para mostrar/ocultar */
-  z-index: 1200;           /* Capa superior */
+  position: fixed;
+  /* Posicionamiento fijo */
+  top: 0;
+  /* Alineado arriba */
+  right: -250px;
+  /* Oculto fuera de pantalla */
+  width: 250px;
+  /* Ancho del menú */
+  height: 100%;
+  /* Altura completa */
+  background: var(--dark-bg);
+  /* Fondo oscuro de variables */
+  border-left: 1px solid var(--main-color);
+  /* Borde izquierdo color principal */
+  padding: 20px;
+  /* Espaciado interno */
+  transition: right 0.3s ease;
+  /* Transición para mostrar/ocultar */
+  z-index: 1200;
+  /* Capa superior */
   opacity: 0;
-    transform: translateX(100%);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateX(100%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Clase activa para mostrar el menú */
 #menu-dropdown.active {
-  right: 0;                /* Muestra el menú deslizándolo */
+  right: 0;
+  /* Muestra el menú deslizándolo */
   opacity: 1;
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 /* Estilos para enlaces del menú */
 #menu-dropdown a {
-  display: block;          /* Muestra como bloque */
-  padding: 10px 0;         /* Espaciado vertical */
-  color: var(--main-color); /* Color principal */
-  text-decoration: none;   /* Sin subrayado */
+  display: block;
+  /* Muestra como bloque */
+  padding: 10px 0;
+  /* Espaciado vertical */
+  color: var(--main-color);
+  /* Color principal */
+  text-decoration: none;
+  /* Sin subrayado */
 }
 
 /* Efecto hover para enlaces del menú */
 #menu-dropdown a:hover {
-  background: rgba(0, 247, 255, 0.1); /* Fondo semi-transparente */
+  background: rgba(0, 247, 255, 0.1);
+  /* Fondo semi-transparente */
+}
+
+/* ================= Estilos del Perfil ================= */
+.profile-content {
+  margin-top: 90px;
+  /* Ajusta este valor según sea necesario */
+  min-width: 300px;
+  padding: 20px;
+
+}
+
+.profile-sidebar {
+  min-width: 250px;
+  text-align: center;
+
+}
+
+.profile-sidebar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid var(--main-color);
+  box-shadow: 0 0 10px var(--main-color);
+}
+
+.profile-sidebar h6 {
+  margin-top: 10px;
+  color: var(--main-color);
+}
+
+.profile-sidebar input {
+  display: block;
+  margin: 10px auto;
+}
+
+.profile-panel {
+  background: var(--content-bg);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--main-color);
+  margin-top: 15px;
+}
+
+.profile-panel a {
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+.profile-panel a:hover {
+  text-decoration: underline;
+}
+
+.list-group-item {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-form .form-group {
+  margin-bottom: 15px;
+}
+
+.profile-form label {
+  color: var(--main-color);
+  font-size: 1rem;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 8px;
+  background: #222;
+  border: 1px solid var(--main-color);
+  color: white;
+  border-radius: 4px;
+}
+
+.profile-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-buttons button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.profile-buttons .save {
+  background: var(--main-color);
+  color: black;
+}
+
+.profile-buttons .reset {
+  background: red;
+  color: white;
 }
 
 
 /* ================ MÓDULO DE PIE DE PÁGINA ================ */
-footer {
-  padding: 40px 20px;        /* Espaciado interno generoso */
-  border-top: 2px solid var(--main-color); /* Borde superior decorativo */
-  display: grid;              /* Usa grid para layout */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas responsivas */
-  gap: 30px;                 /* Espacio entre elementos del grid */
-  color: var(--main-color);  /* Color principal heredado */
-  background: linear-gradient(45deg, /* Degradado sofisticado */
-    rgba(10, 10, 18, 0.95),
-    rgba(26, 26, 46, 0.9));
+.footer {
+  padding: 40px 20px;
+  /* Espaciado interno generoso */
+  border-top: 2px solid var(--main-color);
+  /* Borde superior decorativo */
+  display: grid;
+  /* Usa grid para layout */
+  gap: 30px;
+  /* Espacio entre elementos del grid */
+  color: var(--main-color);
+  /* Color principal heredado */
+  background: linear-gradient(45deg,
+      /* Degradado sofisticado */
+      rgba(10, 10, 18, 0.95),
+      rgba(26, 26, 46, 0.9));
   width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Elemento decorativo antes del footer */
-footer::before {
-  content: "▲";              /* Triángulo Unicode */
-  position: absolute;        /* Posicionamiento absoluto */
-  left: 50%;                 /* Centrado horizontal */
-  font-size: 2rem;           /* Tamaño grande */
+.footer::before {
+  position: absolute;
+  /* Posicionamiento absoluto */
+  left: 50%;
+  /* Centrado horizontal */
+  font-size: 2rem;
+  /* Tamaño grande */
   margin-top: -60px;
 }
 
 
 /* ================ SISTEMA DE ANIMACIONES ================ */
 @keyframes bg-gradient {
-  0% { background: linear-gradient(45deg, #0a0a12, #1a1a2e); }
-  50% { background: linear-gradient(135deg, #1a1a2e, #2a2a4e); } /* Cambio dirección */
-  100% { background: linear-gradient(225deg, #2a2a4e, #0a0a12); }
+  0% {
+    background: linear-gradient(45deg, #0a0a12, #1a1a2e);
+  }
+
+  50% {
+    background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+  }
+
+  /* Cambio dirección */
+  100% {
+    background: linear-gradient(225deg, #2a2a4e, #0a0a12);
+  }
 }
 
 /* ================= 响应式设计 ================= */
 @media (max-width: 768px) {
-  :root { --gradient-duration: 15s; }
+  :root {
+    --gradient-duration: 15s;
+  }
 
-  #container1, #container2 {
+  #container1,
+  #container2 {
     grid-template-columns: 1fr;
   }
 
@@ -211,13 +363,59 @@ footer::before {
   .carousel-btn {
     display: none !important;
   }
+
   .desktop-only {
     display: none;
+  }
+
+  .profile-content {
+    margin-top: 30px;
+    /* Valor ajustado para pantallas pequeñas */
+  }
+
+  .profile-sidebar {
+    text-align: center;
+
+  }
+
+  .profile-sidebar img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-sidebar .list-group {
+    margin-top: 20px;
+  }
+
+  /* 表单调整 */
+  .profile-form .form-group>div {
+    margin-bottom: 15px;
+    /* 字段间距 */
+  }
+
+  .profile-form label h4 {
+    font-size: 1.2rem;
+  }
+
+  /* 按钮调整 */
+  .profile-buttons {
+    display: block;
+  }
+
+  .profile-buttons button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* 全局调整 */
+  body {
+    margin-top: 60px;
+    /* 如果有固定导航栏，调整顶部间距 */
   }
 }
 
 @media (max-width: 480px) {
-  nav > img {
+  nav>img {
     height: 50px;
     width: 50px;
   }
@@ -230,7 +428,7 @@ footer::before {
   #container1 {
     margin-top: 10px !important;
   }
-} 
+}
 
 @media (min-width: 768px) {
   #menu-dropdown .mobile-only {
