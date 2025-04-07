@@ -1,5 +1,23 @@
 <nav>
-  <img src="../imagenes/logo.png" alt="logo-NextPlay">
+  <img src="../imagenes/logo.png" alt="logo-NextPlay" onclick="gotoprincipal()" class="logonextplay">
+  <div id="search">
+    <form>
+      <button aria-label="Search" type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+          viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+      </button>
+      
+      <input type="search" list="search-options" name="search-input" id="search-input" placeholder="Search...">
+     
+      <datalist id="search-options">
+        <option value="About us">
+      </datalist>
+    </form>
+  </div>
+
   <button class="desktop-only"><a href="../HTML/eventos.html">Eventos</a></button>
   <button class="desktop-only">Noticias</button>
   <button class="desktop-only">Foros</button>
@@ -43,5 +61,9 @@
       menuDropdown.classList.remove('active');
     }
   });
+
+  function gotoprincipal(){
+  window.location.href = "/dam1/NextPlay/HTML/principal.html";
+}
 
 </script>

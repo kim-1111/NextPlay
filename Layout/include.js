@@ -26,9 +26,9 @@ Este script detectará automáticamente divs con estas ids específicas e insert
 /*INCLUDE NAVBAR*/
 
 $(document).ready(function () {
-  $("#navbar").load("/dam1/PROYECTO/Layout/navbar.html", function (response, status, xhr) {
+  $("#navbar").load("/dam1/NextPlay/Layout/navbar.html", function (response, status, xhr) {
     if (status == "error") {
-      console.error("Error al cargar:", xhr.status, xhr.statusText);
+      console.error("Error al cargar navbar:", xhr.status, xhr.statusText);
     } else {
       console.log("layout.html cargado correctamente.");
     }
@@ -39,9 +39,9 @@ $(document).ready(function () {
 /*INCLUDE FOOTER*/
 
 $(document).ready(function () {
-  $("#footer").load("/dam1/PROYECTO/Layout/footer.html", function (response, status, xhr) {
+  $("#footer").load("/dam1/NextPlay/Layout/footer.html", function (response, status, xhr) {
     if (status == "error") {
-      console.error("Error al cargar:", xhr.status, xhr.statusText);
+      console.error("Error al cargar footer:", xhr.status, xhr.statusText);
     } else {
       console.log("layout.html cargado correctamente.");
     }
@@ -52,9 +52,9 @@ $(document).ready(function () {
 /*INCLUDE LOGIN WINDOW*/
 
 $(document).ready(function () {
-  $("#loginwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/login.html", function (response, status, xhr) {
+  $("#loginwindow").load("/dam1/NextPlay/HTML/registerloginwindows/login.html", function (response, status, xhr) {
     if (status == "error") {
-      console.error("Error al cargar:", xhr.status, xhr.statusText);
+      console.error("Error al cargar login:", xhr.status, xhr.statusText);
     } else {
       console.log("layout.html cargado correctamente.");
     }
@@ -64,9 +64,9 @@ $(document).ready(function () {
 /*INCLUDE REGISTER WINDOW*/
 
 $(document).ready(function () {
-  $("#registerwindow").load("/dam1/PROYECTO/HTML/registerloginwindows/register.html", function (response, status, xhr) {
+  $("#registerwindow").load("/dam1/NextPlay/HTML/registerloginwindows/register.html", function (response, status, xhr) {
     if (status == "error") {
-      console.error("Error al cargar:", xhr.status, xhr.statusText);
+      console.error("Error al cargar register:", xhr.status, xhr.statusText);
     } else {
       console.log("layout.html cargado correctamente.");
     }

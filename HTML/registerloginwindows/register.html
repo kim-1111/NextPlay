@@ -1,5 +1,7 @@
+<section class="loginwrapper" class="auth">
 <section class="register-container">
-  <h2>Register</h2>
+  <div class="closebutton"><button onclick="cerrarRegister()">X</button></div>
+  <h2>Registera</h2>
   <form>
     <div class="role-selector">
       <div class="role" id="student">
@@ -59,6 +61,7 @@
     <button type="submit" class="register-btn">Register</button>
   </form>
   <div class="haveaccount">
-    <p><a href="./login.html">Already registered? Log in!</a></p>
+    <p><a class="alreadyregistereda" onclick="cerrarRegister(), mostrarLogin()">Already registered? Log in!</a></p>
   </div>
+</section>
 </section>

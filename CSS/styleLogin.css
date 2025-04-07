@@ -26,7 +26,7 @@
     margin-top: 5%;
 }
 
-form {
+.auth {
     display: flex;
     flex-direction: column;
 }
@@ -141,3 +141,7 @@ input {
 .closebutton{
     float: left;
 }
+
+.donthaveaccounta{
+    cursor: pointer;
+  }
