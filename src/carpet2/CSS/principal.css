@@ -1,16 +1,54 @@
+/*#overlay {
+
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 500;
+}
+*/
+
+.principal{
+  position: relative;
+}
+
+#loginwindow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none; /* 保持默认隐藏 */
+}
+
+.principal.blur-effect {
+  filter: blur(5px);
+  pointer-events: none;
+  user-select: none;
+}
+
 
 
 /* ================ SISTEMA DE CONTENEDORES ================ */
 .container {
   display: grid;           /* Usa CSS Grid */
-  gap: 30px;               /* Espacio entre elementos */
+  gap: 20px;               /* Espacio entre elementos */
   padding: 40px 20px;      /* Relleno interno */
 }
 
 /* Estilos específicos para container1 */
 #container1 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
-  margin-top: 50px !important; /* Margen superior forzado */
+  margin-top: 20px !important; /* Margen superior forzado */
   padding-top: 0 !important;   /* Sin relleno superior */
 }
 
@@ -145,3 +183,4 @@
 .left-btn { margin-right: 50px; } /* Espacio a la derecha */
 .right-btn { margin-left: 50px; }  /* Espacio a la izquierda */
 .carousel-btn span { filter: invert(1); } /* Invierte color del ícono */
+

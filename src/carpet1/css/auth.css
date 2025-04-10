@@ -1,8 +1,8 @@
 @import url('./style.css');
 
 :root {
-  --bg: white;
-  --bg-log: #e8d8ff;
+  --bg: #f3fdf6;
+  --bg-register: #e8d8ff;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --font: Arial, sans-serif;
   --font-size: 12px;
@@ -10,12 +10,17 @@
   --font-color: black;
 }
 
-body main {
+body{
+  background: var(--bg);
+}
+
+body main{
   width: auto;
+  margin-top: 20px;
 }
 
 main section {
-  background: var(--bg-log);
+  background: var(--bg-register);
   box-shadow: var(--shadow);
   border-radius: 10px;
   text-align: center;
@@ -25,8 +30,8 @@ main section {
 }
 
 main a {
-  color: var(--font-color);
   font-size: var(--font-size);
+  color: var(--font-color);
   text-decoration: none;
   text-decoration: underline;
 }
@@ -37,11 +42,12 @@ main form {
 }
 
 main form div {
-  margin-bottom: 15px;
   display: flex;
   text-align: left;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
+  margin: 10px 0 5px 0;
 }
 
 main form label {
@@ -50,14 +56,14 @@ main form label {
   gap: 10px;
 }
 
-main form label img{
+main form label img {
   width: 24px;
   height: 24px;
 }
 
 main form input {
-  font-size: var(--font-size-input);
   background: transparent;
+  font-size: var(--font-size-input);
   border: none;
   border-bottom: 3px solid #000;
   outline: none;
@@ -73,13 +79,26 @@ main form input::placeholder {
 #captcha {
   text-align: center;
   margin: 10px 0;
-
 }
 
-#box {
+#verify-email {
+  background: #666;
+  font-size: var(--font-size);
+  color: rgb(211, 209, 209);
+  border: none;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-align: center;
+  padding: 5px 10px;
+}
+
+#captcha {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  transform: scale(0.80);
+  transform-origin: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 #rememberpassword {
@@ -116,18 +135,17 @@ main form input::placeholder {
 #rememberpassword input:checked::after {
   content: "✔";
   font-size: var(--font-size);
-  color: var(--bg);
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-
-#log {
+.submit {
   background: #000;
   color: white;
-  padding: 10px;
   border: none;
   border-radius: 5px;
+  padding: 10px;
 }

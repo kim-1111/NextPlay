@@ -59,8 +59,6 @@ class UserController
             
         }else{
             $_SESSION['logged'] = false;
-            
-
         }
         
         

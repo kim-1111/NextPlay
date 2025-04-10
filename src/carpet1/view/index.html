@@ -17,18 +17,23 @@
   <header>
     <nav>
       <a href="./index.html">
-        <img src="../assets/img/logo.png" alt="Logo" id="logo">
+        <img src="../assets/img/logo.png" alt="Logo" id="logo" loading="eager">
       </a>
       <ul>
         <li id="search">
-          <form action="" method="post">
+          <form>
             <button aria-label="Search" type="submit"><i class="bi bi-search"></i></button>
-            <input type="text" name="search-input" id="search-input" placeholder="Search...">
+            <input type="search" list="search-options" name="search-input" id="search-input" placeholder="Search...">
+            <datalist id="search-options" >
+              <option value="About us">
+            </datalist>
           </form>
         </li>
+        <li><a href="">About Us</a></li>
         <li><a href="">Events</a></li>
         <li><a href="">News</a></li>
         <li><a href="">Forums</a></li>
+        <li><a href="">Contact</a></li>
         <li id="login"><a href="./login.html">Login</a></li>
         <li id="menu">
           <button><i class="bi bi-list"></i></button>
@@ -43,7 +48,6 @@
   </header>
 
   <main>
-    <div>
       <div id="welcome">
         <div>
           <button>&lt;</button> <button>&gt;</button>
@@ -58,7 +62,6 @@
             <p>----------------------------------------------------
               --------------
               --
-
             </p>
           </div>
         </article>
@@ -98,12 +101,10 @@
           <div> <button>Button</button></div>
         </article>
       </section>
-    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 NextPlay.</p>
-    <address><a href="">About Us</a> <a href="">Contact</a></address>
   </footer>
 </body>
 

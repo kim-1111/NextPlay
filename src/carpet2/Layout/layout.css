@@ -126,11 +126,16 @@ nav > button:hover {
   padding: 20px;           /* Espaciado interno */
   transition: right 0.3s ease; /* Transición para mostrar/ocultar */
   z-index: 1200;           /* Capa superior */
+  opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Clase activa para mostrar el menú */
 #menu-dropdown.active {
   right: 0;                /* Muestra el menú deslizándolo */
+  opacity: 1;
+    transform: translateX(0);
 }
 
 /* Estilos para enlaces del menú */
@@ -181,14 +186,6 @@ footer::before {
 /* ================= 响应式设计 ================= */
 @media (max-width: 768px) {
   :root { --gradient-duration: 15s; }
-  
-  nav {
-    padding: 0 10px;
-    justify-content: space-between;
-    background: linear-gradient(90deg,
-      rgba(26, 26, 46, 0.95) 0%,
-      rgba(42, 42, 78, 0.9) 100%);
-  }
 
   #container1, #container2 {
     grid-template-columns: 1fr;
@@ -196,10 +193,6 @@ footer::before {
 
   #container2 img {
     height: 250px;
-  }
-
-  nav > button:not(#login) {
-    display: none;
   }
 
   .carousel-container {
@@ -212,11 +205,14 @@ footer::before {
   }
 
   #container1 {
-    margin-top: 20px !important;
+    margin-top: 10px !important;
   }
 
   .carousel-btn {
     display: none !important;
+  }
+  .desktop-only {
+    display: none;
   }
 }
 
@@ -230,4 +226,14 @@ footer::before {
     padding: 8px 20px;
     font-size: 0.7rem;
   }
+
+  #container1 {
+    margin-top: 10px !important;
+  }
 } 
+
+@media (min-width: 768px) {
+  #menu-dropdown .mobile-only {
+    display: none;
+  }
+}

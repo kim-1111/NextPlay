@@ -2,7 +2,6 @@
 
 body main {
   margin-top: 0;
-  gap: 3%;
 }
 
 #welcome {
@@ -98,7 +97,7 @@ main section article {
 
 #container2 div {
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: max-content;

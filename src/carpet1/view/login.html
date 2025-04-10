@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextPlay</title>
   <link rel="icon" href="../assets/img/logo.png">
-  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/auth.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
@@ -18,19 +18,26 @@
   <header>
     <nav>
       <a href="./index.html">
-        <img src="../assets/img/logo.png" alt="Logo" id="logo">
+        <img src="../assets/img/logo.png" alt="Logo" id="logo" loading="eager">
       </a>
       <ul>
         <li id="search">
-          <button aria-label="Search"><i class="bi bi-search"></i></button>
-          <input type="text" name="search-input" id="search-input" placeholder="Search..." required>
+          <form>
+            <button aria-label="Search" type="submit"><i class="bi bi-search"></i></button>
+            <input type="search" list="search-options" name="search-input" id="search-input" placeholder="Search...">
+            <datalist id="search-options" >
+              <option value="About us">
+            </datalist>
+          </form>
         </li>
+        <li><a href="">About Us</a></li>
         <li><a href="">Events</a></li>
         <li><a href="">News</a></li>
         <li><a href="">Forums</a></li>
+        <li><a href="">Contact</a></li>
         <li id="login"><a href="./login.html">Login</a></li>
         <li id="menu">
-          <button aria-label="Abrir menú"><i class="bi bi-list"></i></button>
+          <button><i class="bi bi-list"></i></button>
           <ul id="menu-dropdown">
             <li><a href="">Events</a></li>
             <li><a href="">News</a></li>
@@ -56,7 +63,7 @@
           <input id="password" placeholder="Enter your password" required>
         </div>
 
-        <div id="box">
+        <div>
           <div id="rememberpassword">
             <label for="remember">
               <input id="remember" type="checkbox" name="remember"> Remember me
@@ -68,14 +75,10 @@
           </div>
         </div>
 
-        <!--<div cid="captcha">
-                    <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
-                </div> -->
-
-        <button type="submit" id="log">Login</button>
+        <button name="login" type="submit" class="submit">Login</button>
       </form>
       
-      <div class="donthaveaccount">
+      <div>
         <p><a href="./register.html">Don't have an account? Register!</a></p>
       </div>
     </section>
