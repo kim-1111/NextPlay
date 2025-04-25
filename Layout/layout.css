@@ -197,55 +197,76 @@ nav a {
 
 /* ================ MENÚ DESPLEGABLE LATERAL ================ */
 #menu-dropdown {
-  position: fixed ;
-  /* Posicionamiento fijo */
+  position: fixed;
   top: 0;
-  /* Alineado arriba */
-  right: -250px;
-  /* Oculto fuera de pantalla */
+  right: -250px; /* 保留原始定位属性 */
   width: 250px;
-  /* Ancho del menú */
   height: 100%;
-  /* Altura completa */
-  background: var(--dark-bg);
-  /* Fondo oscuro de variables */
-  border-left: 1px solid var(--main-color);
-  /* Borde izquierdo color principal */
+  background: linear-gradient(90deg,
+    rgba(10, 10, 18, 0.98) 0%,
+    rgba(26, 26, 46, 0.95) 100%);
+  border-left: 2px solid var(--main-color);
+  box-shadow: -4px 0 15px rgba(42, 42, 78, 0.3);
   padding: 20px;
-  /* Espaciado interno */
-  transition: right 0.3s ease;
-  /* Transición para mostrar/ocultar */
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), /* 恢复right属性过渡 */
+              opacity 0.3s ease;
   z-index: 1200;
-  /* Capa superior */
   opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* 移除transform属性 */
+  font-family: 'Press Start 2P', cursive;
 }
 
-/* Clase activa para mostrar el menú */
 #menu-dropdown.active {
-  right: 0;
-  /* Muestra el menú deslizándolo */
+  right: 0; /* 保持原始激活状态 */
   opacity: 1;
-  transform: translateX(0);
+  transform: none; /* 清除transform覆盖 */
 }
 
-/* Estilos para enlaces del menú */
-#menu-dropdown a {
-  display: block;
-  /* Muestra como bloque */
-  padding: 10px 0;
-  /* Espaciado vertical */
-  color: var(--main-color);
-  /* Color principal */
-  text-decoration: none;
-  /* Sin subrayado */
-}
-
-/* Efecto hover para enlaces del menú */
-#menu-dropdown a:hover {
+/* 菜单按钮统一样式 */
+#menu-dropdown button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
   background: rgba(0, 247, 255, 0.1);
-  /* Fondo semi-transparente */
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  font-size: 0.7rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* 像素风格边框 */
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+#menu-dropdown button:hover {
+  background: var(--button-gradient);
+  color: #0a0a12;
+  text-shadow: 0 0 8px rgba(10, 10, 18, 0.5);
+  transform: translateX(8px);
+  box-shadow: 3px 3px 0 var(--main-color);
+}
+
+/* 移动端专用按钮间距调整 */
+@media (max-width: 768px) {
+  #menu-dropdown button {
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 0.6rem;
+  }
+}
+
+/* 添加菜单顶部装饰线 */
+#menu-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--main-color) 50%, 
+    transparent 100%);
 }
 
 /* ================= Estilos del Perfil ================= */
