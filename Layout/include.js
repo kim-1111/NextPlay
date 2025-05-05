@@ -26,7 +26,7 @@ Este script detectará automáticamente divs con estas ids específicas e insert
 /*INCLUDE NAVBAR*/
 
 $(document).ready(function () {
-  $("#navbar").load("/dam1/NextPlay/Layout/navbar.html", function (response, status, xhr) {
+  $("#navbar").load("/dam1/NextPlay/Layout/navbar.php", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar navbar:", xhr.status, xhr.statusText);
     } else {

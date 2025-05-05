@@ -21,10 +21,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <?php session_start();?>
+  <?php session_start(); ?>
   <!-- Encabezado con barra de navegación -->
   <header>
     <div id="navbar"></div>
@@ -33,42 +35,88 @@
     <div class="row">
       <div class="col-sm-4 profile-sidebar">
         <div class="text-center">
+          <?php
+          $username = $_SESSION['user']['nombre'];
+          $imagePath = "../users/profileimg/" . $username . ".jpg";
+          if (file_exists($imagePath)) {
+            $avatarSrc = $imagePath;
+          } else {
+            $avatarSrc = "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
+          }
+          ?>
+          <div class="text-center mt-4">
+            <!-- Imagen de perfil -->
+            <img src="<?= $avatarSrc ?>" id="profile-image" class="rounded-circle img-thumbnail" alt="avatar"
+              width="150" height="150" style="cursor: pointer;">
 
-        <?php
-$username = $_SESSION['user']['nombre'];
-$imagePath = "../users/profileimg/" . $username . ".jpg";
+            <h6 class="mt-3">Haz clic para cambiar la foto...</h6>
+
+            <!-- Formulario de carga de imagen -->
+            <form id="upload-form" enctype="multipart/form-data">
+              <div class="mb-3">
+                <!-- Input de archivo oculto -->
+                <input type="file" id="file-upload" name="profile_image" class="d-none"
+                  onchange="previewAndSubmit(event)">
+              </div>
+            </form>
+          </div>
+
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+          <script>
+            const profileImage = document.getElementById('profile-image');
+            const fileInput = document.getElementById('file-upload');
+            const uploadForm = document.getElementById('upload-form');
+
+            // Hacer clic en la imagen para activar el selector de archivos
+            profileImage.addEventListener('click', () => {
+              fileInput.click(); // Activar el selector de archivos
+            });
+
+            // Previsualizar la imagen seleccionada antes de cargarla
+            function previewAndSubmit(event) {
+              const file = event.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  profileImage.src = e.target.result; // Actualizar la imagen de perfil
+                };
+                reader.readAsDataURL(file);
+
+                // Crear un objeto FormData para enviar el archivo
+                const formData = new FormData();
+                formData.append("profile_image", file);
+
+                // Enviar la imagen mediante AJAX
+                $.ajax({
+                  url: '/dam1/NextPlay/php/uploadpicture.php', // Ruta a tu script PHP
+                  type: 'POST',
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                  success: function (response) {
+                    const data = JSON.parse(response);
+                    if (data.status === "success") {
+                      // Mostrar mensaje de éxito (puedes manejarlo según tu preferencia)
+                      alert(data.message);
+                    } else {
+                      // Mostrar mensaje de error
+                      alert(data.message);
+                    }
+                  },
+                  error: function () {
+                    alert("Error en la subida de la imagen.");
+                  }
+                });
+              }
+            }
+          </script>
 
 
-if (file_exists($imagePath)) {
-    $avatarSrc = $imagePath;
-} else {
-    $avatarSrc = "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
-}
-
-
-echo "<script>console.log('Avatar src: " . $avatarSrc . "');</script>";
-?>
-
-<img src="<?= $avatarSrc ?>" class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          <form action="/dam1/NextPlay/php/uploadpicture.php" method="POST" enctype="multipart/form-data">
-            <input type="file" name="profile_image" class="text-center center-block file-upload">
-            <button type="submit" name="submit">Upload Image</button>
-          </form>
         </div>
         <hr><br>
-        <div class="panel panel-default profile-panel">
-          <div class="panel-heading">Sitio Web <i class="fa fa-link fa-1x"></i></div>
-          <div class="panel-body"><a href="https://github.com/kim-1111/NextPlay">github.com/kim-1111/NextPlay</a></div>
-        </div>
         <ul class="list-group">
           <li class="list-group-item text-muted">Actividad <i class="fa fa-dashboard fa-1x"></i></li>
           <li class="list-group-item text-right"><span class="pull-left"><strong>Eventos interesados:</strong></span> 0
-          </li>
-          <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-          <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-          <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78
-          </li>
         </ul>
       </div>
       <div class="col-sm-8 profile-content">
@@ -84,7 +132,8 @@ echo "<script>console.log('Avatar src: " . $avatarSrc . "');</script>";
                   <label for="nombre">
                     <h4>Nombre</h4>
                   </label>
-                  <input type="text" class="form-control" name="nombre" id="nombre" placeholder="<?php echo $_SESSION['user']['nombre']; ?>">
+                  <input type="text" class="form-control" name="nombre" id="nombre"
+                    placeholder="<?php echo $_SESSION['user']['nombre']; ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -100,7 +149,8 @@ echo "<script>console.log('Avatar src: " . $avatarSrc . "');</script>";
                   <label for="email">
                     <h4>Email</h4>
                   </label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="<?php echo $_SESSION['user']['email']; ?>">
+                  <input type="email" class="form-control" name="email" id="email"
+                    placeholder="<?php echo $_SESSION['user']['email']; ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -108,7 +158,8 @@ echo "<script>console.log('Avatar src: " . $avatarSrc . "');</script>";
                   <label for="password">
                     <h4>Contraseña</h4>
                   </label>
-                  <input type="password" class="form-control" name="password" id="password" placeholder="<?php echo $_SESSION['user']['contrasena']; ?>">
+                  <input type="password" class="form-control" name="password" id="password"
+                    placeholder="<?php echo $_SESSION['user']['contrasena']; ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -124,17 +175,17 @@ echo "<script>console.log('Avatar src: " . $avatarSrc . "');</script>";
                   <br>
                   <button class="save" type="submit">Guardar</button>
                   <button class="reset" type="reset">Limpiar</button>
-                  <button name="logout" type="submit" >Logout</button>
-                  </form>
-                </div>
-              </div>
-
+                  <button name="logout" type="submit">Logout</button>
             </form>
-            <hr>
           </div>
         </div>
+
+        </form>
+        <hr>
       </div>
     </div>
+  </div>
+  </div>
   </div>
   <!-- Pie de página -->
   <div id="footer"></div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
- 
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $user = new UserController();
   if (isset($_POST["login"])) {
@@ -13,18 +13,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $user->register();
   }
 }
- 
+
 class UserController
 {
   private $conn;
   function __construct()
   {
- 
+
     $servername = "nextplay-nextplay.l.aivencloud.com:11948";
     $username = "avnadmin";
     $password = "";
     $dbname = "nextplay";
- 
+
     // Create connection
     $this->conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
@@ -32,7 +32,7 @@ class UserController
       die("Connection failed: " . $this->conn->connect_error);
     }
   }
- 
+
   /*private $staticUser = [
         'username' => 'user',
         'password' => '1234'
@@ -48,18 +48,18 @@ class UserController
             echo $_SESSION['error'];
         }
     */
- 
+
   public function login()
   {
- 
+
     $username = $_POST['username'];
     $passwd = $_POST['password'];
- 
+
     $stmt = $this->conn->prepare(query: "SELECT nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = ? AND contrasena = ?");
     $stmt->bind_param("ss", $username, $passwd);
     $stmt->execute();
     $stmt->bind_result($nombre, $email, $contrasena, $estadisticas, $img);
- 
+
     //SI EL INICIO DE SESIÓN DE USUARIOS SE LOGRÓ:
     if ($stmt->fetch()) {
       $_SESSION['logged'] = true;
@@ -70,43 +70,43 @@ class UserController
         'estadisticas' => $estadisticas,
         "img" => $img
       ];
- 
- 
+
+
       $this->conn->close();
- 
+
       header(header: "Location: ../HTML/perfil.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
     }
     $stmt->close();
- 
- 
+
+
     //SI EL INICIO DE SESIÓN DE PROMOTORES SE LOGRÓ:
     $stmtP = $this->conn->prepare(query: "SELECT nombre, contrasena FROM promotores WHERE nombre = ? AND contrasena = ?");
     $stmtP->bind_param("ss", $username, $passwd);
     $stmtP->execute();
- 
+
     if ($stmtP->fetch()) {
       $_SESSION['logged'] = true;
       $_SESSION['user'] = $username;
- 
+
       $this->conn->close();
- 
+
       header(header: "Location: ../HTML/perfil.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
     }
     $stmtP->close();
- 
+
     //SI HUBO ALGÚN ERROR:
     if ($_SESSION['logged'] == false) {
       header("Location: ../HTML/err.html");
       exit();
     }
   }
- 
+
   public function logout()
   {
     if (isset($_POST["logout"])) {
@@ -116,8 +116,8 @@ class UserController
       exit();
     }
   }
- 
- 
+
+
   public function register()
   {
     // Retrieve form data from POST request
@@ -125,33 +125,33 @@ class UserController
     $email = $_POST['email'];
     $password = $_POST['password'];
     $repeat_password = $_POST['repeat_password'];
- 
+
     // Verifica que las contraseñas coincidan
     if ($password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";
       header("Location: ../HTML/register.html");
       exit();
     }
- 
+
     //VERIFICAR LA CONTRASEÑÄ
     if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
       $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.";
       header("Location: ../HTML/register.php");
       exit();
     }
- 
+
     //VERIFICAR EL CORREO
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $_SESSION['error'] = "El formato del correo electrónico no es válido.";
       header("Location: ../HTML/register.php");
       exit();
     }
- 
+
     $rol = $_POST['rol'];
     // Datos sanitizados y hash de la contraseña
     $username = htmlspecialchars($_POST['username']);
     $email = htmlspecialchars($_POST['email']);
- 
+
     // Determinar tabla de destino
     if ($rol === "usuario") {
       $tabla = "usuarios";
@@ -162,13 +162,13 @@ class UserController
       header("Location: ../HTML/register.php");
       exit();
     }
- 
+
     // Inserción en la base de datos
     $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
     $stmt->execute();
     $stmt->close();
- 
+
     header("Location: ../HTML/perfil.php");
     exit();
   }

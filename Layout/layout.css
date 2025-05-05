@@ -15,7 +15,7 @@
   --gradient-duration: 10s;
 }
 
-/* ================= 全局基础样式 ================= */
+/* ================= estilo base global ================= */
 body {
   /* Eliminamos el margen predeterminado */
   margin: 0;
@@ -24,16 +24,18 @@ body {
   /* Fuente principal del sitio */
   font-family: 'Orbitron', sans-serif;
   /* Fondo con degradado */
-  background: linear-gradient(45deg, #0a0a12, #1a1a2e);
+  /*background: linear-gradient(45deg, #0a0a12, #1a1a2e);*/
+
+  background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
   /* Animación del fondo con degradado */
-  animation: bg-gradient var(--gradient-duration) ease infinite;
+  /*animation: bg-gradient var(--gradient-duration) ease infinite;*/
 
   display: grid;
   grid-template-rows: 1fr auto;
   min-height: 100dvh;
 }
 
-/* ================= 导航栏模块 ================= */
+/* ================= NAVBAR ================= */
 nav {
   /* Fijamos la barra en la parte superior */
   position: fixed;
@@ -539,4 +541,25 @@ nav a {
   #menu-dropdown {
     display: none;
   }
+}
+
+
+
+
+
+.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+#user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
 }

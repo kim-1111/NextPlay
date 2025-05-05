@@ -1,0 +1,97 @@
+<?php session_start(); ?>
+
+
+<nav>
+  <img src="../imagenes/logo.png" alt="logo-NextPlay" onclick="gotoprincipal()" class="logonextplay">
+  <div id="search">
+    <form>
+      <button aria-label="Search" type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+          viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+      </button>
+
+      <input type="search" list="search-options" name="search-input" id="search-input" placeholder="Search...">
+
+      <datalist id="search-options">
+        <option value="About us">
+      </datalist>
+    </form>
+  </div>
+
+  <button class="desktop-only"><a href="../HTML/eventos.html">Eventos</a></button>
+  <button class="desktop-only">Noticias</button>
+  <button class="desktop-only">Foros</button>
+  <button class="desktop-only">About Us</button>
+
+
+
+  <?php if (isset($_SESSION['user']['nombre'])):
+    $username = $_SESSION['user']['nombre'];
+    $imagePath = "../users/profileimg/" . $username . ".jpg";
+
+    if (file_exists($imagePath)) {
+      $avatarSrc = $imagePath;
+    } else {
+      $avatarSrc = "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
+    }
+    ?>
+
+    <div id="user-profile" class="desktop-only">
+      <a href="perfil.php"><img src="<?= $avatarSrc ?>" alt="Profile Picture" class="profile-pic desktop-only"></a>
+    </div>
+  <?php else: ?>
+    <button id="login" class="desktop-only" onclick="mostrarLogin()">Login</button>
+  <?php endif; ?>
+
+
+  <button id="menu">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+    </svg>
+  </button>
+
+  <!-- Contenedor del menú desplegable -->
+  <div id="menu-dropdown">
+    <button class="mobile-only">Eventos</button>
+    <button class="mobile-only">Noticias</button>
+    <button class="mobile-only">Foros</button>
+
+    <?php if (isset($_SESSION['user']['nombre'])): ?>
+      <button onclick="window.location.href='perfil.php'" class="mobile-only">Perfil</button>
+    <?php else: ?>
+      <button class="mobile-only" onclick="mostrarLogin()">Login</button>
+    <?php endif; ?>
+    <button>Notification</button>
+    <button>Settings</button>
+  </div>
+</nav>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Haga clic en el botón de menú para cambiar la clase activa
+  document.getElementById('menu').addEventListener('click', function (e) {
+    e.stopPropagation(); // 阻止事件冒泡，避免触发全局点击关闭逻辑
+    document.getElementById('menu-dropdown').classList.toggle('active');
+  });
+
+  // Cerrar la navegación emergente al hacer clic en otro lugar de la página
+  document.addEventListener('click', function (e) {
+    const menuDropdown = document.getElementById('menu-dropdown');
+    const menuButton = document.getElementById('menu');
+    if (!menuDropdown.contains(e.target) && !menuButton.contains(e.target)) {
+      menuDropdown.classList.remove('active');
+    }
+  });
+
+  function gotoprincipal() {
+    window.location.href = "/dam1/NextPlay/HTML/principal.html";
+  }
+
+</script>

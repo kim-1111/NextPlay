@@ -144,6 +144,7 @@
   justify-content: center;   /* Centrado horizontal */
   width: 100%;               /* Ancho completo */
   margin: 15px auto;         /* Margen vertical y centrado horizontal */
+  padding-top: 50px;
   position: relative;        /* Para posicionar botones */
   padding-bottom: 0 !important; /* Elimina padding inferior */
 }

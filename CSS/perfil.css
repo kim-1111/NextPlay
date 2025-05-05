@@ -190,6 +190,7 @@ input[type=file] {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+
 }
 
 .row {
@@ -207,7 +208,6 @@ input[type=file] {
 }
 
 .col-xs-12 {
-  float: left;
   width: 100%;
 }
 
