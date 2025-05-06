@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página de Registro</title>
-  <link rel="stylesheet" href="../CSS/auth.css">
   <link rel="stylesheet" href="../Layout/layout.css">
+  <link rel="stylesheet" href="../CSS/auth.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="icon" href="../imagenes/logo.png">
 </head>
@@ -24,11 +24,11 @@
             <div class="role-selector">
               <div class="role" id="student">
                 <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Student">
-                <span>USUARIO</span>
+                <span>USER</span>
               </div>
               <div class="role selected" id="tutor">
                 <img src="https://cdn-icons-png.flaticon.com/256/2995/2995703.png" alt="Tutor">
-                <span>PROMOTOR </span>
+                <span>PROMOTER</span>
               </div>
             </div>
             <input type="hidden" name="rol" id="rolInput" value="promotor"> <!-- Valor por defecto -->

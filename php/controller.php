@@ -74,7 +74,7 @@ class UserController
 
       $this->conn->close();
 
-      header(header: "Location: ../HTML/perfil.php");
+      header(header: "Location: ../HTML/profile.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
@@ -93,7 +93,7 @@ class UserController
 
       $this->conn->close();
 
-      header(header: "Location: ../HTML/perfil.php");
+      header(header: "Location: ../HTML/profile.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
@@ -169,7 +169,7 @@ class UserController
     $stmt->execute();
     $stmt->close();
 
-    header("Location: ../HTML/perfil.php");
+    header("Location: ../HTML/profile.php");
     exit();
   }
 }

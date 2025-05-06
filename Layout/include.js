@@ -52,7 +52,7 @@ $(document).ready(function () {
 /*INCLUDE LOGIN WINDOW*/
 
 $(document).ready(function () {
-  $("#loginwindow").load("/dam1/NextPlay/HTML/registerloginwindows/login.html", function (response, status, xhr) {
+  $("#loginwindow").load("/dam1/NextPlay/Layout/authwindows/login.html", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar login:", xhr.status, xhr.statusText);
     } else {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 /*INCLUDE REGISTER WINDOW*/
 
 $(document).ready(function () {
-  $("#registerwindow").load("/dam1/NextPlay/HTML/registerloginwindows/register.html", function (response, status, xhr) {
+  $("#registerwindow").load("/dam1/NextPlay/Layout/authwindows/register.html", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar register:", xhr.status, xhr.statusText);
     } else {
