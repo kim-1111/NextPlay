@@ -21,10 +21,10 @@
     </form>
   </div>
 
-  <button class="desktop-only"><a href="../HTML/eventos.html">Eventos</a></button>
-  <button class="desktop-only">Noticias</button>
-  <button class="desktop-only">Foros</button>
-  <button class="desktop-only">About Us</button>
+  <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
+  <button class="desktop-only"><a href="../HTML/about.html">About Us</a></button>
 
 
 
@@ -57,12 +57,12 @@
 
   <!-- Contenedor del menú desplegable -->
   <div id="menu-dropdown">
-    <button class="mobile-only">Eventos</button>
-    <button class="mobile-only">Noticias</button>
-    <button class="mobile-only">Foros</button>
+  <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
 
     <?php if (isset($_SESSION['user']['nombre'])): ?>
-      <button onclick="window.location.href='perfil.php'" class="mobile-only">Perfil</button>
+      <button onclick="window.location.href='profile.php'" class="mobile-only">Profile</button>
     <?php else: ?>
       <button class="mobile-only" onclick="mostrarLogin()">Login</button>
     <?php endif; ?>

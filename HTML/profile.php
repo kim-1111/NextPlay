@@ -49,7 +49,7 @@
             <img src="<?= $avatarSrc ?>" id="profile-image" class="rounded-circle img-thumbnail" alt="avatar"
               width="150" height="150" style="cursor: pointer;">
 
-            <h6 class="mt-3">Haz clic para cambiar la foto...</h6>
+            <h6 class="mt-3">Click to change the photo...</h6>
 
             <!-- Formulario de carga de imagen -->
             <form id="upload-form" enctype="multipart/form-data">
@@ -115,13 +115,13 @@
         </div>
         <hr><br>
         <ul class="list-group">
-          <li class="list-group-item text-muted">Actividad <i class="fa fa-dashboard fa-1x"></i></li>
-          <li class="list-group-item text-right"><span class="pull-left"><strong>Eventos interesados:</strong></span> 0
+          <li class="list-group-item text-muted">Activity<i class="fa fa-dashboard fa-1x"></i></li>
+          <li class="list-group-item text-right"><span class="pull-left"><strong>Interested events:</strong></span> 0
         </ul>
       </div>
       <div class="col-sm-8 profile-content">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">Perfil</a></li>
+          <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="home">
@@ -130,7 +130,7 @@
               <div class="form-group">
                 <div class="col-xs-12">
                   <label for="nombre">
-                    <h4>Nombre</h4>
+                    <h4>Name</h4>
                   </label>
                   <input type="text" class="form-control" name="nombre" id="nombre"
                     placeholder="<?php echo $_SESSION['user']['nombre']; ?>">
@@ -139,7 +139,7 @@
               <div class="form-group">
                 <div class="col-xs-12">
                   <label for="teléfono">
-                    <h4>Teléfono</h4>
+                    <h4>Phone</h4>
                   </label>
                   <input type="text" class="form-control" name="teléfono" id="teléfono" placeholder="teléfono">
                 </div>
@@ -156,7 +156,7 @@
               <div class="form-group">
                 <div class="col-xs-12">
                   <label for="password">
-                    <h4>Contraseña</h4>
+                    <h4>Password</h4>
                   </label>
                   <input type="password" class="form-control" name="password" id="password"
                     placeholder="<?php echo $_SESSION['user']['contrasena']; ?>">
@@ -165,7 +165,7 @@
               <div class="form-group">
                 <div class="col-xs-12">
                   <label for="password2">
-                    <h4>Verifica la contraseña</h4>
+                    <h4>Check the password</h4>
                   </label>
                   <input type="password" class="form-control" name="password2" id="password2" placeholder="password2">
                 </div>
@@ -173,7 +173,7 @@
               <div class="form-group profile-buttons">
                 <div class="col-xs-12">
                   <br>
-                  <button class="save" type="submit">Guardar</button>
+                  <button class="save" type="submit">Save</button>
                   <button class="reset" type="reset">Limpiar</button>
                   <button name="logout" type="submit">Logout</button>
             </form>

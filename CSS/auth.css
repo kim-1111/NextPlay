@@ -201,9 +201,9 @@ input::placeholder {
 }
 
 .authswitch a{
-  text-decoration:none;
-  color:#000;
-  text-decoration: underline;
+  text-decoration:none!important;
+  color:#000!important;
+  text-decoration: underline!important;
   font-size: 12px;
   cursor: pointer;
 }
