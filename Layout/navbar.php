@@ -22,8 +22,8 @@
   </div>
 
   <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
-  <button class="desktop-only">News</button>
-  <button class="desktop-only">Forums</button>
+  <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
   <button class="desktop-only"><a href="../HTML/about.html">About Us</a></button>
 
 
@@ -57,9 +57,9 @@
 
   <!-- Contenedor del menú desplegable -->
   <div id="menu-dropdown">
-    <button class="mobile-only"><a href="../HTML/events.html">Events</a></button>
-    <button class="mobile-only">News</button>
-    <button class="mobile-only">Forums</button>
+  <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
 
     <?php if (isset($_SESSION['user']['nombre'])): ?>
       <button onclick="window.location.href='profile.php'" class="mobile-only">Profile</button>
