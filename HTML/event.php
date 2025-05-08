@@ -19,7 +19,7 @@
   <!-- LAYOUT -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../Layout/include.js"></script>
-  <script src="../Layout/loginregister.js"></script>
+  <script src="../Layout/auth.js"></script>
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/style.css" />
   <link rel="stylesheet" href="../CSS/event.css" />
@@ -38,6 +38,7 @@
     <header>
       <div id="navbar"></div>
     </header>
+    
     <main>
       <div class="event-container">
         <h1 class="event-title">Tech Conference 2025</h1>
@@ -52,7 +53,11 @@
             opportunities with leaders from the tech industry.
           </p>
         </div>
-        <a href="" class="signOn-button">Sign On!</a>
+        <?php if (isset($_SESSION['user']['nombre'])): ?>
+          <a><button class="signOn-button">Sign On!</button></a>
+        <?php else: ?>
+          <a onclick="mostrarLogin()"><button class="signOn-button">Sign On!</button></a>
+        <?php endif; ?>
       </div>
     </main>
 
@@ -61,4 +66,5 @@
       <div id="footer"></div>
     </footer>
   </div>
+
 </body>
