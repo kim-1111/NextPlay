@@ -11,6 +11,7 @@
 }
 */
 .principal{
+  display: grid;
   grid-template-rows: 70px 1fr auto;
   min-height: 100dvh;
 }
