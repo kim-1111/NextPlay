@@ -51,7 +51,11 @@
           opportunities with leaders from the tech industry.
         </p>
       </div>
-      <a href="" class="signOn-button">Sign On!</a>
+      <?php if (isset($_SESSION['user']['nombre'])): ?>
+        <a ><button class="signOn-button">Sign On!</button></a>
+      <?php else: ?>
+        <a onclick="mostrarLogin()"><button class="signOn-button" >Sign On!</button></a>
+      <?php endif; ?>
     </div>
   </div>
 </body>
