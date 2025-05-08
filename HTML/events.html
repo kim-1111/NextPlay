@@ -38,182 +38,179 @@
     <header>
       <div id="navbar"></div>
     </header>
-    
+
     <main>
-      <!-- ==================================================
+      <div>
+        <!-- ==================================================
            SECCIÓN: Carrusel de eventos
            ================================================== -->
-      <div class="carousel-container event-carousel">
-        <div class="carousel-content-wrapper">
-          <!-- Panel de información (lado izquierdo) -->
-          <div class="carousel-info-panel neon-box">
-            <h2 class="neon-text">EVENT CENTRAL</h2>
-            <p class="info-text">¡Descubre los eventos más candentes del mundo gaming!</p>
-            <div class="event-stats">
-              <div class="stat-item">
-                <span class="stat-number">18</span>
-                <span class="stat-label">Eventos activos</span>
+        <div class="carousel-container event-carousel">
+          <div class="carousel-content-wrapper">
+            <!-- Panel de información (lado izquierdo) -->
+            <div class="carousel-info-panel neon-box">
+              <h2 class="neon-text">EVENT CENTRAL</h2>
+              <p class="info-text">Discover the hottest events in the gaming world!</p>
+              <div class="event-stats">
+                <div class="stat-item">
+                  <span class="stat-number">18</span>
+                  <span class="stat-label">Active events</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">3.2k</span>
+                  <span class="stat-label">Participants</span>
+                </div>
               </div>
-              <div class="stat-item">
-                <span class="stat-number">3.2k</span>
-                <span class="stat-label">Participantes</span>
-              </div>
+              <button class="map-btn pulse" onclick="location.href='mapa.html'">
+                <span class="btn-icon">📍</span> View 3D Map
+              </button>
             </div>
-            <button class="map-btn pulse" onclick="location.href='mapa.html'">
-              <span class="btn-icon">📍</span> Ver Mapa 3D
-            </button>
-          </div>
 
-          <!-- Carrusel de imágenes (lado derecho) -->
-          <div class="carousel-wrapper">
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="../games/game1.jpg" class="d-block" alt="Game1" />
-                </div>
-                <div class="carousel-item">
-                  <img src="../games/game2.jpg" class="d-block" alt="Game2" />
-                </div>
-                <div class="carousel-item">
-                  <img src="../games/game3.jpg" class="d-block" alt="Game3" />
+            <!-- Carrusel de imágenes (lado derecho) -->
+            <div class="carousel-wrapper">
+              <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="../games/game1.jpg" class="d-block" alt="Game1" />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../games/game2.jpg" class="d-block" alt="Game2" />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../games/game3.jpg" class="d-block" alt="Game3" />
+                  </div>
                 </div>
               </div>
+              <button class="carousel-btn right-btn" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
             </div>
-            <button class="carousel-btn right-btn" data-bs-target="#carouselExample" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
           </div>
         </div>
-      </div>
 
-      <!-- ==================================================
+        <!-- ==================================================
            SECCIÓN: Calendario
            ================================================== -->
-      <div class="calendar-container neon-box">
-        <!-- Encabezado del calendario -->
-        <div class="calendar-header">
-          <h3 class="neon-text cyber-font">EVENT CALENDAR</h3>
-          <div class="time-indicator">
-            <span class="current-date">SYSTEM TIME: 2099-04-27</span>
-            <div class="glowing-dot"></div>
-          </div>
-        </div>
-
-        <!-- Cuerpo del calendario -->
-        <div class="calendar-core">
-          <!-- Control de año -->
-          <div class="year-control">
-            <div class="nav-arrow hover-glow" onclick="prevYear()">◄◄</div>
-            <div class="current-year neon-text">2077</div>
-            <div class="nav-arrow hover-glow" onclick="nextYear()">►►</div>
-          </div>
-
-          <!-- Navegación de meses -->
-          <div class="month-grid">
-            <div class="month-tab hover-glow" data-month="0">JAN</div>
-            <div class="month-tab hover-glow" data-month="1">FEB</div>
-            <div class="month-tab hover-glow" data-month="2">MAR</div>
-            <div class="month-tab active-month" data-month="3">APR</div>
-            <div class="month-tab hover-glow" data-month="4">MAY</div>
-            <div class="month-tab hover-glow" data-month="5">JUN</div>
-            <div class="month-tab hover-glow" data-month="6">JUL</div>
-            <div class="month-tab hover-glow" data-month="7">AUG</div>
-            <div class="month-tab hover-glow" data-month="8">SEP</div>
-            <div class="month-tab hover-glow" data-month="9">OCT</div>
-            <div class="month-tab hover-glow" data-month="10">NOV</div>
-            <div class="month-tab hover-glow" data-month="11">DEC</div>
-          </div>
-
-          <!-- Títulos de los días de la semana -->
-          <div class="weekdays cyber-font">
-            <span>SUN</span>
-            <span>MON</span>
-            <span>TUE</span>
-            <span>WED</span>
-            <span>THU</span>
-            <span>FRI</span>
-            <span>SAT</span>
-          </div>
-
-          <!-- Grilla de fechas -->
-          <div class="date-grid">
-            <!-- Fechas del mes anterior -->
-            <div class="prev-month date-cell">28</div>
-            <div class="prev-month date-cell">29</div>
-            <div class="prev-month date-cell">30</div>
-            <div class="prev-month date-cell">31</div>
-
-            <!-- Fechas del mes actual -->
-            <div class="current-month date-cell">1</div>
-            <div class="current-month date-cell">2</div>
-            <!-- ... otros días omitidos para resumir ... -->
-            <div class="current-month date-cell active-day hover-glow">
-              27
-              <div class="event-dot"></div>
-            </div>
-            <div class="current-month date-cell">28</div>
-
-            <!-- Fechas del mes siguiente -->
-            <div class="next-month date-cell">1</div>
-            <div class="next-month date-cell">2</div>
-          </div>
-
-          <!-- Estado del calendario -->
-          <div class="calendar-status">
-            <div class="status-item">
-              <span class="status-led led-green"></span>
-              LIVE EVENTS: 12
-            </div>
-            <div class="status-item">
-              <span class="status-led led-blue"></span>
-              TOTAL PARTICIPANTS: 3.8K
+        <div class="calendar-container neon-box">
+          <!-- Encabezado del calendario -->
+          <div class="calendar-header">
+            <h3 class="neon-text cyber-font">EVENT CALENDAR</h3>
+            <div class="time-indicator">
+              <span class="current-date">SYSTEM TIME: 2099-04-27</span>
+              <div class="glowing-dot"></div>
             </div>
           </div>
-        </div>
 
-        <!-- Controles del calendario -->
-        <div class="calendar-controls">
-          <button class="neon-btn hover-glow" onclick="syncCalendar()">
-            <span class="btn-icon">🔄</span> SYNC NEXUS
-          </button>
-          <button class="neon-btn hover-glow" onclick="showMatrix()">
-            <span class="btn-icon">🌐</span> MATRIX VIEW
-          </button>
-        </div>
-      </div>
+          <!-- Cuerpo del calendario -->
+          <div class="calendar-core">
+            <!-- Control de año -->
+            <div class="year-control">
+              <div class="nav-arrow hover-glow" onclick="prevYear()">◄◄</div>
+              <div class="current-year neon-text">2077</div>
+              <div class="nav-arrow hover-glow" onclick="nextYear()">►►</div>
+            </div>
 
-      <!-- ==================================================
-           SECCIÓN: Eventos en columnas
-           ================================================== -->
-      <div class="event-columns-container">
-        <!-- Columna para eventos de las próximas 24 horas -->
-        <div class="event-column neon-box">
-          <h4 class="column-title">PRÓXIMAS 24H</h4>
-          <div class="event-card">
-            <div class="event-time">19:00</div>
-              <div class="event-content">
-                <h5>TORNEO FORTNITE</h5>
-                <p class="event-location">Arena Digital • 200 participantes</p>
-                <button class="join-btn">UNIRSE</button>
+            <!-- Navegación de meses -->
+            <div class="month-grid">
+              <div class="month-tab hover-glow" data-month="0">JAN</div>
+              <div class="month-tab hover-glow" data-month="1">FEB</div>
+              <div class="month-tab hover-glow" data-month="2">MAR</div>
+              <div class="month-tab active-month" data-month="3">APR</div>
+              <div class="month-tab hover-glow" data-month="4">MAY</div>
+              <div class="month-tab hover-glow" data-month="5">JUN</div>
+              <div class="month-tab hover-glow" data-month="6">JUL</div>
+              <div class="month-tab hover-glow" data-month="7">AUG</div>
+              <div class="month-tab hover-glow" data-month="8">SEP</div>
+              <div class="month-tab hover-glow" data-month="9">OCT</div>
+              <div class="month-tab hover-glow" data-month="10">NOV</div>
+              <div class="month-tab hover-glow" data-month="11">DEC</div>
+            </div>
+
+            <!-- Títulos de los días de la semana -->
+            <div class="weekdays cyber-font">
+              <span>SUN</span>
+              <span>MON</span>
+              <span>TUE</span>
+              <span>WED</span>
+              <span>THU</span>
+              <span>FRI</span>
+              <span>SAT</span>
+            </div>
+
+            <!-- Grilla de fechas -->
+            <div class="date-grid">
+              <!-- Fechas del mes anterior -->
+              <div class="prev-month date-cell">28</div>
+              <div class="prev-month date-cell">29</div>
+              <div class="prev-month date-cell">30</div>
+              <div class="prev-month date-cell">31</div>
+
+              <!-- Fechas del mes actual -->
+              <div class="current-month date-cell">1</div>
+              <div class="current-month date-cell">2</div>
+              <!-- ... otros días omitidos para resumir ... -->
+              <div class="current-month date-cell active-day hover-glow">
+                27
+                <div class="event-dot"></div>
+              </div>
+              <div class="current-month date-cell">28</div>
+
+              <!-- Fechas del mes siguiente -->
+              <div class="next-month date-cell">1</div>
+              <div class="next-month date-cell">2</div>
+            </div>
+
+            <!-- Estado del calendario -->
+            <div class="calendar-status">
+              <div class="status-item">
+                <span class="status-led led-green"></span>
+                LIVE EVENTS: 12
+              </div>
+              <div class="status-item">
+                <span class="status-led led-blue"></span>
+                TOTAL PARTICIPANTS: 3.8K
               </div>
             </div>
           </div>
-          <!-- Más tarjetas de eventos se pueden agregar aquí -->
+
+          <!-- Controles del calendario -->
+          <div class="calendar-controls">
+            <button class="neon-btn hover-glow" onclick="syncCalendar()">
+              <span class="btn-icon">🔄</span> SYNC NEXUS
+            </button>
+            <button class="neon-btn hover-glow" onclick="showMatrix()">
+              <span class="btn-icon">🌐</span> MATRIX VIEW
+            </button>
+          </div>
         </div>
+
+        <!-- ==================================================
+           SECCIÓN: Eventos en columnas
+           ================================================== -->
+        <div class="event-columns-container">
+          <!-- Columna para eventos de las próximas 24 horas -->
+          <div class="event-column neon-box">
+            <h4 class="column-title">NEXT 24H</h4>
+            <div class="event-card">
+              <div class="event-time">19:00</div>
+              <div class="event-content">
+                <h5>FORTNITE TOURNAMENT</h5>
+                <p class="event-location">Digital Arena • 200 participants</p>
+                <a href="event.php"><button class="join-btn">JOIN</button></a>
+              </div>
+            </div>
+          </div>
 
         <!-- Columna para eventos de los próximos 2 días -->
         <div class="event-column neon-box">
-          <h4 class="column-title">PRÓXIMOS 2 DÍAS</h4>
+          <h4 class="column-title">NEXT 2 DAYS</h4>
           <div class="event-card">
             <div class="event-time">21:00</div>
-              <div class="event-content">
-                <h5>LAN PARTY CS2</h5>
-                <p class="event-location">CyberZona • 50 equipos</p>
-                <button class="join-btn">UNIRSE</button>
-              </div>
+            <div class="event-content">
+              <h5>LAN PARTY CS2</h5>
+              <p class="event-location">CyberZone • 50 devices</p>
+              <a href="event.php"><button class="join-btn">JOIN</button></a>
             </div>
           </div>
-          <!-- Más tarjetas de eventos se pueden agregar aquí -->
         </div>
       </div>
     </main>
