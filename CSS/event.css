@@ -26,6 +26,7 @@
 .signOn-button {
   display: block;
   width: fit-content;
+  border: none;
   margin: 0 auto;
   padding: 0.75rem 1.5rem;
   background-color: #0066cc;
