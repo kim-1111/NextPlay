@@ -1,103 +1,390 @@
-/*#overlay {
+/* Importamos fuentes desde Google Fonts para usarlas en los estilos del sitio */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
 
-  display: block;
+/* ================= Definición de Variables Globales ================= */
+:root {
+  --main-color: #00f7ff; /* Color principal en tonos azul celeste */
+  --dark-bg: #0a0a12; /* Color de fondo oscuro */
+  --content-bg: rgba(18, 18, 36, 0.8); /* Fondo de contenedores */
+  --button-gradient: linear-gradient(45deg, #00f7ff, #00ccff); /* Gradiente de botones */
+  --event-color: #ff5555; /* Color para eventos */
+  --live-color: #ffcc00; /* Color para live streams */
+  --gradient-duration: 10s; /* Duración de animación de fondo */
+}
+
+#principal.blur-effect {
+  filter: blur(5px);
+}
+
+#loginwindow,
+#registerwindow {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 500;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
 }
-*/
 
-/* ================ SISTEMA DE CONTENEDORES ================ */
+/* ================= Estilo base global ================= */
+body {
+  margin: 0;
+  padding-top: 70px;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+  color: #fff;
+}
+
+/* ================= Contenedores ================= */
 .container {
-  display: grid;           /* Usa CSS Grid */
-  gap: 20px;               /* Espacio entre elementos */
-  padding: 40px 20px;      /* Relleno interno */
+  padding: 60px 20px;
 }
 
-/* Estilos específicos para container1 */
-#container1 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
-  margin-top: 20px !important; /* Margen superior forzado */
-  padding-top: 0 !important;   /* Sin relleno superior */
+#popular-games,
+#game-events {
+  background: var(--content-bg);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
 }
 
-/* Secciones dentro de container1 */
-#container1 section {
-  background: var(--content-bg); /* Fondo del contenido */
-  border: 1px solid #2d2d5a;    /* Borde sutil */
-  border-radius: 12px;          /* Esquinas redondeadas */
-  padding: 15px;                /* Relleno interno */
-  transition: transform 0.3s ease; /* Transición para efecto hover */
+/* ================= Optimized Carousel ================= */
+.carousel-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  overflow: hidden;
 }
 
-/* Efecto hover para secciones */
-#container1 section:hover {
-  transform: translateY(-5px);  /* Eleva ligeramente */
-  box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2); /* Sombra neon */
+.carousel-inner {
+  width: 1200px;
+  height: 400px;
+  overflow: hidden;
 }
 
-/* Estilos para container2 */
-#container2 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+.carousel-img {
+  width: 1200px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Secciones dentro de container2 */
-#container2 section {
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 10px;
+  bottom: 10px;
+  left: 10%;
+  right: 10%;
+}
+
+.carousel-caption h5 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--main-color);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+/* ================= Optimized Radial Balance Layout ================= */
+.radial-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.radial-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.radial-center video {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--main-color);
+}
+
+.radial-center h3 {
+  font-size: 1.3rem;
+  margin: 8px 0;
+}
+
+.radial-btn {
+  position: relative;
+  z-index: 11;
+  margin-top: 8px;
+}
+
+.radial-item {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle)));
+  z-index: 9;
+}
+
+.radial-item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--main-color);
+}
+
+/* ================= Tarjetas de juegos y eventos ================= */
+.card {
+  background: var(--content-bg);
+  border: 1px solid #2d2d5a;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2);
+}
+
+.fixed-height-card {
+  height: 450px;
+}
+
+.fixed-height-media {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card.featured {
+  border: 2px solid var(--main-color);
+  background: rgba(0, 247, 255, 0.1);
+}
+
+.card.event {
+  border-color: var(--event-color);
+}
+
+.card.live {
+  border-color: var(--live-color);
+}
+
+.card-body {
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
 }
 
-/* Videos en container2 */
-#container2 video {
-  width: 100%;             /* Ancho completo */
-  height: 350px;           /* Altura fija */
-  object-fit: cover;       /* Ajuste del video */
-  border-bottom: 2px solid var(--main-color); /* Borde inferior */
-  transition: transform 0.3s ease; /* Efecto de hover */
-  border-radius: 12px; /* Opcional: esquinas redondeadas */
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Imágenes en container1 */
-#container1 img {
-  height: 200px;           /* Altura fija */
+.card-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-
-/* Efecto hover para videos en container2 */
-#container2 video:hover {
-  transform: scale(1.05);  /* Escala ligeramente */
+.new-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--event-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
-/* Botón dentro de container2 */
-#container2 section div {
-  text-align: center;
-  margin-top: 10px;
+.live-status {
+  background: var(--live-color);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.8rem;
 }
 
-/* ================ SISTEMA DE BOTONES ================ */
-/* Animación de pulso para botones */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); } /* Efecto de expansión */
-  100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
+/* ================= Botones ================= */
+.btn {
+  background: var(--button-gradient);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
 }
 
-/* Estilos para botones en container2 */
-#container2 button {
-  background: var(--button-gradient); /* Degradado de variables */
-  color: white;            /* Texto blanco */
-  border: none;            /* Sin bordes */
-  padding: 12px 30px;      /* Relleno interno */
-  border-radius: 25px;     /* Bordes muy redondeados */
-  font-weight: bold;       /* Texto en negrita */
-  text-transform: uppercase; /* Mayúsculas */
-  animation: pulse 2s infinite; /* Aplica animación continua */
-  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
+.btn:hover {
+  transform: scale(1.1);
 }
 
+.btn-secondary {
+  background: linear-gradient(45deg, #ff5555, #cc0000);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.btn-secondary:hover {
+  transform: scale(1.1);
+}
+
+/* ================= Tooltips ================= */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  background: var(--content-bg);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* ================= Pie de página ================= */
+.footer {
+  background: linear-gradient(90deg, rgba(10, 10, 18, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+  border-top: 2px solid var(--main-color);
+  padding: 40px 20px;
+  color: var(--main-color);
+}
+
+.footer h5 {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+
+.footer p,
+.footer a {
+  font-size: 0.9rem;
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer .social-icons a {
+  margin-right: 15px;
+  font-size: 1.5rem;
+}
+
+/* ================= Responsivo ================= */
+@media (max-width: 768px) {
+  .carousel-inner,
+  .carousel-img {
+    width: 100%;
+    height: 250px;
+  }
+
+  .carousel-caption {
+    padding: 8px;
+    left: 5%;
+    right: 5%;
+  }
+
+  .carousel-caption h5 {
+    font-size: 1.2rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+
+  .radial-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .radial-center video {
+    width: 150px;
+    height: 150px;
+  }
+
+  .radial-item {
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(110px) rotate(calc(-1 * var(--angle)));
+  }
+
+  .fixed-height-card {
+    height: auto;
+  }
+
+  .fixed-height-media {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 40px 15px;
+  }
+
+  .btn {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+
+  .radial-container {
+    width: 250px;
+    height: 250px;
+  }
+
+  .radial-center video {
+    width: 120px;
+    height: 120px;
+  }
+
+  .radial-item {
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(90px) rotate(calc(-1 * var(--angle)));
+  }
+}

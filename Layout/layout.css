@@ -3,156 +3,124 @@
 
 /* ================= Definición de Variables Globales ================= */
 :root {
-  /* Color principal en tonos azul celeste */
-  --main-color: #00f7ff;
-  /* Color de fondo oscuro */
-  --dark-bg: #0a0a12;
-  /* Color de fondo de los contenedores con opacidad */
-  --content-bg: rgba(18, 18, 36, 0.8);
-  /* Gradiente de los botones */
-  --button-gradient: linear-gradient(45deg, #00f7ff, #0066ff);
-  /* Duración de la animación de fondo */
-  --gradient-duration: 10s;
+  --main-color: #00f7ff; /* Color principal en tonos azul celeste */
+  --dark-bg: #0a0a12; /* Color de fondo oscuro */
+  --content-bg: rgba(18, 18, 36, 0.8); /* Fondo de contenedores */
+  --button-gradient: linear-gradient(45deg, #00f7ff, #00ccff); /* Gradiente de botones */
+  --event-color: #ff5555; /* Color para eventos */
+  --live-color: #ffcc00; /* Color para live streams */
+  --gradient-duration: 10s; /* Duración de animación de fondo */
 }
 
-/* ================= estilo base global ================= */
+/* ================= Estilo base global ================= */
 body {
-  /* Eliminamos el margen predeterminado */
   margin: 0;
-  /* Margen superior para evitar que el contenido quede oculto por el nav fijo */
-  margin-top: 50px;
-  /* Fuente principal del sitio */
+  margin-top: 60px; /* Ajuste para navbar fijo */
   font-family: 'Orbitron', sans-serif;
-  /* Fondo con degradado */
-  /*background: linear-gradient(45deg, #0a0a12, #1a1a2e);*/
-
   background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
-  /* Animación del fondo con degradado */
-  /*animation: bg-gradient var(--gradient-duration) ease infinite;*/
-
+  color: #fff;
   display: grid;
   grid-template-rows: 1fr auto;
   min-height: 100dvh;
 }
 
-/* ================= NAVBAR ================= */
+/* ================= Global Button Styles ================= */
+.btn {
+  background: var(--button-gradient);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+/* ================= Tooltips ================= */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  background: var(--content-bg);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* ================= Navbar ================= */
 nav {
-  /* Fijamos la barra en la parte superior */
   position: fixed;
   top: 0;
   width: 100%;
-  height: 50px;
-  /* Aseguramos que esté por encima del contenido */
+  height: 60px;
   z-index: 1000;
-  /* Distribución de los elementos alineados a la derecha */
   display: flex;
-  justify-content: flex-end;
-  /* Espaciado entre los elementos */
-  gap: 15px;
-  /* Espaciado interno en los lados */
+  align-items: center;
+  justify-content: space-between;
   padding: 0 20px;
-  /* Fondo con degradado y opacidad */
-  background: linear-gradient(90deg,
-      rgba(10, 10, 18, 0.95) 0%,
-      rgba(26, 26, 46, 0.9) 50%,
-      rgba(10, 10, 18, 0.95) 100%);
-  /* Borde inferior para resaltar la barra */
-  border-bottom: 2px solid #4a4a8e;
-  /* Sombra para dar efecto de elevación */
+  background: linear-gradient(90deg, rgba(10, 10, 18, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+  border-bottom: 2px solid var(--main-color);
   box-shadow: 0 4px 15px rgba(42, 42, 78, 0.3);
-  /* Transición suave para los cambios de estilo */
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-/* Efecto al pasar el cursor sobre la barra de navegación */
 nav:hover {
-  background: linear-gradient(90deg,
-      rgba(26, 26, 46, 0.95) 0%,
-      rgba(42, 42, 78, 0.9) 50%,
-      rgba(26, 26, 46, 0.95) 100%);
-  border-bottom-color: #6a6aae;
+  background: linear-gradient(90deg, rgba(26, 26, 46, 0.95) 0%, rgba(42, 42, 78, 0.9) 100%);
 }
 
-/* Estilos para el logo dentro de la barra de navegación */
-nav>img {
-  /* Posición absoluta dentro del nav */
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  /* Tamaño del logo */
-  height: 70px;
-  width: 70px;
-  /* Borde redondeado para un estilo circular */
+nav > img {
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  /* Ajuste de imagen para que cubra el espacio sin deformarse */
   object-fit: cover;
-  /* Borde inicial transparente */
   border: 2px solid transparent;
-  /* Transición suave */
   transition: all 0.3s ease;
 }
 
-/* Efecto al pasar el cursor sobre el logo */
-nav>img:hover {
+nav > img:hover {
   transform: rotate(15deg) scale(1.1);
   border-color: var(--main-color);
   box-shadow: 0 0 20px var(--main-color);
 }
 
-/* ================ ESTILOS PARA BOTONES DE NAVEGACIÓN ================ */
-
-.logonextplay {
-  cursor: pointer;
-}
-
-nav>button {
+nav > button, nav a {
   background: none;
-  /* Fondo transparente */
   border: none;
-  /* Sin borde */
   color: var(--main-color);
-  /* Color principal definido en variables */
   font-family: 'Press Start 2P', cursive;
-  /* Fuente estilo retro */
-  font-size: 0.8rem ;
-  /* Tamaño de fuente pequeño */
-  padding: 8px 15px;
-  /* Espaciado interno */
-  transition: all 0.3s ease;
-  /* Transición suave para efectos */
-}
-
-/* Efectos al pasar el ratón sobre botones de navegación */
-nav>button:hover {
-  text-shadow: 0 0 10px var(--main-color);
-  /* Sombra brillante */
-  transform: scale(1.1);
-  /* Escala un 10% */
-}
-
-nav a {
-  text-decoration: none;
-  background: none;
-  /* Fondo transparente */
-  border: none;
-  /* Sin borde */
-  color: var(--main-color);
-  /* Color principal definido en variables */
-  font-family: 'Press Start 2P', cursive;
-  /* Fuente estilo retro */
   font-size: 0.8rem;
-  /* Tamaño de fuente pequeño */
   padding: 8px 15px;
-  /* Espaciado interno */
   transition: all 0.3s ease;
-  /* Transición suave para efectos */
-
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
+nav > button:hover, nav a:hover {
+  text-shadow: 0 0 10px var(--main-color);
+  transform: scale(1.1);
+}
+
+/* Search Bar */
 #search {
   display: flex;
   align-self: center;
-  margin: 0 auto 0 80px;
+  margin: 0 20px;
   width: 100%;
   max-width: 500px;
   min-width: 100px;
@@ -164,67 +132,57 @@ nav a {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 20px;
+  height: 30px;
+}
+
+#search select, #search input {
+  background: transparent;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  border: none;
+  padding: 5px;
 }
 
 #search button {
   background: var(--button-gradient);
-  font-size: var(--nav-font);
-  color: var(--nav-font-color);
-  border: 1px solid gainsboro;
+  border: none;
   border-radius: 10px;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
   display: flex;
-  position: relative;
   align-items: center;
   justify-content: center;
-  padding: 5px 5px;
-  width: 2em;
-  height: 2em;
-}
-
-#search-input {
-  background: transparent;
-  font-size: var(--nav-font);
-  color: var(--nav-font-color);
-  outline: none;
-  border: none;
-  flex-grow: 1;
-  width: 100%;
-  padding: 5px;
 }
 
 #search-input::placeholder {
-  font-size: var(--nav-font);
+  font-size: 0.9rem;
+  color: #888;
 }
 
-/* ================ MENÚ DESPLEGABLE LATERAL ================ */
+/* ================= Menú Desplegable Lateral ================= */
 #menu-dropdown {
   position: fixed;
   top: 0;
-  right: -250px; /* 保留原始定位属性 */
+  right: -250px;
   width: 250px;
   height: 100%;
-  background: linear-gradient(90deg,
-    rgba(10, 10, 18, 0.98) 0%,
-    rgba(26, 26, 46, 0.95) 100%);
+  background: linear-gradient(90deg, rgba(10, 10, 18, 0.98) 0%, rgba(26, 26, 46, 0.95) 100%);
   border-left: 2px solid var(--main-color);
   box-shadow: -4px 0 15px rgba(42, 42, 78, 0.3);
   padding: 20px;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), /* 恢复right属性过渡 */
-              opacity 0.3s ease;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
   z-index: 1200;
   opacity: 0;
-  /* 移除transform属性 */
   font-family: 'Press Start 2P', cursive;
 }
 
 #menu-dropdown.active {
-  right: 0; /* 保持原始激活状态 */
+  right: 0;
   opacity: 1;
-  transform: none; /* 清除transform覆盖 */
 }
 
-/* 菜单按钮统一样式 */
 #menu-dropdown button {
   width: 100%;
   padding: 12px;
@@ -236,54 +194,26 @@ nav a {
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* 像素风格边框 */
   clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 
 #menu-dropdown button:hover {
   background: var(--button-gradient);
   color: #0a0a12;
-  text-shadow: 0 0 8px rgba(10, 10, 18, 0.5);
   transform: translateX(8px);
   box-shadow: 3px 3px 0 var(--main-color);
-}
-
-/* 移动端专用按钮间距调整 */
-@media (max-width: 768px) {
-  #menu-dropdown button {
-    padding: 15px;
-    margin: 10px 0;
-    font-size: 0.6rem;
-  }
-}
-
-/* 添加菜单顶部装饰线 */
-#menu-dropdown::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--main-color) 50%, 
-    transparent 100%);
 }
 
 /* ================= Estilos del Perfil ================= */
 .profile-content {
   margin-top: 90px;
-  /* Ajusta este valor según sea necesario */
   min-width: 300px;
   padding: 20px;
-
 }
 
 .profile-sidebar {
   min-width: 250px;
   text-align: center;
-
 }
 
 .profile-sidebar img {
@@ -297,11 +227,17 @@ nav a {
 .profile-sidebar h6 {
   margin-top: 10px;
   color: var(--main-color);
+  font-size: 1.2rem;
 }
 
 .profile-sidebar input {
   display: block;
   margin: 10px auto;
+  padding: 8px;
+  background: #222;
+  border: 1px solid var(--main-color);
+  color: white;
+  border-radius: 4px;
 }
 
 .profile-panel {
@@ -368,41 +304,31 @@ nav a {
 }
 
 .profile-buttons .reset {
-  background: red;
+  background: var(--event-color);
   color: white;
 }
 
-
-/* ================ MÓDULO DE PIE DE PÁGINA ================ */
+/* ================= Footer ================= */
 .footer {
   padding: 40px 20px;
-  /* Espaciado interno generoso */
   border-top: 2px solid var(--main-color);
-  /* Borde superior decorativo */
   display: grid;
-  /* Usa grid para layout */
   gap: 30px;
-  /* Espacio entre elementos del grid */
   color: var(--main-color);
-  /* Color principal heredado */
-  background: linear-gradient(45deg,
-      /* Degradado sofisticado */
-      rgba(10, 10, 18, 0.95),
-      rgba(26, 26, 46, 0.9));
+  background: linear-gradient(45deg, rgba(10, 10, 18, 0.95), rgba(26, 26, 46, 0.9));
   width: 100%;
   align-items: center;
   justify-content: center;
 }
 
-/* Elemento decorativo antes del footer */
 .footer::before {
+  content: '';
   position: absolute;
-  /* Posicionamiento absoluto */
   left: 50%;
-  /* Centrado horizontal */
-  font-size: 2rem;
-  /* Tamaño grande */
-  margin-top: -60px;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--main-color) 50%, transparent 100%);
+  transform: translateX(-50%);
 }
 
 .logout-message {
@@ -413,66 +339,44 @@ nav a {
   font-size: 2rem;
 }
 
-/* ================ SISTEMA DE ANIMACIONES ================ */
+/* ================= Animaciones ================= */
 @keyframes bg-gradient {
-  0% {
-    background: linear-gradient(45deg, #0a0a12, #1a1a2e);
-  }
-
-  50% {
-    background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
-  }
-
-  /* Cambio dirección */
-  100% {
-    background: linear-gradient(225deg, #2a2a4e, #0a0a12);
-  }
+  0% { background: linear-gradient(45deg, #0a0a12, #1a1a2e); }
+  50% { background: linear-gradient(135deg, #1a1a2e, #2a2a4e); }
+  100% { background: linear-gradient(225deg, #2a2a4e, #0a0a12); }
 }
 
-/* ================= 响应式设计 ================= */
+/* ================= Responsive Design ================= */
 @media (max-width: 768px) {
-  :root {
-    --gradient-duration: 15s;
+  body {
+    margin-top: 70px;
   }
 
-  #container1,
-  #container2 {
-    grid-template-columns: 1fr;
+  nav {
+    height: 70px;
   }
 
-  #container2 img {
-    height: 250px;
+  nav > img {
+    height: 40px;
+    width: 40px;
   }
 
-  .carousel-container {
-    margin: 20px auto !important;
+  #search form {
+    height: 25px;
   }
 
-  .carousel-wrapper {
-    width: 100%;
-    height: 200px;
+  #search select, #search input {
+    font-size: 0.8rem;
   }
 
-  #container1 {
-    margin-top: 10px !important;
-  }
-
-  .carousel-btn {
-    display: none !important;
-  }
-
-  .desktop-only {
-    display: none;
+  #menu-dropdown button {
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 0.6rem;
   }
 
   .profile-content {
     margin-top: 30px;
-    /* Valor ajustado para pantallas pequeñas */
-  }
-
-  .profile-sidebar {
-    text-align: center;
-
   }
 
   .profile-sidebar img {
@@ -480,21 +384,6 @@ nav a {
     height: 100px;
   }
 
-  .profile-sidebar .list-group {
-    margin-top: 20px;
-  }
-
-  /* 表单调整 */
-  .profile-form .form-group>div {
-    margin-bottom: 15px;
-    /* 字段间距 */
-  }
-
-  .profile-form label h4 {
-    font-size: 1.2rem;
-  }
-
-  /* 按钮调整 */
   .profile-buttons {
     display: block;
   }
@@ -503,49 +392,24 @@ nav a {
     width: 100%;
     margin-bottom: 10px;
   }
-
-  /* 全局调整 */
-  body {
-    margin-top: 60px;
-    /* 如果有固定导航栏，调整顶部间距 */
-  }
 }
 
 @media (max-width: 480px) {
-  nav>img {
-    height: 50px;
-    width: 50px;
-  }
-
-  #container2 button {
-    padding: 8px 20px;
+  nav > button, nav a {
     font-size: 0.7rem;
+    padding: 6px 10px;
   }
 
-  #container1 {
-    margin-top: 10px !important;
-  }
-  #menu-dropdown .mobile-only {
-    display: none;
+  #search {
+    margin: 0 10px;
   }
 }
 
 @media (min-width: 768px) {
-  #menu-dropdown .mobile-only {
+  #menu, #menu-dropdown {
     display: none;
   }
 }
-
-@media (min-width: 768px) {
-  #menu,
-  #menu-dropdown {
-    display: none;
-  }
-}
-
-
-
-
 
 .profile-pic {
   width: 36px;
