@@ -1,0 +1,63 @@
+<section class="loginwrapper" class="auth">
+  <section class="register-container">
+    <div class="closebutton"><button onclick="cerrarRegister()">X</button></div>
+    <h2>Register</h2>
+    <form action="../php/controller.php" method="post">
+      <div class="role-selector">
+        <div class="role" id="student">
+          <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Student">
+          <span>USER</span>
+        </div>
+        <div class="role selected" id="tutor">
+          <img src="https://cdn-icons-png.flaticon.com/256/2995/2995703.png" alt="Tutor">
+          <span>PROMOTER</span>
+        </div>
+      </div>
+      <input type="hidden" name="rol" id="rolInput" value="promotor"> <!-- Valor por defecto -->
+
+      <script>
+        document.querySelectorAll('.role').forEach(role => {
+          role.addEventListener('click', () => {
+            document.querySelectorAll('.role').forEach(el => el.classList.remove('selected'));
+            role.classList.add('selected');
+            document.getElementById('rolInput').value =
+              role.id === 'student' ? 'usuario' : 'promotor';
+          });
+        });
+      </script>
+      <label>
+        <div class="input-container">
+          <img src="../imagenes/user-icon.png" alt="User Icon">
+        </div>
+        <input type="text" name="username" required placeholder="Enter your username">
+      </label>
+      <label>
+        <div class="input-container">
+          <img src="../imagenes/email-icon.png" alt="Email Icon">
+        </div>
+        <input type="email" name="email" required placeholder="Enter your email">
+
+      </label>
+
+      <label>
+        <div class="input-container">
+          <img src="../imagenes/password-icon.png" alt="Password Icon">
+        </div>
+        <input type="password" name="password" required placeholder="Enter your password">
+      </label>
+      <label>
+        <div class="input-container">
+          <img src="../imagenes/password-icon.png" alt="Password Icon">
+        </div>
+        <input type="password" name="repeat_password" required placeholder="Repeat password">
+      </label>
+      <div class="captcha">
+        <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
+      </div>
+      <button class="register-btn" type="submit" name="register">Register</button>
+    </form>
+    <div class="authswitch">
+      <p><a onclick="cerrarRegister(), mostrarLogin()">Already registered? Log in!</a></p>
+    </div>
+  </section>
+</section>

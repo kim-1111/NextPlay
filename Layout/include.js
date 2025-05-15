@@ -26,7 +26,7 @@ Este script detectará automáticamente divs con estas ids específicas e insert
 /*INCLUDE NAVBAR*/
 
 $(document).ready(function () {
-  $("#navbar").load("../Layout/navbar.html", function (response, status, xhr) {
+  $("#navbar").load("/dam1/NextPlay/Layout/navbar.html", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar navbar:", xhr.status, xhr.statusText);
     } else {
@@ -52,7 +52,7 @@ $(document).ready(function () {
 /*INCLUDE LOGIN WINDOW*/
 
 $(document).ready(function () {
-  $("#loginwindow").load("../HTML/registerloginwindows/login.html", function (response, status, xhr) {
+  $("#loginwindow").load("/dam1/NextPlay/HTML/registerloginwindows/login.html", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar login:", xhr.status, xhr.statusText);
     } else {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 /*INCLUDE REGISTER WINDOW*/
 
 $(document).ready(function () {
-  $("#registerwindow").load("../HTML/registerloginwindows/register.html", function (response, status, xhr) {
+  $("#registerwindow").load("/dam1/NextPlay/HTML/registerloginwindows/register.html", function (response, status, xhr) {
     if (status == "error") {
       console.error("Error al cargar register:", xhr.status, xhr.statusText);
     } else {

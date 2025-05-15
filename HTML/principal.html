@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -18,15 +18,18 @@
 
   <!-- LAYOUT -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <script src="../Layout/include.js"></script>
-  <script src="../Layout/loginregister.js"></script>
+  <script src="../Layout/auth.js"></script>
   <link rel="stylesheet" href="../Layout/layout.css">
+  <link rel="stylesheet" href="../CSS/style.css">
   <link rel="stylesheet" href="../CSS/principal.css">
-  <link rel="stylesheet" href="../CSS/styleLogin.css">
-  <link rel="stylesheet" href="../CSS/styleRegister.css">
+  <link rel="stylesheet" href="../CSS/auth.css">
 </head>
 
 <body>
+
 
   <div id="overlay"></div>
 
@@ -40,7 +43,7 @@
     <header>
       <div id="navbar"></div>
     </header>
-    
+
     <main>
       <!-- Carrusel de imágenes -->
       <div class="carousel-container">
@@ -72,37 +75,37 @@
       </div>
 
       <!-- Secciones de contenido -->
-      <div class="container" id="container1">
-        <section>
-          <img src="" alt="img1">
-          <p>Texto descriptivo aquí...</p>
-        </section>
-
-        <section>
-          <img src="" alt="img2">
-          <p>Texto descriptivo aquí...</p>
-        </section>
-
-        <section>
-          <img src="" alt="img3">
-          <p>Texto descriptivo aquí...</p>
-        </section>
-      </div>
-
       <div class="container" id="container2">
         <section>
           <video src="../games/game1.mp4" autoplay loop muted></video>
-          <div><button>Ver más</button></div>
+          <div><button>See more</button></div>
         </section>
 
         <section>
           <video src="../games/game2.mp4" autoplay loop muted></video>
-          <div><button>Ver más</button></div>
+          <div><button>See more</button></div>
         </section>
 
         <section>
           <video src="../games/game3.mp4" autoplay loop muted></video>
-          <div><button>Ver más</button></div>
+          <div><button>See more</button></div>
+        </section>
+      </div>
+
+      <div class="container" id="container1">
+        <section>
+          <img src="" alt="img1">
+          <p>Descriptive text here...</p>
+        </section>
+
+        <section>
+          <img src="" alt="img2">
+          <p>Descriptive text here...</p>
+        </section>
+
+        <section>
+          <img src="" alt="img3">
+          <p>Descriptive text here...</p>
         </section>
       </div>
     </main>

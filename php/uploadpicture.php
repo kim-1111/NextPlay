@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_POST['submit'])) {
+if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
     $targetDir = "../users/profileimg/";
     $fileName = $_SESSION['user']['nombre'] . ".jpg";
     $targetFilePath = $targetDir . $fileName;
@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
     // Subir archivo si todo está bien
     if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFilePath)) {
-            echo "La imagen ". htmlspecialchars($fileName) . " se ha subido correctamente.";
+            header("Location: ../HTML/perfil.php");
         } else {
             echo "Hubo un error al subir tu imagen.";
         }

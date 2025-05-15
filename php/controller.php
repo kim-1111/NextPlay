@@ -37,7 +37,7 @@ class UserController
         'username' => 'user',
         'password' => '1234'
     ];
-
+ 
      if ($username == $this->staticUser['username'] && $passwd == $this->staticUser['password']) {
             $_SESSION['user'] = $username;
             $_SESSION['logged'] = "Inicio de sesión exitoso!";
@@ -74,7 +74,7 @@ class UserController
 
       $this->conn->close();
 
-      header(header: "Location: ../HTML/perfil.php");
+      header(header: "Location: ../HTML/profile.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
@@ -93,7 +93,7 @@ class UserController
 
       $this->conn->close();
 
-      header(header: "Location: ../HTML/perfil.php");
+      header(header: "Location: ../HTML/profile.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
@@ -121,6 +121,8 @@ class UserController
   public function register()
   {
     // Retrieve form data from POST request
+    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $repeat_password = $_POST['repeat_password'];
 
@@ -128,6 +130,20 @@ class UserController
     if ($password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";
       header("Location: ../HTML/register.html");
+      exit();
+    }
+
+    //VERIFICAR LA CONTRASEÑÄ
+    if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+      $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.";
+      header("Location: ../HTML/register.php");
+      exit();
+    }
+
+    //VERIFICAR EL CORREO
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $_SESSION['error'] = "El formato del correo electrónico no es válido.";
+      header("Location: ../HTML/register.php");
       exit();
     }
 
@@ -143,7 +159,7 @@ class UserController
       $tabla = "promotores";
     } else {
       $_SESSION['error'] = "Tipo de usuario no especificado";
-      header("Location: ../HTML/register.html");
+      header("Location: ../HTML/register.php");
       exit();
     }
 
@@ -153,7 +169,7 @@ class UserController
     $stmt->execute();
     $stmt->close();
 
-    header("Location: ../HTML/perfil.html");
+    header("Location: ../HTML/profile.php");
     exit();
   }
 }

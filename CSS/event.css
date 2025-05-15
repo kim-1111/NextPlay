@@ -1,0 +1,42 @@
+.event-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.event-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.event-details p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.event-description {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.signOn-button {
+  display: block;
+  width: fit-content;
+  border: none;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  background-color: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.signOn-button:hover {
+  background-color: #004999;
+}

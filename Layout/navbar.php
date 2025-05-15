@@ -1,3 +1,6 @@
+<?php session_start(); ?>
+
+
 <nav>
   <img src="../imagenes/logo.png" alt="logo-NextPlay" onclick="gotoprincipal()" class="logonextplay">
   <div id="search">
@@ -9,21 +12,41 @@
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </button>
-      
+
       <input type="search" list="search-options" name="search-input" id="search-input" placeholder="Search...">
-     
+
       <datalist id="search-options">
         <option value="About us">
       </datalist>
     </form>
   </div>
 
-
   <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
   <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
   <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
   <button class="desktop-only"><a href="../HTML/about.html">About Us</a></button>
-  <button id="login" class="desktop-only" onclick="mostrarLogin()">Login</button>
+
+
+
+  <?php if (isset($_SESSION['user']['nombre'])):
+    $username = $_SESSION['user']['nombre'];
+    $imagePath = "../users/profileimg/" . $username . ".jpg";
+
+    if (file_exists($imagePath)) {
+      $avatarSrc = $imagePath;
+    } else {
+      $avatarSrc = "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
+    }
+    ?>
+
+    <div id="user-profile" class="desktop-only">
+      <a href="perfil.php"><img src="<?= $avatarSrc ?>" alt="Profile Picture" class="profile-pic desktop-only"></a>
+    </div>
+  <?php else: ?>
+    <button id="login" class="desktop-only" onclick="mostrarLogin()">Login</button>
+  <?php endif; ?>
+
+
   <button id="menu">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
       viewBox="0 0 16 16">
@@ -34,12 +57,15 @@
 
   <!-- Contenedor del menú desplegable -->
   <div id="menu-dropdown">
-    <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
-    <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
-    <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
-    <button class="mobile-only" onclick="mostrarLogin()">Login</button>
-    <br>
-    <button>Profile</button>
+  <button class="desktop-only"><a href="../HTML/events.html">Events</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">News</a></button>
+  <button class="desktop-only"><a href="../HTML/forums.html">Forums</a></button>
+
+    <?php if (isset($_SESSION['user']['nombre'])): ?>
+      <button onclick="window.location.href='profile.php'" class="mobile-only">Profile</button>
+    <?php else: ?>
+      <button class="mobile-only" onclick="mostrarLogin()">Login</button>
+    <?php endif; ?>
     <button>Notification</button>
     <button>Settings</button>
   </div>
@@ -64,8 +90,8 @@
     }
   });
 
-  function gotoprincipal(){
-  window.location.href = "../HTML/principal.html";
-}
+  function gotoprincipal() {
+    window.location.href = "/dam1/NextPlay/HTML/principal.html";
+  }
 
 </script>
