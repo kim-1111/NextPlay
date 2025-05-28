@@ -88,9 +88,13 @@
 
 
       <div class="event-container">
+
+        <img src="../events/images/<?= htmlspecialchars($evento['id_evento']) ?>.jpg" alt="Event Banner"
+          class="event-banner">
+
+
+
         <h1 class="event-title"><?= htmlspecialchars($evento['nombre']) ?></h1>
-        <div class="event-detail"><strong>ID usuario: </strong><?= htmlspecialchars($_SESSION['user']['id_usuario']) ?>
-        </div>
         <div class="event-detail"><strong>Date: </strong><?= htmlspecialchars($evento['fecha']) ?></div>
         <div class="event-detail"><strong>Time: </strong><?= htmlspecialchars($evento['hora']) ?></div>
         <div class="event-detail"><strong>Description: </strong><?= htmlspecialchars($evento['descripcion']) ?></div>
@@ -100,13 +104,35 @@
             People: </strong> <?= htmlspecialchars($evento['total_participantes']) ?></div>
         <a href="<?= htmlspecialchars($evento['enlace_streaming']) ?>" class="streaming-link">Watch Live Stream</a>
 
+        <?php
+        require_once '../php/eventController.php';
+        $controller = new EventController();
+        ?>
+
         <?php if (!empty($evento['id_evento'])): ?>
-          <form method="post" action="../php/eventController.php">
-            <input type="hidden" name="action" value="signonevent">
-            <input type="hidden" name="id_evento" value="<?= htmlspecialchars($evento['id_evento']) ?>">
-            <button type="submit" name="signon" class="btn btn-primary mt-3">Sign on!</button>
-          </form>
+          <?php if (!isset($_SESSION['user']['id_usuario'])): ?>
+            <p class="mt-3 text-danger">Login to sign on this event.</p>
+
+          <?php else: ?>
+            <?php if ($controller->checkifsignedon($evento['id_evento'])): ?>
+              <!-- Botón para desapuntarse -->
+              <form method="post" action="../php/eventController.php" class="mt-2">
+                <input type="hidden" name="action" value="unsignonevent">
+                <input type="hidden" name="id_evento" value="<?= htmlspecialchars($evento['id_evento']) ?>">
+                <button type="submit" name="unsignon" class="btn btn-danger">Unsign</button>
+              </form>
+
+            <?php else: ?>
+              <!-- Botón para apuntarse -->
+              <form method="post" action="../php/eventController.php">
+                <input type="hidden" name="action" value="signonevent">
+                <input type="hidden" name="id_evento" value="<?= htmlspecialchars($evento['id_evento']) ?>">
+                <button type="submit" name="signon" class="btn btn-primary mt-3">Sign on!</button>
+              </form>
+            <?php endif; ?>
+          <?php endif; ?>
         <?php endif; ?>
+
 
       </div>
     </body>

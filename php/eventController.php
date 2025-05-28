@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $event->signon($eventid, $_SESSION['user']['id_usuario']);
   }
 
+  if (isset($_POST['unsignon'])) {
+
+    $eventid = $_POST['id_evento'];
+    $event->unsignevent($eventid, $_SESSION['user']['id_usuario']);
+  }
+
 }
 
 class EventController
@@ -100,11 +106,17 @@ class EventController
       // Guardar la imagen si se subió
       if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
         $tmpName = $_FILES['imagen']['tmp_name'];
-        $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-        $destination = __DIR__ . "/../events/images/{$eventoId}." . strtolower($ext);
+        $ext = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
 
-        // Mueve el archivo al destino
-        move_uploaded_file($tmpName, $destination);
+        if ($ext === 'jpg' || $ext === 'jpeg') {
+          $destination = __DIR__ . "/../events/images/{$eventoId}.jpg";
+          move_uploaded_file($tmpName, $destination);
+        } else {
+          // Elimina el evento creado si se subió un archivo inválido
+          $this->conn->prepare("DELETE FROM eventos WHERE id_evento = :id")->execute(['id' => $eventoId]);
+          header("Location: ../HTML/eventmanager.php?message=Solo%20se%20permiten%20imágenes%20JPG");
+          exit();
+        }
       }
 
       header("Location: ../HTML/eventmanager.php?message=Evento%20creado%20correctamente");
@@ -167,10 +179,15 @@ class EventController
       // Subida de imagen
       if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         $tmpName = $_FILES['imagen']['tmp_name'];
-        $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-        $destination = __DIR__ . "/../Events/images/{$id}." . strtolower($ext);
+        $ext = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
 
-        move_uploaded_file($tmpName, $destination);
+        if ($ext === 'jpg' || $ext === 'jpeg') {
+          $destination = __DIR__ . "/../Events/images/{$id}.jpg";
+          move_uploaded_file($tmpName, $destination);
+        } else {
+          header("Location: ../HTML/eventmanager.php?message=Solo%20se%20permiten%20imágenes%20JPG");
+          exit();
+        }
       }
 
       header("Location: ../HTML/eventmanager.php?message=Evento%20actualizado%20correctamente");
@@ -236,7 +253,6 @@ class EventController
 
   public function delete()
   {
-
     if (!isset($_POST['nombre'])) {
       header("Location: ../HTML/eventmanager.php?message=Falta%20el%20nombre%20del%20evento");
       exit();
@@ -245,14 +261,33 @@ class EventController
     $nombre = $_POST['nombre'];
 
     try {
-      $stmt = $this->conn->prepare("DELETE FROM eventos WHERE nombre = :nombre");
+      // Buscar el ID del evento antes de eliminarlo
+      $stmt = $this->conn->prepare("SELECT id_evento FROM eventos WHERE nombre = :nombre");
       $stmt->execute(['nombre' => $nombre]);
+      $evento = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      if ($stmt->rowCount() > 0) {
+      if (!$evento) {
+        header("Location: ../HTML/eventmanager.php?message=Evento%20no%20encontrado");
+        exit();
+      }
+
+      $id = $evento['id_evento'];
+
+      // Eliminar el evento
+      $deleteStmt = $this->conn->prepare("DELETE FROM eventos WHERE id_evento = :id");
+      $deleteStmt->execute(['id' => $id]);
+
+      if ($deleteStmt->rowCount() > 0) {
+        // Eliminar imagen asociada si existe
+        $imagePath = __DIR__ . "/../Events/images/{$id}.jpg";
+        if (file_exists($imagePath)) {
+          unlink($imagePath);
+        }
+
         header("Location: ../HTML/eventmanager.php?message=Evento%20eliminado%20correctamente");
         exit();
       } else {
-        header("Location: ../HTML/eventmanager.php?message=Evento%20no%20encontrado%20o%20no%20eliminado");
+        header("Location: ../HTML/eventmanager.php?message=Evento%20no%20eliminado");
         exit();
       }
     } catch (PDOException $e) {
@@ -336,11 +371,59 @@ class EventController
         'evento_id' => $eventid,
         'usuario_id' => $userid
       ]);
-      header("Location: ../HTML/event.php?id=$eventid&message=Te%20has%20registrado!");
+      header("Location: ../HTML/event.php?id=$eventid&message=You%20are%20now%20part%20of%20this%20event!");
 
     } catch (PDOException $e) {
-      header("Location: ../HTML/event.php?id=$eventid&message=Ya%20estás%20registrado!");
+      header("Location: ../HTML/event.php?id=$eventid&message=You%20are%20already%20in!");
     }
 
   }
+
+  public function checkifsignedon($eventid)
+  {
+
+    if (!isset($_SESSION['user']['id_usuario'])) {
+      return false;
+    }
+
+    $userId = $_SESSION['user']['id_usuario'];
+
+    try {
+      $stmt = $this->conn->prepare("
+      SELECT 1 FROM participa 
+      WHERE eventos_id_participa = :evento_id 
+      AND usuarios_id_usuario = :usuario_id
+    ");
+
+      $stmt->execute([
+        'evento_id' => $eventid,
+        'usuario_id' => $userId
+      ]);
+
+      return $stmt->fetch() ? true : false;
+
+    } catch (PDOException $e) {
+      return false;
+    }
+  }
+
+  public function unsignevent($eventid, $userid)
+  {
+    try {
+      $stmt = $this->conn->prepare("
+      DELETE FROM participa WHERE eventos_id_participa = :evento_id AND usuarios_id_usuario = :usuario_id
+    ");
+
+      $stmt->execute([
+        'evento_id' => $eventid,
+        'usuario_id' => $userid
+      ]);
+      header("Location: ../HTML/event.php?id=$eventid&message=You%20unsigned%20from%20this%20event!");
+
+    } catch (PDOException $e) {
+      header("Location: ../HTML/event.php?id=$eventid&message=Error%20while%20unsigning!");
+    }
+  }
+
+
 }
