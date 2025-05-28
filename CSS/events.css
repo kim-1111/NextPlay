@@ -164,6 +164,14 @@ body {
   margin-bottom: 20px;
 }
 
+.evt-carousel-slide {
+  display: none;
+}
+
+.evt-carousel-slide.active {
+  display: block;
+}
+
 .evt-info-text {
   font-size: 1.1rem;
   line-height: 1.6;

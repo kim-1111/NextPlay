@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NextPlay - Home</title>
+  <title>NextPlay - Game Manager</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../CSS/principal.css">
   <link rel="stylesheet" href="../CSS/management.css">
@@ -71,7 +71,8 @@
         </div>
         <div class="form-group">
           <label for="description">Description:</label>
-          <textarea id="description" name="description" class="form-control" rows="5" maxlength="200"><?= htmlspecialchars($game['descripcion']) ?></textarea>
+          <textarea id="description" name="description" class="form-control" rows="5"
+            maxlength="200"><?= htmlspecialchars($game['descripcion']) ?></textarea>
         </div>
         <div class="form-group">
           <label for="link">Link:</label>

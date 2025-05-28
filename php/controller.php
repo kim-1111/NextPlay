@@ -70,7 +70,7 @@ class UserController
         "contrasena" => $contrasena,
         'estadisticas' => $estadisticas,
         "img" => $img,
-        "promotor" => "false"
+        "promotor" => false
       ];
 
 
@@ -85,21 +85,25 @@ class UserController
 
 
     //SI EL INICIO DE SESIÓN DE PROMOTORES SE LOGRÓ:
-    $stmtP = $this->conn->prepare(query: "SELECT nombre, contrasena FROM promotores WHERE nombre = ? AND contrasena = ?");
+    $stmtP = $this->conn->prepare(query: "SELECT id_promotor, nombre, correo, contrasena, contacto FROM promotores WHERE nombre = ? AND contrasena = ?");
     $stmtP->bind_param("ss", $username, $passwd);
     $stmtP->execute();
+    $stmtP->bind_result($id_promotor, $nombre, $email, $contrasena, $contacto);
 
     if ($stmtP->fetch()) {
       $_SESSION['logged'] = true;
       $_SESSION['user'] = [
-        "id_usuario" => $username,
-        "nombre" => $username,
-        "promotor" => "true"
+        "id_usuario" => $id_promotor,
+        "nombre" => $nombre,
+        "email" => $email,
+        "contrasena" => $passwd,
+        "contacto" => $contacto,
+        "promotor" => true
       ];
 
       $this->conn->close();
 
-      header(header: "Location: ../HTML/profile.php");
+      header(header: "Location: ../HTML/profilepromotor.php");
       exit();
     } else {
       $_SESSION['logged'] = false;
@@ -135,7 +139,7 @@ class UserController
     // Verifica que las contraseñas coincidan
     if ($password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";
-      header("Location: ../HTML/register.html");
+      header("Location: ../HTML/register.php");
       exit();
     }
 
@@ -172,11 +176,33 @@ class UserController
     // Inserción en la base de datos
     $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
-    $stmt->execute();
-    $stmt->close();
 
-    header("Location: ../HTML/profile.php");
-    exit();
+    if ($stmt->execute()) {
+      // Obtener el ID del nuevo usuario
+      $id_usuario = $this->conn->insert_id;
+
+      // Establecer datos en la sesión
+      $_SESSION['logged'] = true;
+      $_SESSION['user'] = [
+        "id_usuario" => $id_usuario,
+        "nombre" => $username,
+        "email" => $email,
+        "contrasena" => $password,
+        'estadisticas' => [],
+        "img" => null,
+        "promotor" => false
+      ];
+
+      unset($_SESSION['error']);
+      $stmt->close();
+      header("Location: ../HTML/profile.php");
+      exit();
+    } else {
+      $_SESSION['error'] = "Error al registrar el usuario.";
+      $stmt->close();
+      header("Location: ../HTML/register.php");
+      exit();
+    }
   }
 
 

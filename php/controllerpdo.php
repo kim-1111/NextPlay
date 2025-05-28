@@ -277,7 +277,7 @@ class UserController
 
     try {
       $stmt = $this->conn->prepare("
-      SELECT e.nombre, e.fecha
+      SELECT e.nombre, e.fecha, e.id_evento
       FROM participa p
       JOIN eventos e ON p.eventos_id_participa = e.id_evento
       WHERE p.usuarios_id_usuario = :userId
@@ -308,6 +308,31 @@ class UserController
 
       $stmt->execute(['userId' => $userId]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return [];
+    }
+  }
+
+  public function getPromotorEvents()
+  {
+    $userId = $_SESSION['user']['id_usuario'];
+
+    try {
+      $stmt = $this->conn->prepare("
+      SELECT 
+        e.nombre, 
+        e.fecha, 
+        e.id_evento,
+        (SELECT COUNT(*) 
+         FROM eventos 
+         WHERE promotores_id_promotor = :userId) AS total_eventos
+      FROM eventos e
+      WHERE e.promotores_id_promotor = :userId
+      ORDER BY e.fecha ASC, e.hora ASC
+    ");
+      $stmt->execute(['userId' => $userId]);
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
       return [];
     }

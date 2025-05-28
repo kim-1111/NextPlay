@@ -6,6 +6,7 @@ require_once '../php/eventController.php';
 
 $controller = new EventController();
 $eventos = $controller->returnrecenteventsprincipal();
+unset($_SESSION['error']);
 ?>
 
 <head>
@@ -166,7 +167,6 @@ $eventos = $controller->returnrecenteventsprincipal();
                   <span>Participants: <?= htmlspecialchars($eventos[0]['total_participantes']) ?> </span>
                   <span>• Game: <?= htmlspecialchars($eventos[0]['juego']) ?></span>
                 </div>
-                <a href="#" class="btn btn-secondary">Sign Up</a>
                 <a href="event.php?id=<?= htmlspecialchars($eventos[0]['id_evento']) ?>" class="btn btn-secondary">Read
                   more</a>
               </div>
@@ -187,7 +187,6 @@ $eventos = $controller->returnrecenteventsprincipal();
                   <span>Participants: <?= htmlspecialchars($eventos[1]['total_participantes']) ?> </span>
                   <span>• Game: <?= htmlspecialchars($eventos[1]['juego']) ?></span>
                 </div>
-                <a href="#" class="btn btn-secondary">Sign Up</a>
                 <a href="event.php?id=<?= htmlspecialchars($eventos[1]['id_evento']) ?>" class="btn btn-secondary">Read
                   more</a>
               </div>
@@ -208,7 +207,6 @@ $eventos = $controller->returnrecenteventsprincipal();
                   <span>Participants: <?= htmlspecialchars($eventos[2]['total_participantes']) ?> </span>
                   <span>• Game: <?= htmlspecialchars($eventos[2]['juego']) ?></span>
                 </div>
-                <a href="#" class="btn btn-secondary">Sign Up</a>
                 <a href="event.php?id=<?= htmlspecialchars($eventos[2]['id_evento']) ?>" class="btn btn-secondary">Read
                   more</a>
               </div>
@@ -229,7 +227,6 @@ $eventos = $controller->returnrecenteventsprincipal();
                   <span>Participants: <?= htmlspecialchars($eventos[3]['total_participantes']) ?> </span>
                   <span>• Game: <?= htmlspecialchars($eventos[3]['juego']) ?></span>
                 </div>
-                <a href="#" class="btn btn-secondary">Sign Up</a>
                 <a href="event.php?id=<?= htmlspecialchars($eventos[3]['id_evento']) ?>" class="btn btn-secondary">Read
                   more</a>
               </div>
@@ -240,7 +237,7 @@ $eventos = $controller->returnrecenteventsprincipal();
           </div>
           <!-- View all Events Button-->
           <div class="events-link">
-            <a href="../HTML/events.html" class="btn">View All Events</a>
+            <a href="../HTML/events.php" class="btn">View All Events</a>
           </div>
       </section>
     </div>

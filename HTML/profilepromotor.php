@@ -9,7 +9,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Check if user is logged in
 if (!isset($_SESSION['logged']) || $_SESSION['logged'] !== true) {
-  header("Location: ../HTML/login.php");
+  header("Location: ../HTML/login.html");
   exit();
 }
 
@@ -19,7 +19,7 @@ $controller = new UserController();
 
 $totalEventos = $controller->returntotalevents();
 $totalJuegos = $controller->getUserInterestedGamesCount();
-$misEventos = $controller->getUserUpcomingEvents();
+$misEventos = $controller->getPromotorEvents();
 $juegosInteresados = $controller->getUserInterestedGames();
 
 ?>
@@ -29,7 +29,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NextPlay - Player Profile</title>
+  <title>NextPlay - Promotor Profile</title>
 
   <!-- Website Icon -->
   <link rel="icon" href="../imagenes/logo.png">
@@ -75,8 +75,8 @@ $juegosInteresados = $controller->getUserInterestedGames();
           <div class="col-lg-4 col-md-5">
             <div class="profile-card">
               <div class="profile-header">
-                <div class="level-badge">User</div>
-                <h2 class="profile-title">Player Profile</h2>
+                <div class="level-badge">Promotor</div>
+                <h2 class="profile-title"> Profile</h2>
               </div>
 
               <div class="profile-avatar-container">
@@ -110,17 +110,10 @@ $juegosInteresados = $controller->getUserInterestedGames();
 
               <div class="profile-stats">
                 <div class="stat-item">
-                  <div class="stat-icon"><i class="fas fa-gamepad"></i></div>
-                  <div class="stat-info">
-                    <span class="stat-label">Registered Games</span>
-                    <span class="stat-value"><?php echo $totalJuegos; ?></span>
-                  </div>
-                </div>
-                <div class="stat-item">
                   <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
                   <div class="stat-info">
-                    <span class="stat-label">Registered Events</span>
-                    <span class="stat-value"><?php echo $totalEventos; ?></span>
+                    <span class="stat-label">Events Created</span>
+                    <span class="stat-value"><?php echo $misEventos[0]['total_eventos']; ?></span>
                   </div>
                 </div>
               </div>
@@ -137,29 +130,6 @@ $juegosInteresados = $controller->getUserInterestedGames();
               </div>-->
             </div>
 
-            <!-- Close events -->
-            <div class="profile-card mt-4">
-              <h3 class="card-title"><i class="fas fa-user-friends"></i>Game interests</h3>
-              <div class="friends-container">
-                <div class="row">
-
-                  <?php
-                  foreach ($juegosInteresados as $juego):
-                    ?>
-                    <div class="col-lg-4 col-md-6 mb-3">
-                      <div class="friend-card">
-                        <div class="friend-info">
-                          <h4><?= htmlspecialchars($juego['nombre']) ?></h4>
-                        </div>
-                      </div>
-                    </div>
-                  <?php endforeach; ?>
-
-
-
-                </div>
-              </div>
-            </div>
           </div>
 
           <!-- Right Content - Profile Form -->
@@ -426,7 +396,8 @@ $juegosInteresados = $controller->getUserInterestedGames();
             <!-- Events List -->
             <div class="profile-card mt-4">
 
-              <h3 class="card-title"><i class="fas fa-history"></i>Registered events</h3>
+              <h3 class="card-title"><i class="fas fa-history"></i>Events created</h3>
+              <a href="manager.php"><button class="btn-save">Manage events</button></a>
               <ul class="activity-list">
 
 

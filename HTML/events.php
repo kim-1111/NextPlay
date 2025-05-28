@@ -1,3 +1,29 @@
+<?php
+require_once '../php/EventController.php';
+require_once '../php/gameController.php';
+
+
+$controller = new EventController();
+$totalEventos = $controller->countAllEvents();
+$totalParticipantes = $controller->countUniqueParticipants();
+$currentDate = date('Y-m-d');
+
+
+$gameController = new GameController();
+$gameNames = $gameController->getAllGameNames();
+$categoryNames = $controller->getAllCategoryNames();
+
+
+$eventController = new EventController();
+$activeEvents = $eventController->getAllActiveEvents();
+$expiredEvents = $eventController->getAllExpiredEvents();
+
+
+$eventoscarr = $controller->returnrecenteventsprincipal();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -19,13 +45,7 @@
 <body>
 
 
-<?php
-     require_once '../php/EventController.php';
-  $controller = new EventController();
-  $totalEventos = $controller->countAllEvents();
-  $totalParticipantes = $controller->countUniqueParticipants();
-  $currentDate = date('Y-m-d');
-    ?>
+
 
 
 
@@ -57,19 +77,22 @@
                 <div class="evt-stat-label">Participants</div>
               </div>
             </div>
-            <button class="evt-map-btn" aria-label="Ver mapa 3D de eventos">
-              <i class="fas fa-globe"></i> Ver Mapa 3D
-            </button>
           </div>
           <div class="evt-carousel-slides">
             <div class="evt-carousel-slide active" role="group">
-              <img src="../games/fornite.jpg" alt="Evento Fortnite">
+              <a href="event.php?id=<?= htmlspecialchars($eventoscarr[0]['id_evento']) ?>"><img
+                  src="../events/images/<?= htmlspecialchars($eventoscarr[0]['id_evento']) ?>.jpg"
+                  alt="Evento Fortnite"></a>
             </div>
             <div class="evt-carousel-slide" role="group">
-              <img src="../games/valorant.jpg" alt="Evento Valorant">
+              <a href="event.php?id=<?= htmlspecialchars($eventoscarr[1]['id_evento']) ?>"><img
+                  src="../events/images/<?= htmlspecialchars($eventoscarr[1]['id_evento']) ?>.jpg"
+                  alt="Evento Fortnite"></a>
             </div>
             <div class="evt-carousel-slide" role="group">
-              <img src="../games/overwatch.jpg" alt="Evento Overwatch">
+              <a href="event.php?id=<?= htmlspecialchars($eventoscarr[2]['id_evento']) ?>"><img
+                  src="../events/images/<?= htmlspecialchars($eventoscarr[2]['id_evento']) ?>.jpg"
+                  alt="Evento Fortnite"></a>
             </div>
             <button class="evt-carousel-prev" aria-label="Evento anterior"><i class="fas fa-chevron-left"></i></button>
             <button class="evt-carousel-next" aria-label="Evento siguiente"><i
@@ -101,37 +124,37 @@
                 class="fas fa-angle-double-right"></i></button>
           </div>
         </div>
-          <div class="month-scroll">
-            <button class="month-tab" data-month="0">ENE</button>
-            <button class="month-tab" data-month="1">FEB</button>
-            <button class="month-tab" data-month="2">MAR</button>
-            <button class="month-tab" data-month="3">ABR</button>
-            <button class="month-tab" data-month="4">MAY</button>
-            <button class="month-tab" data-month="5">JUN</button>
-            <button class="month-tab" data-month="6">JUL</button>
-            <button class="month-tab" data-month="7">AGO</button>
-            <button class="month-tab" data-month="8">SEP</button>
-            <button class="month-tab" data-month="9">OCT</button>
-            <button class="month-tab" data-month="10">NOV</button>
-            <button class="month-tab" data-month="11">DIC</button>
-          </div>
+        <div class="month-scroll">
+          <button class="month-tab" data-month="0">ENE</button>
+          <button class="month-tab" data-month="1">FEB</button>
+          <button class="month-tab" data-month="2">MAR</button>
+          <button class="month-tab" data-month="3">ABR</button>
+          <button class="month-tab" data-month="4">MAY</button>
+          <button class="month-tab" data-month="5">JUN</button>
+          <button class="month-tab" data-month="6">JUL</button>
+          <button class="month-tab" data-month="7">AGO</button>
+          <button class="month-tab" data-month="8">SEP</button>
+          <button class="month-tab" data-month="9">OCT</button>
+          <button class="month-tab" data-month="10">NOV</button>
+          <button class="month-tab" data-month="11">DIC</button>
+        </div>
 
-          <script>
-            // Obtiene el mes actual (0-11)
-            const currentMonth = new Date().getMonth();
+        <script>
+          // Obtiene el mes actual (0-11)
+          const currentMonth = new Date().getMonth();
 
-            // Selecciona todos los botones
-            const monthButtons = document.querySelectorAll('.month-tab');
+          // Selecciona todos los botones
+          const monthButtons = document.querySelectorAll('.month-tab');
 
-            // Quita la clase active-month de todos
-            monthButtons.forEach(btn => btn.classList.remove('active-month'));
+          // Quita la clase active-month de todos
+          monthButtons.forEach(btn => btn.classList.remove('active-month'));
 
-            // Agrega la clase active-month al botón correspondiente al mes actual
-            const activeButton = document.querySelector(`.month-tab[data-month="${currentMonth}"]`);
-            if (activeButton) {
-              activeButton.classList.add('active-month');
-            }
-          </script>
+          // Agrega la clase active-month al botón correspondiente al mes actual
+          const activeButton = document.querySelector(`.month-tab[data-month="${currentMonth}"]`);
+          if (activeButton) {
+            activeButton.classList.add('active-month');
+          }
+        </script>
         <div class="week-numbers">
           <span>LUN</span>
           <span>MAR</span>
@@ -146,7 +169,7 @@
           <div class="status-items">
             <div class="status-item">
               <span class="status-led led-green"></span>
-              <span>ACTIVE EVENTS:  <?= $totalEventos ?></span>
+              <span>ACTIVE EVENTS: <?= $totalEventos ?></span>
             </div>
             <div class="status-item">
               <span class="status-led led-blue"></span>
@@ -165,166 +188,81 @@
         <div class="evt-filter-bar">
           <select class="evt-filter-select" id="game-filter" aria-label="Seleccionar juego">
             <option value="all">Todos los Juegos</option>
-            <option value="fortnite">Fortnite</option>
-            <option value="valorant">Valorant</option>
-            <option value="counter-strike">Counter-Strike 2</option>
-            <option value="rocket-league">Rocket League</option>
-            <option value="overwatch">Overwatch 2</option>
-            <option value="minecraft">Minecraft</option>
-          </select>
-          <select class="evt-filter-select" id="status-filter" aria-label="Seleccionar estado">
-            <option value="all">Todos los Estados</option>
-            <option value="upcoming">Próximos</option>
-            <option value="past">Pasados</option>
+            <?php foreach ($gameNames as $game): ?>
+              <option value="<?= htmlspecialchars(strtolower($game)) ?>"><?= htmlspecialchars($game) ?></option>
+            <?php endforeach; ?>
           </select>
           <select class="evt-filter-select" id="type-filter" aria-label="Seleccionar tipo">
             <option value="all">Todos los Tipos</option>
-            <option value="tournament">Torneo</option>
-            <option value="casual">Casual</option>
-            <option value="championship">Campeonato</option>
+            <?php foreach ($categoryNames as $category): ?>
+              <option value="<?= htmlspecialchars(strtolower($category)) ?>"><?= htmlspecialchars($category) ?></option>
+            <?php endforeach; ?>
           </select>
           <button class="evt-neon-btn" id="reset-filters" aria-label="Restablecer filtros">Restablecer Filtros</button>
         </div>
         <div class="evt-nav-tabs" role="tablist">
-          <button class="evt-nav-link active" data-tab="next-24h" role="tab" aria-selected="true">PRÓXIMAS 24H</button>
-          <button class="evt-nav-link" data-tab="next-2days" role="tab" aria-selected="false">PRÓXIMOS 2 DÍAS</button>
+          <button class="evt-nav-link active" data-tab="next-24h" role="tab" aria-selected="true">Eventos
+            Activos</button>
           <button class="evt-nav-link" data-tab="past" role="tab" aria-selected="false">EVENTOS PASADOS</button>
         </div>
         <div class="evt-tab-content">
+
+          <!-- ACTIVE EVENTS -->
           <div class="evt-event-gallery" id="next-24h" role="tabpanel" aria-hidden="false">
-            <div class="evt-event-card">
-              <span class="evt-event-badge evt-badge-live">EN VIVO</span>
-              <img class="evt-event-logo" src="../imagenes/fortnite-event.jpg" alt="Torneo Fortnite">
-              <div class="evt-event-content">
-                <h5>TORNEO FORTNITE</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-27 19:00 • Arena Digital</span>
+            <?php if (!empty($activeEvents)): ?>
+              <?php foreach ($activeEvents as $event): ?>
+                <div class="evt-event-card">
+                  <img class="evt-event-logo" src="../events/images/<?= strtolower($event['id_evento']) ?>.jpg"
+                    alt="Evento <?= htmlspecialchars($event['nombre']) ?>">
+                  <div class="evt-event-content">
+                    <h5><?= htmlspecialchars($event['nombre']) ?></h5>
+                    <div class="evt-event-info">
+                      <i class="fas fa-clock"></i>
+                      <span><?= $event['fecha'] . ' ' . substr($event['hora'], 0, 5) ?></span>
+                    </div>
+                    <div class="evt-event-details">
+                      <?= $event['total_participantes'] ?> Participantes • </br>
+                      Juego: <?= htmlspecialchars($event['juego']) ?> •</br>
+                      Categoría: <?= htmlspecialchars($event['categoria']) ?> •</br>
+                    </div>
+                    <button class="evt-join-btn" onclick="window.location.href='event.php?id=<?= $event['id_evento'] ?>'"
+                      aria-label="Unirse al <?= htmlspecialchars($event['nombre']) ?>">
+                      UNIRSE
+                    </button>
+                  </div>
                 </div>
-                <div class="evt-event-details">200 Participantes • Premio: $5,000 • Torneo Battle Royale con reglas
-                  personalizadas y desafíos especiales.</div>
-                <button class="evt-join-btn" aria-label="Unirse al Torneo Fortnite">UNIRSE</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <span class="evt-event-badge evt-badge-soon">PRÓXIMO</span>
-              <img class="evt-event-logo" src="../imagenes/valorant-event.jpg" alt="Valorant Showdown">
-              <div class="evt-event-content">
-                <h5>VALORANT SHOWDOWN</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-27 22:00 • Virtual Arena</span>
-                </div>
-                <div class="evt-event-details">150 Participantes • Premio: $3,000 • Competencia 5v5 con narradores
-                  profesionales y transmisión en vivo.</div>
-                <button class="evt-join-btn" aria-label="Unirse a Valorant Showdown">UNIRSE</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <span class="evt-event-badge evt-badge-featured">DESTACADO</span>
-              <img class="evt-event-logo" src="../imagenes/overwatch-event.jpg" alt="Overwatch 2 Masters">
-              <div class="evt-event-content">
-                <h5>OVERWATCH 2 MASTERS</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-27 20:30 • Nexus Stadium</span>
-                </div>
-                <div class="evt-event-details">120 Participantes • Premio: $4,500 • Competencia por equipos con desafíos
-                  de
-                  héroes y recompensas exclusivas.</div>
-                <button class="evt-join-btn" aria-label="Unirse a Overwatch 2 Masters">UNIRSE</button>
-              </div>
-            </div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <div class="evt-no-events">No hay eventos activos.</div>
+            <?php endif; ?>
           </div>
-          <div class="evt-event-gallery" id="next-2days" role="tabpanel" aria-hidden="true">
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/cs2-event.jpg" alt="LAN Party CS2">
-              <div class="evt-event-content">
-                <h5>LAN PARTY CS2</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-28 21:00 • CyberZona</span>
-                </div>
-                <div class="evt-event-details">50 Equipos • Premio: $10,000 • Torneo profesional con eliminación por
-                  equipos
-                  y desafíos de armas especiales.</div>
-                <button class="evt-join-btn" aria-label="Unirse a LAN Party CS2">UNIRSE</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/rocket-league-event.jpg" alt="Rocket League Rumble">
-              <div class="evt-event-content">
-                <h5>ROCKET LEAGUE RUMBLE</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-28 18:00 • Online Stadium</span>
-                </div>
-                <div class="evt-event-details">100 Equipos • Premio: $4,000 • Torneo 3v3 con modos de juego especiales y
-                  competencia de estilo libre.</div>
-                <button class="evt-join-btn" aria-label="Unirse a Rocket League Rumble">UNIRSE</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/minecraft-event.jpg" alt="Minecraft Survival Games">
-              <div class="evt-event-content">
-                <h5>MINECRAFT SURVIVAL GAMES</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-28 16:00 • Creative Hub</span>
-                </div>
-                <div class="evt-event-details">200 Participantes • Premio: $2,500 • Competencia estilo Battle Royale con
-                  mapas personalizados y objetos especiales.</div>
-                <button class="evt-join-btn" aria-label="Unirse a Minecraft Survival Games">UNIRSE</button>
-              </div>
-            </div>
-          </div>
+
+          <!-- EXPIRED EVENTS -->
           <div class="evt-event-gallery" id="past" role="tabpanel" aria-hidden="true">
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/overwatch-past.jpg" alt="Overwatch 2 Tournament">
-              <div class="evt-event-content">
-                <h5>OVERWATCH 2 TOURNAMENT</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-10 • Digital Colosseum</span>
+            <?php if (!empty($expiredEvents)): ?>
+              <?php foreach ($expiredEvents as $event): ?>
+                <div class="evt-event-card">
+                  <img class="evt-event-logo" src="../events/images/<?= strtolower($event['id_evento']) ?>.jpg"
+                    alt="Evento <?= htmlspecialchars($event['nombre']) ?>">
+                  <div class="evt-event-content">
+                    <h5><?= htmlspecialchars($event['nombre']) ?></h5>
+                    <div class="evt-event-info">
+                      <i class="fas fa-clock"></i>
+                      <span><?= $event['fecha'] ?></span>
+                    </div>
+                    <div class="evt-event-details">
+                      <?= $event['total_participantes'] ?> Participantes •</br>
+                      Juego: <?= htmlspecialchars($event['juego']) ?> •</br>
+                      Categoría: <?= htmlspecialchars($event['categoria']) ?> •</br>
+                    </div>
+                    <button class="evt-join-btn" disabled aria-label="Evento concluido">CONCLUIDO</button>
+                  </div>
                 </div>
-                <div class="evt-event-details">300 Participantes • Premio: $7,000 • Competencia por equipos con desafíos
-                  de
-                  héroes.</div>
-                <button class="evt-join-btn" disabled aria-label="Evento concluido">CONCLUIDO</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/minecraft-past.jpg" alt="Minecraft Build Battle">
-              <div class="evt-event-content">
-                <h5>MINECRAFT BUILD BATTLE</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-05-01 • Creative Hub</span>
-                </div>
-                <div class="evt-event-details">80 Participantes • Premio: $2,000 • Competencia de construcción creativa
-                  con
-                  desafíos temáticos.</div>
-                <button class="evt-join-btn" disabled aria-label="Evento concluido">CONCLUIDO</button>
-              </div>
-            </div>
-            <div class="evt-event-card">
-              <img class="evt-event-logo" src="../imagenes/fortnite-past.jpg" alt="Fortnite Champions Cup">
-              <div class="evt-event-content">
-                <h5>FORTNITE CHAMPIONS CUP</h5>
-                <div class="evt-event-info">
-                  <i class="fas fa-clock"></i>
-                  <span>2025-04-25 • Battle Arena</span>
-                </div>
-                <div class="evt-event-details">250 Participantes • Premio: $6,000 • Competencia individual y en dúos con
-                  eliminación por brackets.</div>
-                <button class="evt-join-btn" disabled aria-label="Evento concluido">CONCLUIDO</button>
-              </div>
-            </div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <div class="evt-no-events">No hay eventos expirados.</div>
+            <?php endif; ?>
           </div>
-          <div class="evt-no-events" id="no-events" style="display: none;">
-            No se encontraron eventos para los filtros seleccionados.
-          </div>
-        </div>
       </section>
 
       <button class="evt-back-to-top" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>

@@ -126,60 +126,57 @@ fetch('../php/eventController.php?action=getEventsJSON')
   renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
 
   // Event filtering
-  const gameFilter = $('#game-filter');
-  const statusFilter = $('#status-filter');
-  const typeFilter = $('#type-filter');
-  const resetFiltersBtn = $('#reset-filters');
-  const tabs = $('.evt-nav-link');
-  const galleries = $('.evt-event-gallery');
+const gameFilter = $('#game-filter');
+const typeFilter = $('#type-filter');
+const resetFiltersBtn = $('#reset-filters');
+const tabs = $('.evt-nav-link');
+const galleries = $('.evt-event-gallery');
 
-  function filterEvents() {
-    const game = gameFilter.val();
-    const status = statusFilter.val();
-    const type = typeFilter.val();
-    const activeTab = tabs.filter('.active').data('tab');
+function filterEvents() {
+  const game = gameFilter.val();
+  const type = typeFilter.val();
+  const activeTab = tabs.filter('.active').data('tab');
 
-    galleries.each(function () {
-      const gallery = $(this);
-      if (gallery.attr('id') !== activeTab) {
-        gallery.attr('aria-hidden', 'true').hide();
-        return;
+  galleries.each(function () {
+    const gallery = $(this);
+    if (gallery.attr('id') !== activeTab) {
+      gallery.attr('aria-hidden', 'true').hide();
+      return;
+    }
+    gallery.attr('aria-hidden', 'false').show();
+
+    const cards = gallery.find('.evt-event-card');
+    let hasVisible = false;
+    cards.each(function () {
+      const card = $(this);
+      const gameText = card.find('.evt-event-details').text().toLowerCase();
+      const gameMatch = game === 'all' || gameText.includes(`juego: ${game}`);
+      const typeMatch = type === 'all' || card.find('.evt-event-details').text().toLowerCase().includes(type);
+      if (gameMatch && typeMatch) {
+        card.show();
+        hasVisible = true;
+      } else {
+        card.hide();
       }
-      gallery.attr('aria-hidden', 'false').show();
-
-      const cards = gallery.find('.evt-event-card');
-      let hasVisible = false;
-      cards.each(function () {
-        const card = $(this);
-        const gameMatch = game === 'all' || card.find('h5').text().toLowerCase().includes(game);
-        const statusMatch = status === 'all' || (status === 'upcoming' && card.find('.evt-event-badge').length && !card.find('.evt-join-btn').is(':disabled')) || (status === 'past' && card.find('.evt-join-btn').is(':disabled'));
-        const typeMatch = type === 'all' || card.find('.evt-event-details').text().toLowerCase().includes(type);
-        if (gameMatch && statusMatch && typeMatch) {
-          card.show();
-          hasVisible = true;
-        } else {
-          card.hide();
-        }
-      });
-      $('#no-events').toggle(!hasVisible);
     });
-  }
-
-  gameFilter.change(filterEvents);
-  statusFilter.change(filterEvents);
-  typeFilter.change(filterEvents);
-
-  tabs.click(function () {
-    tabs.removeClass('active').attr('aria-selected', 'false');
-    $(this).addClass('active').attr('aria-selected', 'true');
-    filterEvents();
+    $('#no-events').toggle(!hasVisible);
   });
+}
 
-  resetFiltersBtnizier
+gameFilter.change(filterEvents);
+typeFilter.change(filterEvents);
+
+tabs.click(function () {
+  tabs.removeClass('active').attr('aria-selected', 'false');
+  $(this).addClass('active').attr('aria-selected', 'true');
+  filterEvents();
+});
+
+resetFiltersBtn.click(function () {
   gameFilter.val('all');
-  statusFilter.val('all');
   typeFilter.val('all');
   filterEvents();
+});
 
   // Back to top button
   const backToTop = $('.evt-back-to-top');
@@ -194,4 +191,8 @@ fetch('../php/eventController.php?action=getEventsJSON')
   backToTop.click(function () {
     $('html, body').animate({ scrollTop: 0 }, 500);
   });
+
+filterEvents();
+
 });
+

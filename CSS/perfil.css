@@ -309,6 +309,10 @@ body {
   font-weight: 500;
 }
 
+.activity-title a{
+  text-decoration: none;
+}
+
 .activity-time {
   font-size: 0.7rem;
   color: var(--text-muted);

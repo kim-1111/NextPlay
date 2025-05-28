@@ -62,8 +62,8 @@ class GameController
       !isset($_POST['name']) ||
       !isset($_POST['developer']) ||
       !isset($_POST['publisher']) ||
-      !isset($_POST['releasedate'])||
-      !isset($_POST['description'])||
+      !isset($_POST['releasedate']) ||
+      !isset($_POST['description']) ||
       !isset($_POST['link'])
     ) {
       header("Location: ../HTML/gamemanager.php?message=Faltan%20campos%20por%20llenar");
@@ -105,10 +105,10 @@ class GameController
       !isset($_POST['name']) ||
       !isset($_POST['developer']) ||
       !isset($_POST['publisher']) ||
-      !isset($_POST['releasedate'])||
-      !isset($_POST['description'])||
+      !isset($_POST['releasedate']) ||
+      !isset($_POST['description']) ||
       !isset($_POST['link'])
-      
+
     ) {
       header("Location: ../HTML/gamemanager.php?message=Faltan%20campos%20por%20llenar");
       exit();
@@ -227,9 +227,20 @@ class GameController
   }
 
 
-  public function getbestgame(){
-    
+  public function getbestgame()
+  {
+
   }
 
+  public function getAllGameNames()
+  {
+    try {
+      $stmt = $this->conn->prepare("SELECT nombre FROM juegos");
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_COLUMN); // Devuelve solo los valores de la columna 'nombre'
+    } catch (PDOException $e) {
+      return []; // Retorna un array vacío si hay error
+    }
+  }
 
 }

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $event->unsignevent($eventid, $_SESSION['user']['id_usuario']);
   }
 
-  
+
 
 }
 
@@ -95,11 +95,12 @@ class EventController
     $categoria_id = $_POST['categoria_id'];
     $juego_id = $_POST['juego_id'];
     $enlace_streaming = $_POST['enlace_streaming'] ?? null;
+    $id_promotor = $_SESSION['user']['id_usuario'];
 
     try {
       $stmt = $this->conn->prepare("
-      INSERT INTO eventos (nombre, fecha, hora, descripcion, enlace_streaming, categoria_id_categoria, juegos_id_juego)
-      VALUES (:nombre, :fecha, :hora, :descripcion, :enlace_streaming, :categoria_id, :juego_id)
+      INSERT INTO eventos (nombre, fecha, hora, descripcion, enlace_streaming, categoria_id_categoria, juegos_id_juego, promotores_id_promotor)
+      VALUES (:nombre, :fecha, :hora, :descripcion, :enlace_streaming, :categoria_id, :juego_id, :id_promotor)
     ");
 
       $stmt->execute([
@@ -109,7 +110,8 @@ class EventController
         'descripcion' => $descripcion,
         'enlace_streaming' => $enlace_streaming,
         'categoria_id' => $categoria_id,
-        'juego_id' => $juego_id
+        'juego_id' => $juego_id,
+        'id_promotor' => $id_promotor
       ]);
 
       // Obtener el ID del evento recién insertado
@@ -162,6 +164,7 @@ class EventController
     $categoria_id = $_POST['categoria_id'];
     $juego_id = $_POST['juego_id'];
     $enlace_streaming = $_POST['enlace_streaming'] ?? null;
+    $id_promotor = $_SESSION['user']['id_usuario'];
 
     try {
       // Actualizar el evento por ID
@@ -174,6 +177,7 @@ class EventController
           enlace_streaming = :enlace_streaming, 
           categoria_id_categoria = :categoria_id, 
           juegos_id_juego = :juego_id
+          promotres_id_promotor = :id_promotor
       WHERE id_evento = :id
     ");
 
@@ -185,7 +189,8 @@ class EventController
         'enlace_streaming' => $enlace_streaming,
         'categoria_id' => $categoria_id,
         'juego_id' => $juego_id,
-        'id' => $id
+        'id' => $id,
+        'id_promotor' => $id_promotor
       ]);
 
       // Subida de imagen
@@ -438,54 +443,136 @@ class EventController
   }
 
 
-public function getEventsJSON()
-{
-  try {
-    $stmt = $this->conn->query("SELECT nombre, fecha, enlace_streaming FROM eventos");
-    $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $result = [];
-    foreach ($eventos as $evento) {
-      $result[] = [
-        'date' => $evento['fecha'],
-        'title' => $evento['nombre'],
-        'type' => $evento['enlace_streaming'] ? 'live' : 'soon'
-      ];
+  public function getEventsJSON()
+  {
+    try {
+      $stmt = $this->conn->query("SELECT nombre, fecha, enlace_streaming FROM eventos");
+      $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = [];
+      foreach ($eventos as $evento) {
+        $result[] = [
+          'date' => $evento['fecha'],
+          'title' => $evento['nombre'],
+          'type' => $evento['enlace_streaming'] ? 'live' : 'soon'
+        ];
+      }
+      header('Content-Type: application/json');
+      echo json_encode($result);
+      exit();
+
+    } catch (PDOException $e) {
+      http_response_code(500);
+      echo json_encode(['error' => 'Error fetching events']);
+      exit();
     }
-    header('Content-Type: application/json');
-    echo json_encode($result);
-    exit();
-
-  } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Error fetching events']);
-    exit();
   }
-}
 
-public function countAllEvents()
-{
-  try {
-    $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM eventos");
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  public function countAllEvents()
+  {
+    try {
+      $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM eventos");
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $result['total'] ?? 0;
-  } catch (PDOException $e) {
-    return 0;
+      return $result['total'] ?? 0;
+    } catch (PDOException $e) {
+      return 0;
+    }
   }
-}
 
-public function countUniqueParticipants()
-{
-  try {
-    $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT usuarios_id_usuario) AS total FROM participa");
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result['total'] ?? 0;
-  } catch (PDOException $e) {
-    return 0;
+  public function countUniqueParticipants()
+  {
+    try {
+      $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT usuarios_id_usuario) AS total FROM participa");
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $result['total'] ?? 0;
+    } catch (PDOException $e) {
+      return 0;
+    }
   }
-}
 
+
+  public function getAllActiveEvents()
+  {
+    try {
+      $stmt = $this->conn->prepare("
+SELECT
+    e.id_evento,
+    e.nombre,
+    e.fecha,
+    e.hora,
+    j.nombre AS juego,
+    c.nombre AS categoria,
+    COUNT(p.usuarios_id_usuario) AS total_participantes
+FROM eventos e
+LEFT JOIN juegos j ON e.juegos_id_juego = j.id_juego
+LEFT JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
+LEFT JOIN participa p ON e.id_evento = p.eventos_id_participa
+WHERE e.fecha >= CURDATE()
+GROUP BY
+    e.id_evento,
+    e.nombre,
+    e.fecha,
+    e.hora,
+    j.nombre,
+    c.nombre
+ORDER BY e.fecha ASC, e.hora ASC;
+        ");
+      $stmt->execute();
+      $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      return $eventos;
+    } catch (PDOException $e) {
+      return [];
+    }
+  }
+
+  public function getAllExpiredEvents()
+  {
+    try {
+      $stmt = $this->conn->prepare("
+SELECT
+    e.id_evento,
+    e.nombre,
+    e.fecha,
+    e.hora,
+    j.nombre AS juego,
+    c.nombre AS categoria,
+    COUNT(p.usuarios_id_usuario) AS total_participantes
+FROM eventos e
+LEFT JOIN juegos j ON e.juegos_id_juego = j.id_juego
+LEFT JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
+LEFT JOIN participa p ON e.id_evento = p.eventos_id_participa
+WHERE e.fecha < CURDATE()
+GROUP BY
+    e.id_evento,
+    e.nombre,
+    e.fecha,
+    e.hora,
+    j.nombre,
+    c.nombre
+ORDER BY e.fecha DESC, e.hora DESC;
+        ");
+      $stmt->execute();
+      $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      return $eventos;
+    } catch (PDOException $e) {
+      return [];
+    }
+  }
+
+
+  public function getAllCategoryNames()
+  {
+    try {
+      $stmt = $this->conn->prepare("SELECT nombre FROM categoria");
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    } catch (PDOException $e) {
+      return []; // En caso de error, retorna un array vacío
+    }
+  }
 
 }

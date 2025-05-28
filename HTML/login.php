@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start(); ?>
 
 <head>
   <meta charset="UTF-8">
@@ -7,10 +8,14 @@
   <title>Login Page</title>
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/auth.css">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../Layout/include.js"></script>
 </head>
 
 <body>
+
+  <nav id="navbar"></nav>
+
   <center>
     <main>
       <section class="register-container">
@@ -22,6 +27,9 @@
             </div>
             <input type="text" required placeholder="Enter username" name="username">
           </label>
+
+          <?php echo $_SESSION['error']; ?>
+
           <label>
             <div class="input-container">
               <img src="../imagenes/password-icon.png" alt="Password Icon">
@@ -40,9 +48,7 @@
               <a href="" class="wowow">Forgot password?</a>
             </div>
           </div>
-          <!--<div class="captcha">
-                    <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
-                </div> -->
+
 
           <button class="register-btn" type="submit" name="login">Login</button>
         </form>
@@ -53,8 +59,8 @@
     </main>
   </center>
 
-  <footer>
-    <p>Footer</p>
+  <footer id="footer">
+
   </footer>
 </body>
 

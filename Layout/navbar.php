@@ -23,7 +23,7 @@
     <a href="../HTML/principal.php" class="nav-icon desktop-only" data-tooltip1="Home" aria-label="Home">
       <i class="fas fa-home"></i>
     </a>
-    <a href="../HTML/events.html" class="nav-icon desktop-only" data-tooltip1="Events" aria-label="Events">
+    <a href="../HTML/events.php" class="nav-icon desktop-only" data-tooltip1="Events" aria-label="Events">
       <i class="fas fa-calendar-alt"></i>
     </a>
     <a href="../HTML/news.html" class="nav-icon desktop-only" data-tooltip1="News" aria-label="News">
@@ -38,16 +38,20 @@
     <a href="../HTML/faq.html" class="nav-icon desktop-only" data-tooltip1="FAQ" aria-label="FAQ">
       <i class="fas fa-question-circle"></i>
     </a>
-    <?php if (isset($_SESSION['user']['nombre'])):
+    <?php if (isset($_SESSION['logged'])):
       $username = $_SESSION['user']['nombre'];
       $imagePath = "../users/profileimg/" . $username . ".jpg";
       if (file_exists($imagePath)) {
         $avatarSrc = $imagePath;
       } else {
         $avatarSrc = "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
-      } ?>
+      }
+
+      // Definir la URL del perfil según si es promotor o no
+      $profileUrl = ($_SESSION['user']['promotor'] === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
+      ?>
       <div id="user-profile" class="desktop-only">
-        <a href="../HTML/profile.php" aria-label="User Profile">
+        <a href="<?= $profileUrl ?>" aria-label="User Profile">
           <img src="<?= $avatarSrc ?>" alt="Profile Picture" class="profile-pic">
         </a>
       </div>
@@ -64,7 +68,7 @@
     <a href="../HTML/principal.php" class="nav-icon mobile-only" role="menuitem" aria-label="Home">
       <i class="fas fa-home"></i> Home
     </a>
-    <a href="../HTML/events.html" class="nav-icon mobile-only" role="menuitem" aria-label="Events">
+    <a href="../HTML/events.php" class="nav-icon mobile-only" role="menuitem" aria-label="Events">
       <i class="fas fa-calendar-alt"></i> Events
     </a>
     <a href="../HTML/news.html" class="nav-icon mobile-only" role="menuitem" aria-label="News">
@@ -79,8 +83,11 @@
     <a href="../HTML/faq.html" class="nav-icon mobile-only" role="menuitem" aria-label="FAQ">
       <i class="fas fa-question-circle"></i> FAQ
     </a>
-    <?php if (isset($_SESSION['user']['nombre'])): ?>
-      <a href="../HTML/profile.php" class="nav-icon mobile-only" role="menuitem" aria-label="Profile">
+    <?php if (isset($_SESSION['logged']) && isset($_SESSION['user'])):
+      // Definir URL perfil según promotor
+      $profileUrl = (isset($_SESSION['user']['promotor']) && $_SESSION['user']['promotor'] === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
+      ?>
+      <a href="<?= $profileUrl ?>" class="nav-icon mobile-only" role="menuitem" aria-label="Profile">
         <i class="fas fa-user"></i> Profile
       </a>
     <?php else: ?>
@@ -88,12 +95,6 @@
         <i class="fas fa-sign-in-alt"></i> Login
       </button>
     <?php endif; ?>
-    <a href="#" class="nav-icon" role="menuitem" aria-label="Notifications">
-      <i class="fas fa-bell"></i> Notifications
-    </a>
-    <a href="#" class="nav-icon" role="menuitem" aria-label="Settings">
-      <i class="fas fa-cog"></i> Settings
-    </a>
   </div>
 </nav>
 

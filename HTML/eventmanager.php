@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NextPlay - Eventos</title>
+  <title>NextPlay - Event Manager</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../CSS/principal.css">
   <link rel="stylesheet" href="../CSS/management.css">
@@ -140,9 +140,13 @@
 
       $controller = new EventController();
       $conn = $controller->getConnection();
+      $user_id = $_SESSION['user']['id_usuario'];
 
       try {
-        $stmt = $conn->query("SELECT nombre, fecha, hora, descripcion, enlace_streaming, categoria_id_categoria, juegos_id_juego FROM eventos");
+        $stmt = $conn->prepare("SELECT nombre, fecha, hora, descripcion, enlace_streaming, categoria_id_categoria, juegos_id_juego FROM eventos where promotores_id_promotor = :id_promotor");
+        $stmt->execute([
+          'id_promotor' => $user_id
+        ]);
         $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       } catch (PDOException $e) {
         die("Error al consultar eventos: " . $e->getMessage());
