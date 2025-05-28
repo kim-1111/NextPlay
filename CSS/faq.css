@@ -6,7 +6,6 @@ body {
   margin: 0;
   margin-top: 50px; /* Espacio para navbar fijo */
   font-family: 'Orbitron', sans-serif;
-  background: var(--dark-bg); /* Fondo oscuro de layout.css */
   color: var(--main-color); /* Color cyan neon consistente */
   display: grid;
   grid-template-rows: 1fr auto;

@@ -1,42 +1,37 @@
-.event-container {
-  max-width: 700px;
-  margin: 0 auto;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .event-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .event-title {
+            text-align: center;
+            color: #ffffff;
+        }
+        .event-detail {
+            margin-bottom: 10px;
+        }
+        .streaming-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-.event-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
+                .message-box {
+            margin-top: 30px;
 
-.event-details p {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-}
-
-.event-description {
-  margin: 1.5rem 0;
-  line-height: 1.6;
-}
-
-.signOn-button {
-  display: block;
-  width: fit-content;
-  border: none;
-  margin: 0 auto;
-  padding: 0.75rem 1.5rem;
-  background-color: #0066cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.signOn-button:hover {
-  background-color: #004999;
-}
+            background-color: #f8f9fa;
+            border: 5px solid #000000;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+            width: 500px;
+            color :black;
+        }

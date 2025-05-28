@@ -16,69 +16,22 @@ Cuando se haya importado, lo unico que faltará será crear un div con una id es
 
 Este script detectará automáticamente divs con estas ids específicas e insertará codigo HTML dentro de ellas.
 
-
 */
 
-
-
-
-
-/*INCLUDE NAVBAR*/
-
 $(document).ready(function () {
-  $("#navbar").load("../Layout/navbar.php", function (response, status, xhr) {
-    if (status == "error") {
-      console.error("Error al cargar navbar:", xhr.status, xhr.statusText);
-    } else {
-      console.log("layout.html cargado correctamente.");
-    }
-  });
-});
-
-
-/*INCLUDE FOOTER*/
-
-$(document).ready(function () {
-  $("#footer").load("../Layout/footer.html", function (response, status, xhr) {
-    if (status == "error") {
-      console.error("Error al cargar footer:", xhr.status, xhr.statusText);
-    } else {
-      console.log("layout.html cargado correctamente.");
-    }
-  });
-});
-
-
-/*INCLUDE LOGIN WINDOW*/
-
-$(document).ready(function () {
-
-  $("#loginwindow").load("../HTML/registerloginwindows/login.html", function (response, status, xhr) {
-
-    $("#loginwindow").load("/dam1/NextPlay/Layout/authwindows/login.html", function (response, status, xhr) {
-
-      if (status == "error") {
-        console.error("Error al cargar login:", xhr.status, xhr.statusText);
+  function loadComponent(id, url, componentName) {
+    $(`#${id}`).load(url, function (response, status, xhr) {
+      if (status === "error") {
+        console.error(`Error al cargar ${componentName}:`, xhr.status, xhr.statusText);
+        $(`#${id}`).html(`<p class="error-message">Failed to load ${componentName}. Please try again.</p>`);
       } else {
-        console.log("layout.html cargado correctamente.");
+        console.log(`${componentName} cargado correctamente.`);
       }
     });
-  });
-});
+  }
 
-/*INCLUDE REGISTER WINDOW*/
-
-$(document).ready(function () {
-
-  $("#registerwindow").load("../HTML/registerloginwindows/register.html", function (response, status, xhr) {
-
-    $("#registerwindow").load("/dam1/NextPlay/Layout/authwindows/register.html", function (response, status, xhr) {
-
-      if (status == "error") {
-        console.error("Error al cargar register:", xhr.status, xhr.statusText);
-      } else {
-        console.log("layout.html cargado correctamente.");
-      }
-    });
-  });
+  loadComponent("navbar", "../Layout/navbar.php", "navbar");
+  loadComponent("footer", "../Layout/footer.html", "footer");
+  loadComponent("loginwindow", "../Layout/authwindows/login.html", "login");
+  loadComponent("registerwindow", "../Layout/authwindows/register.html", "register");
 });

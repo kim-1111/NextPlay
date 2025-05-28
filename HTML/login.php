@@ -15,7 +15,7 @@
     <main>
       <section class="register-container">
         <h2 class="title">Login</h2>
-        <form action="../php/controller.php" method="post">
+        <form action="../php/gameController.php" method="post">
           <label>
             <div class="input-container">
               <img src="../imagenes/user-icon.png" alt="User Icon">

@@ -55,15 +55,16 @@ class UserController
     $username = $_POST['username'];
     $passwd = $_POST['password'];
 
-    $stmt = $this->conn->prepare(query: "SELECT nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = ? AND contrasena = ?");
+    $stmt = $this->conn->prepare(query: "SELECT id_usuario, nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = ? AND contrasena = ?");
     $stmt->bind_param("ss", $username, $passwd);
     $stmt->execute();
-    $stmt->bind_result($nombre, $email, $contrasena, $estadisticas, $img);
+    $stmt->bind_result($id_usuario, $nombre, $email, $contrasena, $estadisticas, $img);
 
     //SI EL INICIO DE SESIÓN DE USUARIOS SE LOGRÓ:
     if ($stmt->fetch()) {
       $_SESSION['logged'] = true;
       $_SESSION['user'] = [
+        "id_usuario" => $id_usuario,
         "nombre" => $nombre,
         "email" => $email,
         "contrasena" => $contrasena,
@@ -172,4 +173,7 @@ class UserController
     header("Location: ../HTML/profile.php");
     exit();
   }
+
+
+
 }

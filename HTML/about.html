@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,35 +11,35 @@
     <!-- Archivos CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Fuentes personalizadas -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap">
     <!-- LAYOUT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../Layout/include.js"></script>
-    <script src="../Layout/loginregister.js"></script>
+    <script src="../Layout/auth.js"></script>
     <link rel="stylesheet" href="../Layout/layout.css">
     <link rel="stylesheet" href="../CSS/about.css">
-    <link rel="stylesheet" href="../CSS/principal.css">
-    <link rel="stylesheet" href="../CSS/styleLogin.css">
-    <link rel="stylesheet" href="../CSS/styleRegister.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/auth.css">
 </head>
+
 <body>
     <div id="overlay"></div>
     <div id="loginwindow"></div>
     <div id="registerwindow"></div>
 
-    <div class="principal" id="principal">
-        <!-- Cabecera con navbar -->
-        <header>
-            <div id="navbar"></div>
-        </header>
-
+    <header>
+        <div id="navbar"></div>
+    </header>
+    <main>
         <!-- Hero Section -->
         <div class="responsive-container-block bigContainer">
             <div class="responsive-container-block Container bottomContainer">
                 <div class="allText bottomText">
                     <p class="text-blk subHeadingText">Innovate. Play. Succeed.</p>
                     <p class="text-blk description">
-                        NextPlay connects gamers worldwide with events, competitions, and streams—all in one vibrant platform.
+                        NextPlay connects gamers worldwide with events, competitions, and streams—all in one vibrant
+                        platform.
                     </p>
                     <a href="#mission">
                         <button class="explore">Discover More</button>
@@ -46,10 +47,11 @@
                 </div>
                 <div class="videoContainer">
                     <iframe allowfullscreen="allowfullscreen" class="mainVideo" controls="controls"
-                        src="https://www.youtube.com/embed/pW1GiJKPOt0?si=KLThcLFSiblcW8GZ">
+                        src="https://www.youtube.com/embed/pW1GiJKPOt0?si=RYiixiUQ53ZXcljD">
                     </iframe>
                     <img class="dotsImg image-block"
-                        src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/cw3.svg" alt="Decorative Dots">
+                        src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/cw3.svg"
+                        alt="Decorative Dots">
                 </div>
             </div>
         </div>
@@ -191,18 +193,16 @@
                 </div>
             </div>
         </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>© 2025 NextPlay. All rights reserved.</p>
-        </footer>
-    </div>
+    </main>
+    <!-- Footer -->
+    <footer id="footer">
+    </footer>
 
     <!-- JavaScript for Smooth Scrolling and Button Interactions -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Smooth scrolling for anchor links
-            $('a[href*="#"]').on('click', function(e) {
+            $('a[href*="#"]').on('click', function (e) {
                 e.preventDefault();
                 const target = $(this.hash);
                 if (target.length) {
@@ -213,9 +213,9 @@
             });
 
             // Button hover animation
-            $('.explore').on('mouseenter', function() {
+            $('.explore').on('mouseenter', function () {
                 $(this).css('transform', 'scale(1.05)');
-            }).on('mouseleave', function() {
+            }).on('mouseleave', function () {
                 $(this).css('transform', 'scale(1)');
             });
 
@@ -233,4 +233,5 @@
         });
     </script>
 </body>
+
 </html>

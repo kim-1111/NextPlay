@@ -1,58 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ NextPlay</title>
+  <title>NextPlay</title>
   <!-- Ícono de la página -->
   <link rel="icon" href="../imagenes/logo.png">
   <!-- Archivos CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <!-- Fuentes personalizadas -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap">
   <!-- Font Awesome para íconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- LAYOUT -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../Layout/include.js"></script>
-  <script src="../Layout/loginregister.js"></script>
+  <script src="../Layout/auth.js"></script>
+  <link rel="stylesheet" href="../CSS/auth.css">
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/faq.css">
   <link rel="stylesheet" href="../CSS/principal.css">
-  <link rel="stylesheet" href="../CSS/styleLogin.css">
-  <link rel="stylesheet" href="../CSS/styleRegister.css">
 </head>
+
 <body>
-  <div id="overlay"></div>
-  <div id="loginwindow"></div>
-  <div id="registerwindow"></div>
-  <!-- Canvas para partículas de fondo -->
-  <canvas id="particle-canvas"></canvas>
-  <div class="principal" id="principal">
     <!-- Cabecera con navbar -->
     <header>
       <div id="navbar"></div>
+      <div id="overlay"></div>
+      <div id="loginwindow"></div>
+      <div id="registerwindow"></div>
     </header>
+    <main>
+  <!-- Canvas para partículas de fondo -->
+  <canvas id="particle-canvas"></canvas>
+  
     <div class="container">
       <br>
       <h1><i class="fas fa-gamepad"></i> NextPlay FAQ</h1>
       <div class="faq">
         <div class="faq-item">
-          <button class="faq-question"><i class="fas fa-question-circle"></i> What's the video game event about?</button>
+          <button class="faq-question"><i class="fas fa-question-circle"></i> What's the video game event
+            about?</button>
           <div class="faq-answer">
-            <p>Get ready for the ultimate gaming bash! Expect epic tournaments, insider dev panels, cosplay battles, and exclusive game demos that’ll leave you speechless.</p>
+            <p>Get ready for the ultimate gaming bash! Expect epic tournaments, insider dev panels, cosplay battles, and
+              exclusive game demos that’ll leave you speechless.</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question"><i class="fas fa-ticket-alt"></i> How do I get tickets?</button>
           <div class="faq-answer">
-            <p>Secure your spot online via our website or grab tickets at the venue on the day—if they’re still up for grabs!</p>
+            <p>Secure your spot online via our website or grab tickets at the venue on the day—if they’re still up for
+              grabs!</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question"><i class="fas fa-user"></i> Is there an age limit?</button>
           <div class="faq-answer">
-            <p>All ages welcome! Under-16s need an adult buddy. Some areas may have age restrictions, so check the deets.</p>
+            <p>All ages welcome! Under-16s need an adult buddy. Some areas may have age restrictions, so check the
+              deets.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -99,7 +106,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
+  <!-- Pie de página -->
+  <footer>
+    <div id="footer"></div>
+  </footer>
   <script>
     // FAQ Toggle and Typewriter Effect
     const questions = document.querySelectorAll('.faq-question');
@@ -198,4 +209,5 @@
     });
   </script>
 </body>
+
 </html>

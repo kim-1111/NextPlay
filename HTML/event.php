@@ -38,32 +38,82 @@
     <header>
       <div id="navbar"></div>
     </header>
-    
-    <main>
+
+
+    <?php
+    require_once '../php/eventController.php';
+
+    $evento = [
+      'nombre' => 'EVENT NOT FOUND',
+      'fecha' => 'never lol',
+      'hora' => '',
+      'descripcion' => '',
+      'juego' => '',
+      'categoria' => '',
+      'total_participantes' => 0,
+      'enlace_streaming' => '',
+      'id_evento' => 0
+    ];
+
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+      $controller = new EventController();
+      $eventoEncontrado = $controller->getEventDetailsById((int) $_GET['id']);
+
+      if ($eventoEncontrado) {
+        $evento = $eventoEncontrado;
+      }
+    }
+    ?>
+
+
+
+
+
+    <body>
+
+
+      <?php
+      if (isset($_GET['message']) && !empty($_GET['message'])) {
+        $mensaje = htmlspecialchars($_GET['message']);
+        echo '
+    <center>
+        <div class="message-box" id="messageBox">
+            ' . $mensaje . '
+        </div>
+    </center>
+    </br></br></br></br>
+    ';
+      }
+      ?>
+
+
       <div class="event-container">
-        <h1 class="event-title">Tech Conference 2025</h1>
-        <div class="event-details">
-          <p><strong>Date:</strong> June 15, 2025</p>
-          <p><strong>Time:</strong> 10:00 AM – 4:00 PM</p>
-          <p><strong>Location:</strong> Central Auditorium, Mexico City</p>
+        <h1 class="event-title"><?= htmlspecialchars($evento['nombre']) ?></h1>
+        <div class="event-detail"><strong>ID usuario: </strong><?= htmlspecialchars($_SESSION['user']['id_usuario']) ?>
         </div>
-        <div class="event-description">
-          <p>
-            Join us for a day filled with innovation, inspiring talks, and networking
-            opportunities with leaders from the tech industry.
-          </p>
-        </div>
-        <?php if (isset($_SESSION['user']['nombre'])): ?>
-          <a><button class="signOn-button">Sign On!</button></a>
-        <?php else: ?>
-          <a onclick="mostrarLogin()"><button class="signOn-button">Sign On!</button></a>
+        <div class="event-detail"><strong>Date: </strong><?= htmlspecialchars($evento['fecha']) ?></div>
+        <div class="event-detail"><strong>Time: </strong><?= htmlspecialchars($evento['hora']) ?></div>
+        <div class="event-detail"><strong>Description: </strong><?= htmlspecialchars($evento['descripcion']) ?></div>
+        <div class="event-detail"><strong>Game: </strong><?= htmlspecialchars($evento['juego']) ?></div>
+        <div class="event-detail"><strong>Category: </strong><?= htmlspecialchars($evento['categoria']) ?></div>
+        <div class="event-detail"><strong>Participants
+            People: </strong> <?= htmlspecialchars($evento['total_participantes']) ?></div>
+        <a href="<?= htmlspecialchars($evento['enlace_streaming']) ?>" class="streaming-link">Watch Live Stream</a>
+
+        <?php if (!empty($evento['id_evento'])): ?>
+          <form method="post" action="../php/eventController.php">
+            <input type="hidden" name="action" value="signonevent">
+            <input type="hidden" name="id_evento" value="<?= htmlspecialchars($evento['id_evento']) ?>">
+            <button type="submit" name="signon" class="btn btn-primary mt-3">Sign on!</button>
+          </form>
         <?php endif; ?>
+
       </div>
-    </main>
+    </body>
 
     <!-- Pie de página -->
-    <footer>
-      <div id="footer"></div>
+    <!-- Footer -->
+    <footer id="footer">
     </footer>
   </div>
 </body>

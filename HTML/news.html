@@ -22,30 +22,119 @@
   <script src="../Layout/auth.js"></script>
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/style.css" />
-  <link rel="stylesheet" href="../CSS/news.css" />
+  <link rel="stylesheet" href="./CSS/news.css" />
 
   <link rel="stylesheet" href="../CSS/auth.css">
 </head>
 
 <body>
-  <!-- Overlay y ventana de login -->
-  <div id="overlay"></div>
-  <div id="loginwindow"></div>
-  <div id="registerwindow"></div>
+  <header>
+    <nav id="navbar"></nav>
+    <!-- Overlay y ventana de login -->
+    <div id="overlay"></div>
+    <div id="loginwindow"></div>
+    <div id="registerwindow"></div>
+  </header>
 
-  <div class="principal" id="principal">
-    <!-- Cabecera con navbar -->
-    <header>
-      <div id="navbar"></div>
-    </header>
+  <main>
+    <section class="news-hero-section">
+      <div class="news-hero-container">
+        <div class="news-hero-text">
+          <h1 class="neon-title">NEWS CENTRAL</h1>
+          <p class="info-text">Explore the freshest headlines in the gaming universe—curated daily for NextPlay
+            warriors.</p>
+        </div>
+        <div class="news-carousel">
+          <div class="news-slide active">
+            <img src="../imagenes/news1.jpg" alt="Featured News 1">
+            <div class="news-caption">
+              <span class="badge badge-breaking">BREAKING</span>
+              <h2>Massive Update Hits Galaxy Quest</h2>
+              <p>New planets, alien races, and PvP systems redefine the space RPG experience.</p>
+              <a href="#" class="read-btn">Read More</a>
+            </div>
+          </div>
+          <div class="news-slide">
+            <img src="https://via.placeholder.com/800x400" alt="Placeholder">
+            <div class="news-caption">
+              <span class="badge badge-featured">FEATURED</span>
+              <h2>Esports Viewership Surpasses Netflix</h2>
+              <p>The digital arena dominates 2025 streaming with over 1.5B hours watched this month.</p>
+              <a href="#" class="read-btn">Read More</a>
+            </div>
+          </div>
+          <button class="carousel-btn prev">&lt;</button>
+          <button class="carousel-btn next">&gt;</button>
+        </div>
+      </div>
+    </section>
 
-    <main>
+    <section class="news-cards-section container mt-5">
+      <h2 class="section-title neon-text mb-4 text-center">Latest News</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="news-card">
+            <img src="https://via.placeholder.com/800x400" alt="Placeholder"> class="img-fluid rounded-top">
+            <div class="card-body">
+              <span class="badge badge-new">NEW</span>
+              <h5 class="card-title">Top 10 Roguelikes You Should Try</h5>
+              <p class="card-text">A fresh ranking of genre-defining titles for hardcore and casual players alike.</p>
+              <a href="#" class="read-btn">Read More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="news-card">
+            <img src="../imagenes/news4.jpg" alt="News Thumb" class="img-fluid rounded-top">
+            <div class="card-body">
+              <h5 class="card-title">Game Devs Protest AI Clones</h5>
+              <p class="card-text">Developers speak out against AI-driven asset scraping and cloning tools.</p>
+              <a href="#" class="read-btn">Read More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="news-card">
+            <img src="../imagenes/news5.jpg" alt="News Thumb" class="img-fluid rounded-top">
+            <div class="card-body">
+              <span class="badge badge-trending">TRENDING</span>
+              <h5 class="card-title">Streamer Sets World Record in Speedrun</h5>
+              <p class="card-text">A 6-hour grind results in a new world record and internet-wide celebration.</p>
+              <a href="#" class="read-btn">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </main>
-    
-    <!-- Pie de página -->
-    <footer>
-      <div id="footer"></div>
-    </footer>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <div id="footer"></div>
+  </footer>
   </div>
+
+  <script>
+    const slides = document.querySelectorAll('.news-slide');
+    const prev = document.querySelector('.carousel-btn.prev');
+    const next = document.querySelector('.carousel-btn.next');
+    let current = 0;
+
+    function updateSlides(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      slides[index].classList.add('active');
+    }
+
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides.length) % slides.length;
+      updateSlides(current);
+    });
+
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides.length;
+      updateSlides(current);
+    });
+  </script>
+
 </body>

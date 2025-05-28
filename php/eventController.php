@@ -1,0 +1,346 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+  $event = new EventController();
+
+  if (isset($_POST["create"])) {
+    $event->create();
+  }
+
+  if (isset($_POST["search"])) {
+    $event->read();
+  }
+
+  if (isset($_POST["update"])) {
+    $event->update();
+  }
+
+  if (isset($_POST["delete"])) {
+    $event->delete();
+  }
+
+  if (isset($_POST['signon'])) {
+
+    $eventid = $_POST['id_evento'];
+    $event->signon($eventid, $_SESSION['user']['id_usuario']);
+  }
+
+}
+
+class EventController
+{
+
+  private $conn;
+  function __construct()
+  {
+    $servername = "nextplay-nextplay.l.aivencloud.com:11948";
+    $username = "avnadmin";
+    $password = "";
+    $dbname = "nextplay";
+
+    try {
+      $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+      die("Connection failed: " . $e->getMessage());
+    }
+  }
+
+  public function getConnection()
+  {
+    return $this->conn;
+  }
+
+
+  public function create()
+  {
+    if (
+      !isset($_POST['nombre']) ||
+      !isset($_POST['fecha']) ||
+      !isset($_POST['hora']) ||
+      !isset($_POST['descripcion']) ||
+      !isset($_POST['categoria_id']) ||
+      !isset($_POST['juego_id'])
+    ) {
+      header("Location: ../HTML/eventmanager.php?message=Faltan%20campos%20por%20llenar");
+      exit();
+    }
+
+    $nombre = $_POST['nombre'];
+    $fecha = $_POST['fecha'];
+    $hora = $_POST['hora'];
+    $descripcion = $_POST['descripcion'];
+    $categoria_id = $_POST['categoria_id'];
+    $juego_id = $_POST['juego_id'];
+    $enlace_streaming = $_POST['enlace_streaming'] ?? null;
+
+    try {
+      $stmt = $this->conn->prepare("
+      INSERT INTO eventos (nombre, fecha, hora, descripcion, enlace_streaming, categoria_id_categoria, juegos_id_juego)
+      VALUES (:nombre, :fecha, :hora, :descripcion, :enlace_streaming, :categoria_id, :juego_id)
+    ");
+
+      $stmt->execute([
+        'nombre' => $nombre,
+        'fecha' => $fecha,
+        'hora' => $hora,
+        'descripcion' => $descripcion,
+        'enlace_streaming' => $enlace_streaming,
+        'categoria_id' => $categoria_id,
+        'juego_id' => $juego_id
+      ]);
+
+      // Obtener el ID del evento recién insertado
+      $eventoId = $this->conn->lastInsertId();
+
+      // Guardar la imagen si se subió
+      if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
+        $tmpName = $_FILES['imagen']['tmp_name'];
+        $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $destination = __DIR__ . "/../events/images/{$eventoId}." . strtolower($ext);
+
+        // Mueve el archivo al destino
+        move_uploaded_file($tmpName, $destination);
+      }
+
+      header("Location: ../HTML/eventmanager.php?message=Evento%20creado%20correctamente");
+      exit();
+    } catch (PDOException $e) {
+      header("Location: ../HTML/eventmanager.php?message=Error%20al%20crear%20el%20evento");
+      exit();
+    }
+  }
+
+  public function update()
+  {
+    if (
+      !isset($_POST['nombre']) ||
+      !isset($_POST['fecha']) ||
+      !isset($_POST['hora']) ||
+      !isset($_POST['descripcion']) ||
+      !isset($_POST['categoria_id']) ||
+      !isset($_POST['juego_id']) ||
+      !isset($_POST['id_evento'])
+    ) {
+      header("Location: ../HTML/eventmanager.php?message=Faltan%20campos%20por%20llenar");
+      exit();
+    }
+
+    $id = $_POST['id_evento'];
+    $nombre = $_POST['nombre'];
+    $fecha = $_POST['fecha'];
+    $hora = $_POST['hora'];
+    $descripcion = $_POST['descripcion'];
+    $categoria_id = $_POST['categoria_id'];
+    $juego_id = $_POST['juego_id'];
+    $enlace_streaming = $_POST['enlace_streaming'] ?? null;
+
+    try {
+      // Actualizar el evento por ID
+      $stmt = $this->conn->prepare("
+      UPDATE eventos 
+      SET nombre = :nombre,
+          fecha = :fecha,
+          hora = :hora,
+          descripcion = :descripcion,
+          enlace_streaming = :enlace_streaming, 
+          categoria_id_categoria = :categoria_id, 
+          juegos_id_juego = :juego_id
+      WHERE id_evento = :id
+    ");
+
+      $stmt->execute([
+        'nombre' => $nombre,
+        'fecha' => $fecha,
+        'hora' => $hora,
+        'descripcion' => $descripcion,
+        'enlace_streaming' => $enlace_streaming,
+        'categoria_id' => $categoria_id,
+        'juego_id' => $juego_id,
+        'id' => $id
+      ]);
+
+      // Subida de imagen
+      if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $tmpName = $_FILES['imagen']['tmp_name'];
+        $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $destination = __DIR__ . "/../Events/images/{$id}." . strtolower($ext);
+
+        move_uploaded_file($tmpName, $destination);
+      }
+
+      header("Location: ../HTML/eventmanager.php?message=Evento%20actualizado%20correctamente");
+      exit();
+
+    } catch (PDOException $e) {
+      header("Location: ../HTML/eventmanager.php?message=Error%20al%20actualizar%20el%20evento");
+      exit();
+    }
+  }
+
+
+
+
+  public function read()
+  {
+
+    if (!isset($_POST['nombre'])) {
+      header("Location: ../HTML/eventmanager.php?message=Falta%20el%20nombre%20del%20evento");
+      exit();
+    }
+
+    $nombre = $_POST['nombre'];
+
+    try {
+
+      $stmt = $this->conn->prepare("
+        SELECT e.id_evento, e.nombre, e.fecha, e.hora, e.descripcion, e.enlace_streaming, e.categoria_id_categoria, c.nombre AS categoria_nombre,
+               e.juegos_id_juego, j.nombre AS juego_nombre
+        FROM eventos e
+        LEFT JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
+        LEFT JOIN juegos j ON e.juegos_id_juego = j.id_juego
+        WHERE e.nombre = :nombre
+      ");
+      $stmt->execute(['nombre' => $nombre]);
+      $event = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if ($event) {
+        $_SESSION['evento'] = [
+          "id_evento" => $event['id_evento'],
+          "nombre" => $event['nombre'],
+          "fecha" => $event['fecha'],
+          "hora" => $event['hora'],
+          "descripcion" => $event['descripcion'],
+          "enlace_streaming" => $event['enlace_streaming'],
+          "categoria_id" => $event['categoria_id_categoria'],
+          "categoria_nombre" => $event['categoria_nombre'],
+          "juego_id" => $event['juegos_id_juego'],
+          "juego_nombre" => $event['juego_nombre']
+        ];
+        header("Location: ../HTML/eventmanager.php");
+        exit();
+      } else {
+        header("Location: ../HTML/eventmanager.php?message=Evento%20no%20encontrado");
+        exit();
+      }
+    } catch (PDOException $e) {
+      header("Location: ../HTML/eventmanager.php?message=Error%20al%20buscar%20el%20evento");
+      exit();
+    }
+  }
+
+
+  public function delete()
+  {
+
+    if (!isset($_POST['nombre'])) {
+      header("Location: ../HTML/eventmanager.php?message=Falta%20el%20nombre%20del%20evento");
+      exit();
+    }
+
+    $nombre = $_POST['nombre'];
+
+    try {
+      $stmt = $this->conn->prepare("DELETE FROM eventos WHERE nombre = :nombre");
+      $stmt->execute(['nombre' => $nombre]);
+
+      if ($stmt->rowCount() > 0) {
+        header("Location: ../HTML/eventmanager.php?message=Evento%20eliminado%20correctamente");
+        exit();
+      } else {
+        header("Location: ../HTML/eventmanager.php?message=Evento%20no%20encontrado%20o%20no%20eliminado");
+        exit();
+      }
+    } catch (PDOException $e) {
+      header("Location: ../HTML/eventmanager.php?message=Error%20al%20eliminar%20el%20evento");
+      exit();
+    }
+  }
+
+  public function returnrecenteventsprincipal()
+  {
+    try {
+      $stmt = $this->conn->prepare("
+            SELECT
+                e.id_evento,
+                e.nombre,
+                e.fecha,
+                e.hora,
+                j.nombre AS juego,
+                COUNT(p.usuarios_id_usuario) AS total_participantes
+            FROM eventos e
+            LEFT JOIN juegos j ON e.juegos_id_juego = j.id_juego
+            LEFT JOIN participa p ON e.id_evento = p.eventos_id_participa
+            WHERE e.fecha >= CURDATE()
+            GROUP BY e.id_evento, e.nombre, e.fecha, e.hora, j.nombre
+            ORDER BY e.fecha ASC, e.hora ASC
+            LIMIT 4
+        ");
+      $stmt->execute();
+      $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      return $eventos;
+    } catch (PDOException $e) {
+      return [];
+    }
+  }
+
+  public function getEventDetailsById($id)
+  {
+    try {
+      $stmt = $this->conn->prepare("
+      SELECT
+        e.id_evento,
+        e.nombre,
+        e.fecha,
+        e.hora,
+        e.descripcion,
+        e.enlace_streaming,
+        j.nombre AS juego,
+        c.nombre AS categoria,
+        COUNT(p.usuarios_id_usuario) AS total_participantes
+      FROM eventos e
+      LEFT JOIN juegos j ON e.juegos_id_juego = j.id_juego
+      LEFT JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
+      LEFT JOIN participa p ON e.id_evento = p.eventos_id_participa
+      WHERE e.id_evento = :id
+      GROUP BY 
+        e.id_evento, e.nombre, e.fecha, e.hora, e.descripcion, e.enlace_streaming,
+        j.nombre, c.nombre
+    ");
+
+      $stmt->execute(['id' => $id]);
+      $evento = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      return $evento ?: null;
+
+    } catch (PDOException $e) {
+      return null;
+    }
+  }
+
+  public function signon($eventid, $userid)
+  {
+
+    try {
+      $stmt = $this->conn->prepare("
+      INSERT INTO participa (eventos_id_participa, usuarios_id_usuario)
+      VALUES (:evento_id, :usuario_id)
+    ");
+
+      $stmt->execute([
+        'evento_id' => $eventid,
+        'usuario_id' => $userid
+      ]);
+      header("Location: ../HTML/event.php?id=$eventid&message=Te%20has%20registrado!");
+
+    } catch (PDOException $e) {
+      header("Location: ../HTML/event.php?id=$eventid&message=Ya%20estás%20registrado!");
+    }
+
+  }
+}

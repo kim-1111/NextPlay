@@ -20,7 +20,7 @@
         <section class="register-container">
           <div class="closebutton"><button onclick="cerrarRegister()">X</button></div>
           <h2>Register</h2>
-          <form action="../php/controller.php" method="post">
+          <form action="../php/gameController.php" method="post">
             <div class="role-selector">
               <div class="role" id="student">
                 <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Student">
