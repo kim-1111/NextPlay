@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
@@ -35,6 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $event->unsignevent($eventid, $_SESSION['user']['id_usuario']);
   }
 
+  
+
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'getEventsJSON') {
+  $controller = new EventController();
+  $controller->getEventsJSON();
 }
 
 class EventController
@@ -424,6 +436,56 @@ class EventController
       header("Location: ../HTML/event.php?id=$eventid&message=Error%20while%20unsigning!");
     }
   }
+
+
+public function getEventsJSON()
+{
+  try {
+    $stmt = $this->conn->query("SELECT nombre, fecha, enlace_streaming FROM eventos");
+    $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = [];
+    foreach ($eventos as $evento) {
+      $result[] = [
+        'date' => $evento['fecha'],
+        'title' => $evento['nombre'],
+        'type' => $evento['enlace_streaming'] ? 'live' : 'soon'
+      ];
+    }
+    header('Content-Type: application/json');
+    echo json_encode($result);
+    exit();
+
+  } catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Error fetching events']);
+    exit();
+  }
+}
+
+public function countAllEvents()
+{
+  try {
+    $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM eventos");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result['total'] ?? 0;
+  } catch (PDOException $e) {
+    return 0;
+  }
+}
+
+public function countUniqueParticipants()
+{
+  try {
+    $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT usuarios_id_usuario) AS total FROM participa");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'] ?? 0;
+  } catch (PDOException $e) {
+    return 0;
+  }
+}
 
 
 }

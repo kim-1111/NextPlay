@@ -38,27 +38,24 @@ $(document).ready(function () {
   const nextYearBtn = $('.next-year');
   const monthTabs = $('.month-tab');
   let currentDate = new Date(2025, 4, 27); // May 27, 2025
-
-
-  let events = []; // inicialización
-
-
-fetch('../php/eventController.php?action=getEventsJSON')
-  .then(response => response.json())
-  .then(data => {
-    events = data;
-    console.log(events); 
-  })
-  .catch(error => {
-    console.error('Error cargando eventos:', error);
-  });
+  let events = [
+    { date: '2025-05-27', title: 'Torneo Fortnite', type: 'live' },
+    { date: '2025-05-27', title: 'Valorant Showdown', type: 'soon' },
+    { date: '2025-05-27', title: 'Overwatch 2 Masters', type: 'featured' },
+    { date: '2025-05-28', title: 'LAN Party CS2', type: 'soon' },
+    { date: '2025-05-28', title: 'Rocket League Rumble', type: 'soon' },
+    { date: '2025-05-28', title: 'Minecraft Survival Games', type: 'soon' },
+    { date: '2025-05-10', title: 'Overwatch 2 Tournament', type: 'past' },
+    { date: '2025-05-01', title: 'Minecraft Build Battle', type: 'past' },
+    { date: '2025-04-25', title: 'Fortnite Champions Cup', type: 'past' },
+  ];
 
   function renderCalendar(year, month) {
     dateGrid.empty();
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const prevMonthDays = new Date(year, month, 0).getDate();
-    const today = new Date();
+    const today = new Date(2025, 4, 27);
     const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     monthYearDisplay.text(`${monthNames[month]} ${year}`);

@@ -69,7 +69,8 @@ class UserController
         "email" => $email,
         "contrasena" => $contrasena,
         'estadisticas' => $estadisticas,
-        "img" => $img
+        "img" => $img,
+        "promotor" => "false"
       ];
 
 
@@ -90,7 +91,11 @@ class UserController
 
     if ($stmtP->fetch()) {
       $_SESSION['logged'] = true;
-      $_SESSION['user'] = $username;
+      $_SESSION['user'] = [
+        "id_usuario" => $username,
+        "nombre" => $username,
+        "promotor" => "true"
+      ];
 
       $this->conn->close();
 

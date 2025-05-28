@@ -62,7 +62,9 @@ class GameController
       !isset($_POST['name']) ||
       !isset($_POST['developer']) ||
       !isset($_POST['publisher']) ||
-      !isset($_POST['releasedate'])
+      !isset($_POST['releasedate'])||
+      !isset($_POST['description'])||
+      !isset($_POST['link'])
     ) {
       header("Location: ../HTML/gamemanager.php?message=Faltan%20campos%20por%20llenar");
       exit();
@@ -74,14 +76,17 @@ class GameController
     $developer = $_POST['developer'];
     $publisher = $_POST['publisher'];
     $releasedate = $_POST['releasedate'];
-
+    $description = $_POST['description'];
+    $link = $_POST['link'];
     try {
-      $stmt = $this->conn->prepare("INSERT INTO juegos (nombre, desarollador, editor, fecha_lanzamiento) VALUES (:name, :developer, :publisher, :releasedate)");
+      $stmt = $this->conn->prepare("INSERT INTO juegos (nombre, desarollador, editor, fecha_lanzamiento,descripcion,link) VALUES (:name, :developer, :publisher, :releasedate, :description, :link)");
       $stmt->execute([
         'name' => $name,
         'developer' => $developer,
         'publisher' => $publisher,
-        'releasedate' => $releasedate
+        'releasedate' => $releasedate,
+        'description' => $description,
+        'link' => $link
       ]);
       header("Location: ../HTML/gamemanager.php?message=Juego%20Creado!");
       exit();
@@ -100,7 +105,10 @@ class GameController
       !isset($_POST['name']) ||
       !isset($_POST['developer']) ||
       !isset($_POST['publisher']) ||
-      !isset($_POST['releasedate'])
+      !isset($_POST['releasedate'])||
+      !isset($_POST['description'])||
+      !isset($_POST['link'])
+      
     ) {
       header("Location: ../HTML/gamemanager.php?message=Faltan%20campos%20por%20llenar");
       exit();
@@ -111,19 +119,23 @@ class GameController
     $developer = $_POST['developer'];
     $publisher = $_POST['publisher'];
     $releaseDate = $_POST['releasedate'];
+    $description = $_POST['description'];
+    $link = $_POST['link'];
 
     try {
       // Actualizar el juego
       $stmt = $this->conn->prepare("
             UPDATE juegos 
-            SET desarollador = :developer, editor = :publisher, fecha_lanzamiento = :releaseDate 
+            SET desarollador = :developer, editor = :publisher, fecha_lanzamiento = :releaseDate, descripcion = :description, link = :link 
             WHERE nombre = :name
         ");
       $stmt->execute([
         'developer' => $developer,
         'publisher' => $publisher,
         'releaseDate' => $releaseDate,
-        'name' => $name
+        'name' => $name,
+        'description' => $description,
+        'link' => $link
       ]);
 
       if ($stmt->rowCount() > 0) {
@@ -187,7 +199,7 @@ class GameController
     $name = $_POST['name'];
 
     try {
-      $stmt = $this->conn->prepare("SELECT nombre, desarollador, editor, fecha_lanzamiento FROM juegos WHERE nombre = :name");
+      $stmt = $this->conn->prepare("SELECT nombre, desarollador, editor, fecha_lanzamiento,descripcion,link FROM juegos WHERE nombre = :name");
       $stmt->execute(['name' => $name]);
       $game = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -196,7 +208,9 @@ class GameController
           "name" => $game['nombre'],
           "desarollador" => $game['desarollador'],
           "editor" => $game['editor'],
-          'fecha_lanzamiento' => $game['fecha_lanzamiento']
+          'fecha_lanzamiento' => $game['fecha_lanzamiento'],
+          "descripcion" => $game['descripcion'],
+          "link" => $game['link']
         ];
         header("Location: ../HTML/gamemanager.php");
         exit();
@@ -210,6 +224,11 @@ class GameController
     }
 
 
+  }
+
+
+  public function getbestgame(){
+    
   }
 
 

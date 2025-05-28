@@ -235,40 +235,48 @@ body {
   border: 2px solid var(--main-color);
   border-radius: 12px;
   box-shadow: var(--glow-shadow);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px); /* Slightly stronger blur for depth */
+  position: relative;
+  overflow: hidden;
+  /* Add subtle grid background */
+  background-image: linear-gradient(rgba(0, 247, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 247, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .evt-calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 247, 255, 0.2);
 }
 
 .evt-time-indicator {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .evt-current-date {
   color: var(--main-color);
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+  font-size: 1.3rem; /* Slightly larger for emphasis */
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 247, 255, 0.6);
 }
 
 .evt-glowing-dot {
-  width: 12px;
-  height: 12px;
+  width: 14px; /* Slightly larger for visibility */
+  height: 14px;
   background: var(--main-color);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--main-color);
-  animation: glowPulse 2s infinite;
+  box-shadow: 0 0 12px var(--main-color);
+  animation: glowPulse 1.8s infinite;
 }
 
 .month-nav {
-  margin: 20px 0;
+  margin: 25px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -277,59 +285,68 @@ body {
 .month-nav button {
   background: var(--button-gradient);
   border: none;
-  padding: 8px 15px;
-  border-radius: 20px;
+  padding: 10px 20px; /* Larger buttons for better clickability */
+  border-radius: 25px;
   color: white;
   font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
   cursor: pointer;
   transition: var(--transition-smooth);
+  box-shadow: 0 0 8px rgba(0, 247, 255, 0.3);
 }
 
 .month-nav button:hover,
 .month-nav button:focus {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px var(--main-color);
+  transform: scale(1.15);
+  box-shadow: 0 0 12px var(--main-color);
 }
 
 .month-scroll {
   display: flex;
-  gap: 10px;
+  gap: 12px; /* Increased gap for clarity */
   overflow-x: auto;
-  padding: 10px 0;
+  padding: 12px 0;
   scrollbar-width: thin;
   scrollbar-color: var(--main-color) var(--dark-bg);
 }
 
 .month-scroll::-webkit-scrollbar {
-  height: 5px;
+  height: 6px;
 }
 
 .month-scroll::-webkit-scrollbar-track {
   background: var(--dark-bg);
+  border-radius: 3px;
 }
 
 .month-scroll::-webkit-scrollbar-thumb {
   background: var(--main-color);
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
 }
 
 .month-tab {
   color: var(--text-light);
-  padding: 8px 15px;
-  border-radius: 20px;
+  padding: 10px 20px; /* Larger padding for better touch targets */
+  border-radius: 25px;
   cursor: pointer;
   transition: var(--transition-smooth);
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .month-tab:hover,
 .month-tab:focus {
   color: var(--main-color);
-  background: rgba(0, 247, 255, 0.1);
+  background: rgba(0, 247, 255, 0.15);
+  box-shadow: 0 0 8px rgba(0, 247, 255, 0.3);
 }
 
 .month-tab.active-month {
   color: white;
   background: var(--main-color);
-  box-shadow: 0 0 10px var(--main-color);
+  box-shadow: 0 0 12px var(--main-color);
+  transform: scale(1.05);
 }
 
 .week-numbers {
@@ -337,15 +354,17 @@ body {
   grid-template-columns: repeat(7, 1fr);
   color: var(--text-light);
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Slightly larger for readability */
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .date-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
+  gap: 14px; /* Increased gap for better spacing */
   justify-items: center;
 }
 
@@ -354,63 +373,77 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
-  border: 1px solid rgba(0, 247, 255, 0.2);
-  border-radius: 8px;
+  padding: 14px; /* Larger padding for better appearance */
+  border: 1px solid rgba(0, 247, 255, 0.25);
+  border-radius: 10px;
   cursor: pointer;
   transition: var(--transition-smooth);
   position: relative;
-  font-size: 1rem;
-  background: rgba(0, 247, 255, 0.05);
+  font-size: 1.1rem; /* Larger font for readability */
+  font-weight: 500;
+  background: rgba(0, 247, 255, 0.08);
+  box-shadow: inset 0 0 5px rgba(0, 247, 255, 0.1);
 }
 
 .date-cell:hover:not(.disabled),
 .date-cell:focus:not(.disabled) {
-  background: rgba(0, 247, 255, 0.15);
-  transform: scale(1.05);
+  background: rgba(0, 247, 255, 0.2);
+  transform: scale(1.1); /* Slightly larger scale for emphasis */
   border-color: var(--main-color);
-  box-shadow: var(--glow-shadow);
+  box-shadow: 0 0 12px rgba(0, 247, 255, 0.4);
 }
 
 .date-cell.disabled {
   color: #666;
+  background: rgba(255, 255, 255, 0.05);
   cursor: not-allowed;
 }
 
 .active-day {
-  background: rgba(0, 255, 136, 0.15);
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 247, 255, 0.2));
   border-color: #00ff88;
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+  animation: pulse 1.2s infinite;
+  color: white;
+  font-weight: 700;
 }
 
 .prev-month,
 .next-month {
   color: #6b6bff;
-  opacity: 0.7;
+  opacity: 0.6;
+  font-weight: 400;
 }
 
 .event-dot {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 8px;
-  height: 8px;
+  bottom: 6px;
+  right: 6px;
+  width: 10px; /* Larger dots for visibility */
+  height: 10px;
   border-radius: 50%;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  animation: glowPulse 2s infinite;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  animation: glowPulse 1.8s infinite;
 }
 
 .event-dot.multiple {
   background: var(--accent-color);
+  width: 12px; /* Slightly larger for multiple events */
+  height: 12px;
 }
 
 .event-dot.featured {
   background: var(--secondary-color);
+  border-radius: 4px; /* Square shape for featured events */
+  width: 10px;
+  height: 10px;
 }
 
 .event-dot.live {
   background: #ff0000;
+  width: 11px;
+  height: 11px;
+  animation: glowPulse 1s infinite; /* Faster pulse for live events */
 }
 
 .date-cell[data-events]:hover::after {
@@ -418,57 +451,61 @@ body {
   position: absolute;
   background: var(--content-bg);
   color: var(--text-light);
-  padding: 8px;
-  border-radius: 5px;
-  top: -40px;
+  padding: 10px;
+  border-radius: 6px;
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   white-space: nowrap;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   box-shadow: var(--glow-shadow);
+  border: 1px solid var(--main-color);
 }
 
 .calendar-status {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 25px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 247, 255, 0.2);
 }
 
 .status-items {
   display: flex;
-  gap: 15px;
+  gap: 20px; /* Increased gap for clarity */
 }
 
 .status-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 247, 255, 0.1);
-  border-radius: 20px;
+  gap: 10px;
+  padding: 10px 15px;
+  background: rgba(0, 247, 255, 0.12);
+  border-radius: 25px;
+  font-size: 0.9rem;
 }
 
 .status-led {
-  width: 12px;
-  height: 12px;
+  width: 14px; /* Slightly larger for visibility */
+  height: 14px;
   border-radius: 50%;
 }
 
 .led-green {
   background: #00ff88;
-  box-shadow: 0 0 10px #00ff88;
+  box-shadow: 0 0 12px #00ff88;
 }
 
 .led-blue {
   background: var(--main-color);
-  box-shadow: 0 0 10px var(--main-color);
+  box-shadow: 0 0 12px var(--main-color);
 }
 
 .calendar-controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .evt-neon-btn {
@@ -511,7 +548,7 @@ body {
   transition: var(--transition-smooth);
   cursor: pointer;
   min-width: 200px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width stitches='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300f7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300f7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;
@@ -745,12 +782,22 @@ body {
     padding: 20px;
   }
   .month-nav button {
-    padding: 6px 12px;
+    padding: 8px 15px;
     font-size: 0.9rem;
   }
   .date-cell {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .week-numbers {
     font-size: 0.8rem;
-    padding: 8px;
+  }
+  .month-scroll {
+    gap: 8px;
+  }
+  .month-tab {
+    padding: 8px 15px;
+    font-size: 0.9rem;
   }
   .evt-filter-bar {
     flex-direction: column;
@@ -774,19 +821,32 @@ body {
   .evt-stat-number {
     font-size: 1.5rem;
   }
+  .evt-calendar-container {
+    padding: 15px;
+  }
+  .evt-current-date {
+    font-size: 1.1rem;
+  }
+  .date-cell {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+  .date-grid {
+    gap: 10px;
+  }
+  .week-numbers {
+    font-size: 0.7rem;
+  }
+  .month-tab {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
   .calendar-status {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
   .evt-nav-tabs {
     flex-wrap: wrap;
-  }
-  .date-grid {
-    gap: 8px;
-  }
-  .date-cell {
-    padding: 6px;
-    font-size: 0.7rem;
   }
 }

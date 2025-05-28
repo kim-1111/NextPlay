@@ -45,7 +45,9 @@
     'name' => '',
     'desarollador' => '',
     'editor' => '',
-    'fecha_lanzamiento' => ''
+    'fecha_lanzamiento' => '',
+    'descripcion' => '',
+    'link' => ''
   ];
   unset($_SESSION['game']);
   ?>
@@ -66,6 +68,14 @@
         <div class="form-group">
           <label for="publisher">Publisher:</label>
           <input type="text" id="publisher" name="publisher" value="<?= htmlspecialchars($game['editor']) ?>">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" class="form-control" rows="5" maxlength="200"><?= htmlspecialchars($game['descripcion']) ?></textarea>
+        </div>
+        <div class="form-group">
+          <label for="link">Link:</label>
+          <input type="text" id="link" name="link" value="<?= htmlspecialchars($game['link']) ?>">
         </div>
         <div class="form-group">
           <label for="releasedate">Release Date:</label>

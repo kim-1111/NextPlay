@@ -20,6 +20,9 @@
       term.</span>
   </div>
   <div class="nav-links" role="navigation">
+    <a href="../HTML/principal.php" class="nav-icon desktop-only" data-tooltip1="Home" aria-label="Home">
+      <i class="fas fa-home"></i>
+    </a>
     <a href="../HTML/events.html" class="nav-icon desktop-only" data-tooltip1="Events" aria-label="Events">
       <i class="fas fa-calendar-alt"></i>
     </a>
@@ -58,6 +61,9 @@
     <i class="fas fa-bars"></i>
   </button>
   <div id="menu-dropdown" role="menu" aria-hidden="true">
+    <a href="../HTML/principal.php" class="nav-icon mobile-only" role="menuitem" aria-label="Home">
+      <i class="fas fa-home"></i> Home
+    </a>
     <a href="../HTML/events.html" class="nav-icon mobile-only" role="menuitem" aria-label="Events">
       <i class="fas fa-calendar-alt"></i> Events
     </a>
