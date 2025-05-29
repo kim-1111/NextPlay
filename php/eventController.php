@@ -199,7 +199,7 @@ class EventController
         $ext = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
 
         if ($ext === 'jpg' || $ext === 'jpeg') {
-          $destination = __DIR__ . "/../Events/images/{$id}.jpg";
+          $destination = __DIR__ . "/../events/images/{$id}.jpg";
           move_uploaded_file($tmpName, $destination);
         } else {
           header("Location: ../HTML/eventmanager.php?message=Solo%20se%20permiten%20imágenes%20JPG");
@@ -574,5 +574,34 @@ ORDER BY e.fecha DESC, e.hora DESC;
       return []; // En caso de error, retorna un array vacío
     }
   }
+
+
+public function searchEvents($input)
+{
+  try {
+    $stmt = $this->conn->prepare("
+SELECT e.*, j.nombre AS juego, c.nombre AS categoria
+FROM eventos e
+JOIN juegos j ON e.juegos_id_juego = j.id_juego
+JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
+      WHERE 
+        e.nombre LIKE :input OR
+        e.descripcion LIKE :input OR
+        j.nombre LIKE :input OR
+        c.nombre LIKE :input
+    ");
+
+    $stmt->execute([
+      'input' => '%' . $input . '%'
+    ]);
+
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $resultados;
+
+  } catch (PDOException $e) {
+    // Puedes manejar el error como prefieras, o devolver un array vacío
+    return [];
+  }
+}
 
 }

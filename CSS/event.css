@@ -3,6 +3,12 @@
             margin: 20px;
             line-height: 1.6;
         }
+
+        main{
+            margin-top: 90px;
+            margin-bottom: 40px;
+        }
+
         .event-container {
             max-width: 600px;
             margin: auto;

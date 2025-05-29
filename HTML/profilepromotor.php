@@ -20,6 +20,12 @@ $controller = new UserController();
 $totalEventos = $controller->returntotalevents();
 $totalJuegos = $controller->getUserInterestedGamesCount();
 $misEventos = $controller->getPromotorEvents();
+
+if(empty($misEventos)){
+  $misEventos[0]['total_eventos'] = 0;
+}
+
+
 $juegosInteresados = $controller->getUserInterestedGames();
 
 ?>
@@ -404,6 +410,12 @@ $juegosInteresados = $controller->getUserInterestedGames();
 
 
                 <?php
+                if($misEventos[0]['total_eventos'] == 0){
+                  echo '<p>No events</p>';
+                } else{
+
+                
+
                 foreach ($misEventos as $evento) {
                   echo '
     <li class="activity-item">
@@ -413,7 +425,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
         <div class="activity-time">' . htmlspecialchars($evento['fecha']) . '</div>
       </div>
     </li>';
-                }
+                }}
                 ?>
               </ul>
             </div>

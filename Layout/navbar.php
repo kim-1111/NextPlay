@@ -1,9 +1,16 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+if(!isset($_SESSION['logged'])){
+  $_SESSION['logged'] = false;
+}
+
+
+?>
 <nav>
   <a href="../HTML/principal.php"><img src="../imagenes/logo.png" alt="logo-NextPlay" class="logonextplay"
       aria-label="NextPlay Logo"></a>
   <div id="search" class="search-container">
-    <form role="search" aria-label="Search events and games">
+    <form action="search.php" role="search" aria-label="Search events and games">
       <button aria-label="Search" type="submit" class="btn-search">
         <i class="fas fa-search"></i>
       </button>
@@ -38,7 +45,7 @@
     <a href="../HTML/faq.html" class="nav-icon desktop-only" data-tooltip1="FAQ" aria-label="FAQ">
       <i class="fas fa-question-circle"></i>
     </a>
-    <?php if (isset($_SESSION['logged'])):
+    <?php if ($_SESSION['logged'] === true):
       $username = $_SESSION['user']['nombre'];
       $imagePath = "../users/profileimg/" . $username . ".jpg";
       if (file_exists($imagePath)) {
@@ -83,7 +90,7 @@
     <a href="../HTML/faq.html" class="nav-icon mobile-only" role="menuitem" aria-label="FAQ">
       <i class="fas fa-question-circle"></i> FAQ
     </a>
-    <?php if (isset($_SESSION['logged']) && isset($_SESSION['user'])):
+    <?php if ($_SESSION['logged'] === true && isset($_SESSION['user'])):
       // Definir URL perfil según promotor
       $profileUrl = (isset($_SESSION['user']['promotor']) && $_SESSION['user']['promotor'] === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
       ?>

@@ -225,6 +225,7 @@ input::placeholder {
 
 .authswitch a:hover {
   text-shadow: 0 0 5px var(--main-color);
+  cursor: pointer;
 }
 
 .closebutton button {

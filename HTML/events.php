@@ -31,6 +31,7 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Central - NextPlay</title>
+  <link rel="icon" href="../imagenes/logo.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/events.css">
@@ -44,15 +45,6 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
 
 <body>
 
-
-
-
-
-
-
-
-
-
   <header>
     <div id="navbar"></div>
     <div id="loginwindow"></div>
@@ -64,9 +56,7 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
         <div class="evt-carousel-wrapper">
           <div class="evt-info-panel">
             <h2 class="evt-neon-title">EVENT CENTRAL</h2>
-            <p class="evt-info-text">¡Descubre los eventos más candentes del mundo gaming! Compite, conecta y conquista
-              en
-              torneos exclusivos.</p>
+            <p class="evt-info-text">Discover the hottest events in the gaming world! Compete, connect, and conquer in exclusive tournaments!</p>
             <div class="evt-stats">
               <div class="evt-stat-item">
                 <div class="evt-stat-number"> <?= $totalEventos ?></div>
@@ -125,10 +115,10 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
           </div>
         </div>
         <div class="month-scroll">
-          <button class="month-tab" data-month="0">ENE</button>
+          <button class="month-tab" data-month="0">JAN</button>
           <button class="month-tab" data-month="1">FEB</button>
           <button class="month-tab" data-month="2">MAR</button>
-          <button class="month-tab" data-month="3">ABR</button>
+          <button class="month-tab" data-month="3">APR</button>
           <button class="month-tab" data-month="4">MAY</button>
           <button class="month-tab" data-month="5">JUN</button>
           <button class="month-tab" data-month="6">JUL</button>
@@ -136,7 +126,7 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
           <button class="month-tab" data-month="8">SEP</button>
           <button class="month-tab" data-month="9">OCT</button>
           <button class="month-tab" data-month="10">NOV</button>
-          <button class="month-tab" data-month="11">DIC</button>
+          <button class="month-tab" data-month="11">DEC</button>
         </div>
 
         <script>
@@ -156,13 +146,13 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
           }
         </script>
         <div class="week-numbers">
-          <span>LUN</span>
-          <span>MAR</span>
-          <span>MIÉ</span>
-          <span>JUE</span>
-          <span>VIE</span>
-          <span>SÁB</span>
-          <span>DOM</span>
+          <span>MON</span>
+          <span>TUE</span>
+          <span>WED</span>
+          <span>THU</span>
+          <span>FRI</span>
+          <span>SAT</span>
+          <span>SUN</span>
         </div>
         <div class="date-grid" role="grid" aria-label="Días del mes"></div>
         <div class="calendar-status">
@@ -187,23 +177,23 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
       <section class="evt-tabbed-section" aria-label="Galería de eventos">
         <div class="evt-filter-bar">
           <select class="evt-filter-select" id="game-filter" aria-label="Seleccionar juego">
-            <option value="all">Todos los Juegos</option>
+            <option value="all">All Games</option>
             <?php foreach ($gameNames as $game): ?>
               <option value="<?= htmlspecialchars(strtolower($game)) ?>"><?= htmlspecialchars($game) ?></option>
             <?php endforeach; ?>
           </select>
           <select class="evt-filter-select" id="type-filter" aria-label="Seleccionar tipo">
-            <option value="all">Todos los Tipos</option>
+            <option value="all">All Types</option>
             <?php foreach ($categoryNames as $category): ?>
               <option value="<?= htmlspecialchars(strtolower($category)) ?>"><?= htmlspecialchars($category) ?></option>
             <?php endforeach; ?>
           </select>
-          <button class="evt-neon-btn" id="reset-filters" aria-label="Restablecer filtros">Restablecer Filtros</button>
+          <button class="evt-neon-btn" id="reset-filters" aria-label="Restablecer filtros">Reset Filters</button>
         </div>
         <div class="evt-nav-tabs" role="tablist">
-          <button class="evt-nav-link active" data-tab="next-24h" role="tab" aria-selected="true">Eventos
+          <button class="evt-nav-link active" data-tab="next-24h" role="tab" aria-selected="true">Events
             Activos</button>
-          <button class="evt-nav-link" data-tab="past" role="tab" aria-selected="false">EVENTOS PASADOS</button>
+          <button class="evt-nav-link" data-tab="past" role="tab" aria-selected="false">PAST EVENTS</button>
         </div>
         <div class="evt-tab-content">
 
@@ -233,7 +223,7 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
                 </div>
               <?php endforeach; ?>
             <?php else: ?>
-              <div class="evt-no-events">No hay eventos activos.</div>
+              <div class="evt-no-events">There are no active events.</div>
             <?php endif; ?>
           </div>
 
@@ -255,12 +245,12 @@ $eventoscarr = $controller->returnrecenteventsprincipal();
                       Juego: <?= htmlspecialchars($event['juego']) ?> •</br>
                       Categoría: <?= htmlspecialchars($event['categoria']) ?> •</br>
                     </div>
-                    <button class="evt-join-btn" disabled aria-label="Evento concluido">CONCLUIDO</button>
+                    <button class="evt-join-btn" disabled aria-label="Evento concluido">COMPLETED</button>
                   </div>
                 </div>
               <?php endforeach; ?>
             <?php else: ?>
-              <div class="evt-no-events">No hay eventos expirados.</div>
+              <div class="evt-no-events">There are no expired events.</div>
             <?php endif; ?>
           </div>
       </section>

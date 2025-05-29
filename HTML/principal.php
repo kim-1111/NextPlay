@@ -3,16 +3,20 @@
 
 <?php
 require_once '../php/eventController.php';
-
+require_once '../php/gameController.php';
 $controller = new EventController();
+$game = new GameController();
 $eventos = $controller->returnrecenteventsprincipal();
 unset($_SESSION['error']);
+
+$bestgame = $game->getbestgame();
 ?>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextPlay - Home</title>
+  <link rel="icon" href="../imagenes/logo.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../CSS/principal.css">
   <link rel="stylesheet" href="../Layout/layout.css">
@@ -58,14 +62,9 @@ unset($_SESSION['error']);
               </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          <button class="evt-carousel-prev" aria-label="Evento anterior"><i class="fas fa-chevron-left"></i></button>
+          <button class="evt-carousel-next" aria-label="Evento siguiente"><i
+              class="fas fa-chevron-right"></i></button>
         </div>
       </section>
 
@@ -74,12 +73,12 @@ unset($_SESSION['error']);
         <div class="row">
           <div class="col-md-12">
             <div class="card featured">
-              <img src="../games/eldenring.jpg" class="fixed-height-media" alt="Elden Ring">
+              <img src="<?= htmlspecialchars($bestgame['image']) ?>" class="fixed-height-media" alt="Elden Ring">
               <div class="card-body">
-                <h5 class="card-title">Elden Ring</h5>
-                <p class="card-text">Embark on an epic journey in a vast open world filled with mystery and danger.</p>
-                <p class="card-text">Rating: 4.9/5</p>
-                <a href="#" class="btn">Explore Game</a>
+                <h5 class="card-title"><?= htmlspecialchars($bestgame['nombre']) ?></h5>
+                <p class="card-text"><?= htmlspecialchars($bestgame['descripcion']) ?></p>
+                <p class="card-text">Partipants: <?= htmlspecialchars($bestgame['total_participantes']) ?></p>
+                <a href="<?= htmlspecialchars($bestgame['link']) ?>" class="btn">Explore Game</a>
               </div>
             </div>
           </div>
@@ -140,8 +139,9 @@ unset($_SESSION['error']);
           </div>
         </div>
         <div class="carousel-nav">
-          <button onclick="scrollCarousel('prev')">‹</button>
-          <button onclick="scrollCarousel('next')">›</button>
+          <button class="evt-carousel-prev" aria-label="Evento anterior"><i class="fas fa-chevron-left"></i></button>
+          <button class="evt-carousel-next" aria-label="Evento siguiente"><i
+              class="fas fa-chevron-right"></i></button>
         </div>
       </section>
 
@@ -240,6 +240,8 @@ unset($_SESSION['error']);
             <a href="../HTML/events.php" class="btn">View All Events</a>
           </div>
       </section>
+
+      <button class="evt-back-to-top" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
     </div>
   </main>
   <footer>
@@ -247,15 +249,75 @@ unset($_SESSION['error']);
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    function scrollCarousel(direction) {
-      const carousel = document.querySelector('.games-carousel');
-      const scrollAmount = 320; // Card width + gap
-      carousel.scrollBy({
-        left: direction === 'next' ? scrollAmount : -scrollAmount,
-        behavior: 'smooth'
+    document.addEventListener('DOMContentLoaded', function() {
+      const carousel = document.querySelector('#gameCarousel .carousel-inner');
+      const items = carousel.querySelectorAll('.carousel-item');
+      const prevBtn = document.querySelector('.evt-carousel-prev');
+      const nextBtn = document.querySelector('.evt-carousel-next');
+
+      let currentIndex = 0;
+      let autoplayInterval = null;
+      const autoplayDelay = 5000; // 5 segundos
+
+      function updateCarousel(index) {
+        items.forEach((item, i) => {
+          item.classList.remove('active');
+          if (i === index) {
+            item.classList.add('active');
+          }
+        });
+      }
+
+      function showNextSlide() {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCarousel(currentIndex);
+      }
+
+      function startAutoplay() {
+        autoplayInterval = setInterval(showNextSlide, autoplayDelay);
+      }
+
+      function stopAutoplay() {
+        clearInterval(autoplayInterval);
+      }
+
+      // Botones personalizados
+      prevBtn.addEventListener('click', () => {
+        stopAutoplay();
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateCarousel(currentIndex);
+        startAutoplay();
       });
-    }
+
+      nextBtn.addEventListener('click', () => {
+        stopAutoplay();
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCarousel(currentIndex);
+        startAutoplay();
+      });
+
+      // Iniciar autoplay al cargar
+      updateCarousel(currentIndex);
+      startAutoplay();
+    });
+
+    const backToTop = $('.evt-back-to-top');
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 300) {
+        backToTop.addClass('visible');
+      } else {
+        backToTop.removeClass('visible');
+      }
+    });
+
+    backToTop.click(function() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 500);
+    });
   </script>
+
+
 </body>
 
 </html>

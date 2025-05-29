@@ -229,7 +229,32 @@ class GameController
 
   public function getbestgame()
   {
+  try {
+    $stmt = $this->conn->prepare("
+      SELECT 
+          j.id_juego,
+          j.nombre,
+          j.link,
+          j.descripcion,
+          j.image,
+          COUNT(p.usuarios_id_usuario) AS total_participantes
+      FROM juegos j
+      JOIN eventos e ON j.id_juego = e.juegos_id_juego
+      JOIN participa p ON e.id_evento = p.eventos_id_participa
+      GROUP BY j.id_juego
+      ORDER BY total_participantes DESC
+      LIMIT 1
+    ");
 
+    $stmt->execute();
+    $bestGame = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $bestGame;
+
+  } catch (PDOException $e) {
+    // Puedes manejar el error o devolver null
+    return null;
+  }
   }
 
   public function getAllGameNames()

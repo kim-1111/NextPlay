@@ -17,23 +17,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../Layout/include.js"></script>
     <script src="../Layout/auth.js"></script>
-    <link rel="stylesheet" href="../Layout/layout.css">
-    <link rel="stylesheet" href="../CSS/about.css">
-    <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/auth.css">
+    <link rel="stylesheet" href="../Layout/layout.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/about.css">
+    
+    
 </head>
 
 <body>
-    <div id="overlay"></div>
-    <div id="loginwindow"></div>
-    <div id="registerwindow"></div>
-
     <header>
         <div id="navbar"></div>
+        <div id="loginwindow"></div>
+        <div id="registerwindow"></div>
     </header>
     <main>
-        <!-- Hero Section -->
-        <div class="responsive-container-block bigContainer">
+        <div class="responsive-container-block bigContainer" id="main-auth">
             <div class="responsive-container-block Container bottomContainer">
                 <div class="allText bottomText">
                     <p class="text-blk subHeadingText">Innovate. Play. Succeed.</p>
@@ -193,10 +192,11 @@
                 </div>
             </div>
         </section>
+        <button class="evt-back-to-top" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
+
     </main>
     <!-- Footer -->
-    <footer id="footer">
-    </footer>
+    <footer id="footer"></footer>
 
     <!-- JavaScript for Smooth Scrolling and Button Interactions -->
     <script>
@@ -230,6 +230,21 @@
             }, { threshold: 0.2 });
 
             sections.forEach(section => observer.observe(section));
+        });
+
+        const backToTop = $('.evt-back-to-top');
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                backToTop.addClass('visible');
+            } else {
+                backToTop.removeClass('visible');
+            }
+        });
+
+        backToTop.click(function () {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
         });
     </script>
 </body>

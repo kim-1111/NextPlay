@@ -59,7 +59,7 @@ fetch('../php/eventController.php?action=getEventsJSON')
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const prevMonthDays = new Date(year, month, 0).getDate();
     const today = new Date();
-    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     monthYearDisplay.text(`${monthNames[month]} ${year}`);
     monthTabs.removeClass('active-month').eq(month).addClass('active-month');
@@ -192,7 +192,13 @@ resetFiltersBtn.click(function () {
     $('html, body').animate({ scrollTop: 0 }, 500);
   });
 
+
+const now = new Date();
+
+
 filterEvents();
+renderCalendar(currentDate.getFullYear(), currentDate.getMonth() +1 );
+renderCalendar(currentDate.getFullYear(), currentDate.getMonth()) -1;
 
 });
 

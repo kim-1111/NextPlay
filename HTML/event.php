@@ -23,21 +23,21 @@
   <link rel="stylesheet" href="../Layout/layout.css">
   <link rel="stylesheet" href="../CSS/style.css" />
   <link rel="stylesheet" href="../CSS/event.css" />
-
+  
   <link rel="stylesheet" href="../CSS/auth.css">
 </head>
 
 <body>
   <!-- Overlay y ventana de login -->
-  <div id="overlay"></div>
-  <div id="loginwindow"></div>
-  <div id="registerwindow"></div>
-
-  <div class="principal" id="principal">
+  <header>
+    <div id="navbar"></div>
+    <div id="loginwindow"></div>
+    <div id="registerwindow"></div>
+  </header>
+<main>
+  <div id="main-auth" class="container">
     <!-- Cabecera con navbar -->
-    <header>
-      <div id="navbar"></div>
-    </header>
+    
 
 
     <?php
@@ -134,7 +134,7 @@
         <?php endif; ?>
 
 
-      </div>
+      </div></main>
     </body>
 
     <!-- Pie de página -->
