@@ -126,6 +126,23 @@ class UserController
       exit();
     }
 
+    // Verificar si el usuario ya existe
+    try {
+      $stmt = $this->conn->prepare("SELECT nombre FROM $tabla WHERE nombre = :username");
+      $stmt->execute(['username' => $username]);
+      $user_exists = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+      if ($user_exists) {
+        $_SESSION['error'] = "El usuario ya existe";
+        header("Location: ../HTML/register.html");
+        exit();
+      }
+    } catch (PDOException $e) {
+      $_SESSION['error'] = "Error en la verificación: " . $e->getMessage();
+      header("Location: ../HTML/register.html");
+      exit();
+    }
+
     try {
       $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena) VALUES (:username, :email, :password)");
       $stmt->execute([
@@ -133,7 +150,24 @@ class UserController
         'email' => $email,
         'password' => $password
       ]);
-      header("Location: ../HTML/profile.html");
+      
+      // Establecer la sesión como iniciada
+      $_SESSION['logged'] = true;
+      
+      // Redirigir según el rol del usuario
+      if ($rol === "usuario") {
+        // Para usuarios normales
+        $_SESSION['user'] = [
+          "nombre" => $username,
+          "email" => $email,
+          "contrasena" => $password
+        ];
+        header("Location: ../HTML/profile.php");
+      } else if ($rol === "promotor") {
+        // Para promotores
+        $_SESSION['user'] = $username;
+        header("Location: ../HTML/profilepromotor.php");
+      }
       exit();
     } catch (PDOException $e) {
       $_SESSION['error'] = "Error en el registro: " . $e->getMessage();
@@ -178,9 +212,27 @@ class UserController
       exit();
     }
 
+    $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $repeat_password = $_POST['repeat_new_password'];
     $current_user = $_SESSION['user']['nombre'];
+
+    // Verificar que la contraseña actual sea correcta
+    try {
+      $stmt = $this->conn->prepare("SELECT contrasena FROM usuarios WHERE nombre = :current_user");
+      $stmt->execute(['current_user' => $current_user]);
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+      if (!$user || $user['contrasena'] !== $current_password) {
+        $_SESSION['error'] = "La contraseña actual es incorrecta";
+        header("Location: ../HTML/profile.php");
+        exit();
+      }
+    } catch (PDOException $e) {
+      $_SESSION['error'] = "Error al verificar contraseña: " . $e->getMessage();
+      header("Location: ../HTML/profile.php");
+      exit();
+    }
 
     if ($new_password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";

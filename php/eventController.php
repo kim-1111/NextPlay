@@ -149,14 +149,12 @@ class EventController
       !isset($_POST['hora']) ||
       !isset($_POST['descripcion']) ||
       !isset($_POST['categoria_id']) ||
-      !isset($_POST['juego_id']) ||
-      !isset($_POST['id_evento'])
+      !isset($_POST['juego_id'])
     ) {
       header("Location: ../HTML/eventmanager.php?message=Faltan%20campos%20por%20llenar");
       exit();
     }
 
-    $id = $_POST['id_evento'];
     $nombre = $_POST['nombre'];
     $fecha = $_POST['fecha'];
     $hora = $_POST['hora'];
@@ -165,9 +163,31 @@ class EventController
     $juego_id = $_POST['juego_id'];
     $enlace_streaming = $_POST['enlace_streaming'] ?? null;
     $id_promotor = $_SESSION['user']['id_usuario'];
-
+    
     try {
-      // Actualizar el evento por ID
+      // Buscar el evento solo por nombre
+      $findStmt = $this->conn->prepare("
+        SELECT id_evento 
+        FROM eventos 
+        WHERE nombre = :nombre 
+        AND promotores_id_promotor = :id_promotor
+      ");
+      
+      $findStmt->execute([
+        'nombre' => $nombre,
+        'id_promotor' => $id_promotor
+      ]);
+      
+      $evento = $findStmt->fetch(PDO::FETCH_ASSOC);
+      
+      if (!$evento) {
+        header("Location: ../HTML/eventmanager.php?message=No%20se%20encontró%20el%20evento%20con%20ese%20nombre");
+        exit();
+      }
+      
+      $id = $evento['id_evento'];
+      
+      // Actualizar el evento encontrado
       $stmt = $this->conn->prepare("
       UPDATE eventos 
       SET nombre = :nombre,
@@ -176,10 +196,10 @@ class EventController
           descripcion = :descripcion,
           enlace_streaming = :enlace_streaming, 
           categoria_id_categoria = :categoria_id, 
-          juegos_id_juego = :juego_id
-          promotres_id_promotor = :id_promotor
+          juegos_id_juego = :juego_id,
+          promotores_id_promotor = :id_promotor
       WHERE id_evento = :id
-    ");
+      ");
 
       $stmt->execute([
         'nombre' => $nombre,
@@ -189,8 +209,8 @@ class EventController
         'enlace_streaming' => $enlace_streaming,
         'categoria_id' => $categoria_id,
         'juego_id' => $juego_id,
-        'id' => $id,
-        'id_promotor' => $id_promotor
+        'id_promotor' => $id_promotor,
+        'id' => $id
       ]);
 
       // Subida de imagen
@@ -211,7 +231,7 @@ class EventController
       exit();
 
     } catch (PDOException $e) {
-      header("Location: ../HTML/eventmanager.php?message=Error%20al%20actualizar%20el%20evento");
+      header("Location: ../HTML/eventmanager.php?message=Error%20al%20actualizar%20el%20evento:%20" . urlencode($e->getMessage()));
       exit();
     }
   }
@@ -574,34 +594,5 @@ ORDER BY e.fecha DESC, e.hora DESC;
       return []; // En caso de error, retorna un array vacío
     }
   }
-
-
-public function searchEvents($input)
-{
-  try {
-    $stmt = $this->conn->prepare("
-SELECT e.*, j.nombre AS juego, c.nombre AS categoria
-FROM eventos e
-JOIN juegos j ON e.juegos_id_juego = j.id_juego
-JOIN categoria c ON e.categoria_id_categoria = c.id_categoria
-      WHERE 
-        e.nombre LIKE :input OR
-        e.descripcion LIKE :input OR
-        j.nombre LIKE :input OR
-        c.nombre LIKE :input
-    ");
-
-    $stmt->execute([
-      'input' => '%' . $input . '%'
-    ]);
-
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $resultados;
-
-  } catch (PDOException $e) {
-    // Puedes manejar el error como prefieras, o devolver un array vacío
-    return [];
-  }
 }
-
-}
+?>

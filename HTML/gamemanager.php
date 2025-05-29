@@ -13,6 +13,33 @@
   <script src="../Layout/include.js"></script>
   <script src="../Layout/auth.js"></script>
   <link rel="stylesheet" href="../CSS/about.css">
+  <style>
+    .message-box {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      max-width: 80%;
+      display: none;
+    }
+    .message-content {
+      margin-right: 20px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
@@ -25,11 +52,29 @@
   if (isset($_GET['message']) && !empty($_GET['message'])) {
     $mensaje = htmlspecialchars($_GET['message']);
     echo '
-    <center>
-        <div class="message-box" id="messageBox">
-            ' . $mensaje . '
-        </div>
-    </center>
+    <div class="message-box" id="messageBox">
+      <span class="close-btn" onclick="closeMessage()">×</span>
+      <div class="message-content">' . $mensaje . '</div>
+    </div>
+    <script>
+      // Mostrar el mensaje al cargar la página
+      document.addEventListener("DOMContentLoaded", function() {
+        const messageBox = document.getElementById("messageBox");
+        if (messageBox) {
+          messageBox.style.display = "block";
+          
+        }
+      });
+      
+      // Función para cerrar el mensaje manualmente y redirigir a gamemanager.php
+      function closeMessage() {
+        const messageBox = document.getElementById("messageBox");
+        if (messageBox) {
+          messageBox.style.display = "none";
+          window.location.href = "../HTML/gamemanager.php";
+        }
+      }
+    </script>
     ';
   }
   ?>

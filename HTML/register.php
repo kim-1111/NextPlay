@@ -20,14 +20,14 @@
         <section class="register-container">
           <div class="closebutton"><button onclick="cerrarRegister()">X</button></div>
           <h2>Register</h2>
-          <form action="../php/gameController.php" method="post">
+          <form action="../php/controllerpdo.php" method="post">
             <div class="role-selector">
               <div class="role" id="student">
-                <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Student">
+                <img src="../imagenes/user.png" alt="Student">
                 <span>USER</span>
               </div>
               <div class="role selected" id="tutor">
-                <img src="https://cdn-icons-png.flaticon.com/256/2995/2995703.png" alt="Tutor">
+                <img src="../imagenes/promoter-icon.png" alt="Tutor">
                 <span>PROMOTER</span>
               </div>
             </div>
