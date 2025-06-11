@@ -46,46 +46,58 @@ class UserController
     $username = $_POST['username'];
     $passwd = $_POST['password'];
 
-    // Login for usuarios
     try {
-      $stmt = $this->conn->prepare("SELECT nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = :username AND contrasena = :password");
-      $stmt->execute(['username' => $username, 'password' => $passwd]);
+      // Login for usuarios
+      $stmt = $this->conn->prepare("SELECT id_usuario, nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = :username");
+      $stmt->execute(['username' => $username]);
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      if ($user) {
+      if ($user && password_verify($passwd, $user['contrasena'])) {
         $_SESSION['logged'] = true;
         $_SESSION['user'] = [
+          "id_usuario" => $user['id_usuario'],
           "nombre" => $user['nombre'],
           "email" => $user['correo'],
-          "contrasena" => $user['contrasena'],
-          'estadisticas' => $user['estadisticas'],
-          "img" => $user['img']
+          "estadisticas" => $user['estadisticas'],
+          "img" => $user['img'],
+          "promotor" => false
         ];
+        var_dump($_SESSION);
+
         header("Location: ../HTML/profile.php");
         exit();
+      } else {
+        $_SESSION['logged'] = false;
       }
-    } catch (PDOException $e) {
-      $_SESSION['logged'] = false;
-    }
 
-    // Login for promotores
-    try {
-      $stmt = $this->conn->prepare("SELECT nombre, contrasena FROM promotores WHERE nombre = :username AND contrasena = :password");
-      $stmt->execute(['username' => $username, 'password' => $passwd]);
+      // Login for promotores
+      $stmt = $this->conn->prepare("SELECT id_promotor, nombre, correo, contrasena, contacto FROM promotores WHERE nombre = :username");
+      $stmt->execute(['username' => $username]);
       $promotor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      if ($promotor) {
+      if ($promotor && password_verify($passwd, $promotor['contrasena'])) {
         $_SESSION['logged'] = true;
-        $_SESSION['user'] = $username;
-        header("Location: ../HTML/profile.php");
+        $_SESSION['user'] = [
+          "id_usuario" => $promotor['id_promotor'],
+          "nombre" => $promotor['nombre'],
+          "email" => $promotor['correo'],
+          "contacto" => $promotor['contacto'],
+          "promotor" => true
+        ];
+        header("Location: ../HTML/profilepromotor.php");
+        exit();
+      } else {
+        $_SESSION['logged'] = false;
+      }
+
+      // If login fails
+      if ($_SESSION['logged'] === false) {
+        header("Location: ../HTML/err.html");
         exit();
       }
     } catch (PDOException $e) {
+      $_SESSION['error'] = "Error en el login: " . $e->getMessage();
       $_SESSION['logged'] = false;
-    }
-
-    // If login fails
-    if ($_SESSION['logged'] == false) {
       header("Location: ../HTML/err.html");
       exit();
     }
@@ -103,75 +115,79 @@ class UserController
 
   public function register()
   {
+    // Retrieve form data from POST request
+    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $repeat_password = $_POST['repeat_password'];
 
+    // Verifica que las contraseñas coincidan
     if ($password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";
-      header("Location: ../HTML/register.html");
+      header("Location: ../HTML/register.php");
+      exit();
+    }
+
+    // Verificar la contraseña
+    if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+      $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.";
+      header("Location: ../HTML/register.php");
+      exit();
+    }
+
+    // Verificar el correo
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $_SESSION['error'] = "El formato del correo electrónico no es válido.";
+      header("Location: ../HTML/register.php");
       exit();
     }
 
     $rol = $_POST['rol'];
-    $username = htmlspecialchars($_POST['username']);
-    $email = htmlspecialchars($_POST['email']);
+    // Datos sanitizados y hash de la contraseña
+    $username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+    // Determinar tabla de destino
     if ($rol === "usuario") {
       $tabla = "usuarios";
     } elseif ($rol === "promotor") {
       $tabla = "promotores";
     } else {
       $_SESSION['error'] = "Tipo de usuario no especificado";
-      header("Location: ../HTML/register.html");
-      exit();
-    }
-
-    // Verificar si el usuario ya existe
-    try {
-      $stmt = $this->conn->prepare("SELECT nombre FROM $tabla WHERE nombre = :username");
-      $stmt->execute(['username' => $username]);
-      $user_exists = $stmt->fetch(PDO::FETCH_ASSOC);
-      
-      if ($user_exists) {
-        $_SESSION['error'] = "El usuario ya existe";
-        header("Location: ../HTML/register.html");
-        exit();
-      }
-    } catch (PDOException $e) {
-      $_SESSION['error'] = "Error en la verificación: " . $e->getMessage();
-      header("Location: ../HTML/register.html");
+      header("Location: ../HTML/register.php");
       exit();
     }
 
     try {
+      // Inserción en la base de datos
       $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena) VALUES (:username, :email, :password)");
       $stmt->execute([
         'username' => $username,
         'email' => $email,
-        'password' => $password
+        'password' => $hashed_password
       ]);
-      
-      // Establecer la sesión como iniciada
+
+      // Obtener el ID del nuevo usuario
+      $id_usuario = $this->conn->lastInsertId();
+
+      // Establecer datos en la sesión
       $_SESSION['logged'] = true;
-      
-      // Redirigir según el rol del usuario
-      if ($rol === "usuario") {
-        // Para usuarios normales
-        $_SESSION['user'] = [
-          "nombre" => $username,
-          "email" => $email,
-          "contrasena" => $password
-        ];
-        header("Location: ../HTML/profile.php");
-      } else if ($rol === "promotor") {
-        // Para promotores
-        $_SESSION['user'] = $username;
-        header("Location: ../HTML/profilepromotor.php");
-      }
+      $_SESSION['user'] = [
+        "id_usuario" => $id_usuario,
+        "nombre" => $username,
+        "email" => $email,
+        "estadisticas" => [],
+        "img" => null,
+        "promotor" => ($rol === "promotor")
+      ];
+
+      unset($_SESSION['error']);
+      header("Location: ../HTML/profile.php");
       exit();
     } catch (PDOException $e) {
-      $_SESSION['error'] = "Error en el registro: " . $e->getMessage();
-      header("Location: ../HTML/register.html");
+      $_SESSION['error'] = "Error al registrar el usuario: " . $e->getMessage();
+      header("Location: ../HTML/register.php");
       exit();
     }
   }
@@ -212,27 +228,9 @@ class UserController
       exit();
     }
 
-    $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $repeat_password = $_POST['repeat_new_password'];
     $current_user = $_SESSION['user']['nombre'];
-
-    // Verificar que la contraseña actual sea correcta
-    try {
-      $stmt = $this->conn->prepare("SELECT contrasena FROM usuarios WHERE nombre = :current_user");
-      $stmt->execute(['current_user' => $current_user]);
-      $user = $stmt->fetch(PDO::FETCH_ASSOC);
-      
-      if (!$user || $user['contrasena'] !== $current_password) {
-        $_SESSION['error'] = "La contraseña actual es incorrecta";
-        header("Location: ../HTML/profile.php");
-        exit();
-      }
-    } catch (PDOException $e) {
-      $_SESSION['error'] = "Error al verificar contraseña: " . $e->getMessage();
-      header("Location: ../HTML/profile.php");
-      exit();
-    }
 
     if ($new_password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden";
@@ -240,10 +238,12 @@ class UserController
       exit();
     }
 
+    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
     try {
       $stmt = $this->conn->prepare("UPDATE usuarios SET contrasena = :new_password WHERE nombre = :current_user");
       $stmt->execute([
-        'new_password' => $new_password,
+        'new_password' => $hashed_password,
         'current_user' => $current_user
       ]);
       $_SESSION['user']['contrasena'] = $new_password;
@@ -295,7 +295,6 @@ class UserController
 
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       return $result ? (int) $result['total'] : 0;
-
     } catch (PDOException $e) {
       return 0; // En caso de error, devuelve 0
     }
@@ -316,7 +315,6 @@ class UserController
 
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       return $result ? (int) $result['total_juegos'] : 0;
-
     } catch (PDOException $e) {
       return 0; // En caso de error, devuelve 0
     }
@@ -337,7 +335,6 @@ class UserController
     ");
       $stmt->execute(['userId' => $userId]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     } catch (PDOException $e) {
       return [];
     }
@@ -384,11 +381,8 @@ class UserController
     ");
       $stmt->execute(['userId' => $userId]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     } catch (PDOException $e) {
       return [];
     }
   }
-
-
 }

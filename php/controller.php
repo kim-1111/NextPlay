@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-  $user = new UserController();
+  $user = new UserControllerSQL();
   if (isset($_POST["login"])) {
     $user->login();
   }
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   }
 }
 
-class UserController
+class UserControllerSQL
 {
   private $conn;
   function __construct()
