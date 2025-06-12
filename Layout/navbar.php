@@ -1,6 +1,11 @@
-<?php session_start(); 
+<?php
+require_once '../php/User.php';
 
-if(!isset($_SESSION['logged'])){
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+if (!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;
 }
 
@@ -27,9 +32,6 @@ if(!isset($_SESSION['logged'])){
       term.</span>
   </div>
   <div class="nav-links" role="navigation">
-    <a href="../HTML/principal.php" class="nav-icon desktop-only" data-tooltip1="Home" aria-label="Home">
-      <i class="fas fa-home"></i>
-    </a>
     <a href="../HTML/events.php" class="nav-icon desktop-only" data-tooltip1="Events" aria-label="Events">
       <i class="fas fa-calendar-alt"></i>
     </a>
@@ -46,7 +48,7 @@ if(!isset($_SESSION['logged'])){
       <i class="fas fa-question-circle"></i>
     </a>
     <?php if ($_SESSION['logged'] === true):
-      $username = $_SESSION['user']['nombre'];
+      $username = $_SESSION['user']->getNombre();
       $imagePath = "../users/profileimg/" . $username . ".jpg";
       if (file_exists($imagePath)) {
         $avatarSrc = $imagePath;
@@ -55,8 +57,7 @@ if(!isset($_SESSION['logged'])){
       }
 
       // Definir la URL del perfil según si es promotor o no
-      $profileUrl = ($_SESSION['user']['promotor'] === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
-      ?>
+      $profileUrl = ($_SESSION['user']->getPromotor()) ? "../HTML/profilepromotor.php" : "../HTML/profile.php"; ?>
       <div id="user-profile" class="desktop-only">
         <a href="<?= $profileUrl ?>" aria-label="User Profile">
           <img src="<?= $avatarSrc ?>" alt="Profile Picture" class="profile-pic">
@@ -72,9 +73,6 @@ if(!isset($_SESSION['logged'])){
     <i class="fas fa-bars"></i>
   </button>
   <div id="menu-dropdown" role="menu" aria-hidden="true">
-    <a href="../HTML/principal.php" class="nav-icon mobile-only" role="menuitem" aria-label="Home">
-      <i class="fas fa-home"></i> Home
-    </a>
     <a href="../HTML/events.php" class="nav-icon mobile-only" role="menuitem" aria-label="Events">
       <i class="fas fa-calendar-alt"></i> Events
     </a>
@@ -92,7 +90,7 @@ if(!isset($_SESSION['logged'])){
     </a>
     <?php if ($_SESSION['logged'] === true && isset($_SESSION['user'])):
       // Definir URL perfil según promotor
-      $profileUrl = (isset($_SESSION['user']['promotor']) && $_SESSION['user']['promotor'] === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
+      $profileUrl = (!Empty($_SESSION['user']->getPromotor()) && $_SESSION['user']->getPromotor() === true) ? "../HTML/profilepromotor.php" : "../HTML/profile.php";
       ?>
       <a href="<?= $profileUrl ?>" class="nav-icon mobile-only" role="menuitem" aria-label="Profile">
         <i class="fas fa-user"></i> Profile

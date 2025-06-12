@@ -1,19 +1,16 @@
 <?php
-// Include the UserController class
-require_once '../php/controllerpdo.php';
+require_once __DIR__ . '/../php/User.php';
 
-// Start session if not already started
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-// Check if user is logged in
+require_once __DIR__ . '/../php/UserController.php';
+
 if (!isset($_SESSION['logged']) || $_SESSION['logged'] !== true) {
   header("Location: ../HTML/login.php");
   exit();
 }
-
-
 
 $controller = new UserController();
 
@@ -22,6 +19,7 @@ $totalJuegos = $controller->getUserInterestedGamesCount();
 $misEventos = $controller->getUserUpcomingEvents();
 $juegosInteresados = $controller->getUserInterestedGames();
 
+$user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +79,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
 
               <div class="profile-avatar-container">
                 <?php
-                $username = $_SESSION['user']['nombre'];
+                $username = $_SESSION['user']->getNombre();
                 $imagePath = "../users/profileimg/" . $username . ".jpg";
                 if (file_exists($imagePath)) {
                   $avatarSrc = $imagePath;
@@ -99,7 +97,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
                 </div>
 
                 <!-- Username -->
-                <h3 class="profile-username"><?php echo $_SESSION['user']['nombre']; ?></h3>
+                <h3 class="profile-username"><?php echo $_SESSION['user']->getNombre(); ?></h3>
 
                 <!-- Avatar Upload Form -->
                 <form id="upload-form" enctype="multipart/form-data">
@@ -193,7 +191,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
                 <div class="tab-pane fade show active" id="profile-content" role="tabpanel"
                   aria-labelledby="profile-tab">
                   <!-- Using controllerpdo.php's update method -->
-                  <form class="profile-form" action="../php/controllerpdo.php" method="POST">
+                  <form class="profile-form" action="../php/UserController.php" method="POST">
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <div class="form-group">
@@ -201,7 +199,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
                             <i class="fas fa-user"></i> Username
                           </label>
                           <input type="text" class="form-control" name="username" id="nombre"
-                            value="<?php echo $_SESSION['user']['nombre']; ?>">
+                            value="<?php echo $_SESSION['user']->getNombre(); ?>">
                         </div>
                       </div>
 
@@ -211,7 +209,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
                             <i class="fas fa-envelope"></i> Email
                           </label>
                           <input type="email" class="form-control" name="email" id="email"
-                            value="<?php echo $_SESSION['user']['email']; ?>">
+                            value="<?php echo $_SESSION['user']->getCorreo(); ?>">
                         </div>
                       </div>
                     </div>
@@ -287,7 +285,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
                 <!-- Security Tab -->
                 <div class="tab-pane fade" id="security-content" role="tabpanel" aria-labelledby="security-tab">
                   <!-- Using controllerpdo.php's updatePassword method -->
-                  <form class="profile-form" action="../php/controllerpdo.php" method="POST">
+                  <form class="profile-form" action="../php/UserController.php" method="POST">
                     <div class="form-group mb-3">
                       <label for="current_password" class="form-label">
                         <i class="fas fa-key"></i> Current Password
@@ -466,7 +464,7 @@ $juegosInteresados = $controller->getUserInterestedGames();
               This cannot be undone.</p>
             <p>Please enter your password to confirm deletion:</p>
             <!-- Using controllerpdo.php's delete method -->
-            <form id="delete-account-form" action="../php/controllerpdo.php" method="POST">
+            <form id="delete-account-form" action="../php/UserController.php" method="POST">
               <div class="form-group">
                 <input type="password" class="form-control" name="confirm_password" placeholder="Enter password"
                   required>

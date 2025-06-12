@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start(); ?>
+<?php   
+require_once __DIR__ . '/../php/User.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  } ?>
 
 <head>
   <meta charset="UTF-8">
@@ -20,7 +24,7 @@
     <main>
       <section class="register-container">
         <h2 class="title">Login</h2>
-        <form action="../php/gameController.php" method="post">
+        <form action="../php/UserController.php" method="post">
           <label>
             <div class="input-container">
               <img src="../imagenes/user-icon.png" alt="User Icon">
@@ -28,7 +32,12 @@
             <input type="text" required placeholder="Enter username" name="username">
           </label>
 
-          <?php echo $_SESSION['error']; ?>
+          <?php
+          if (!empty($_SESSION['error'])) {
+            echo htmlspecialchars($_SESSION['error']);
+            unset($_SESSION['error']);
+          }
+          ?>
 
           <label>
             <div class="input-container">
@@ -53,14 +62,14 @@
           <button class="register-btn" type="submit" name="login">Login</button>
         </form>
         <div class="authswitch">
-          <p><a href="register.html">Don't have an account? Register!</a></p>
+          <p><a href="register.php">Don't have an account? Register!</a></p>
         </div>
       </section>
     </main>
   </center>
 
-  <footer id="footer">
-
+  <footer>
+    <div id="footer"></div>
   </footer>
 </body>
 

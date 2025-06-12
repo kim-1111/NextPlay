@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +10,9 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="icon" href="../imagenes/logo.png">
 </head>
- 
+
 <?php session_start(); ?>
- 
+
 <body>
   <center>
     <main>
@@ -20,7 +20,7 @@
         <section class="register-container">
           <div class="closebutton"><button onclick="cerrarRegister()">X</button></div>
           <h2>Register</h2>
-          <form action="../php/controllerpdo.php" method="post">
+          <form action="../php/UserController.php" method="post">
             <div class="role-selector">
               <div class="role" id="student">
                 <img src="../imagenes/user.png" alt="Student">
@@ -32,7 +32,7 @@
               </div>
             </div>
             <input type="hidden" name="rol" id="rolInput" value="promotor"> <!-- Valor por defecto -->
- 
+
             <script>
               document.querySelectorAll('.role').forEach(role => {
                 role.addEventListener('click', () => {
@@ -43,7 +43,12 @@
                 });
               });
             </script>
-            <?php echo $_SESSION['error']; ?>
+            <?php
+            if (!empty($_SESSION['error'])) {
+              echo htmlspecialchars($_SESSION['error']);
+              unset($_SESSION['error']);
+            }
+            ?>
             <label>
               <div class="input-container">
                 <img src="../imagenes/user-icon.png" alt="User Icon">
@@ -55,9 +60,9 @@
                 <img src="../imagenes/email-icon.png" alt="Email Icon">
               </div>
               <input type="email" name="email" required placeholder="Enter your email">
- 
+
             </label>
- 
+
             <label>
               <div class="input-container">
                 <img src="../imagenes/password-icon.png" alt="Password Icon">
@@ -76,7 +81,7 @@
             <button type="submit" class="register-btn" name="register">Register</button>
           </form>
           <div class="authswitch">
-            <p><a onclick="cerrarRegister(), mostrarLogin()">Already registered? Log in!</a>
+            <p><a href="login.php">Already registered? Log in!</a>
             </p>
           </div>
         </section>
@@ -84,9 +89,9 @@
     </main>
   </center>
   <footer>
-      <div id="footer"></div>
+    <div id="footer"></div>
   </footer>
 </body>
 <!---->
- 
+
 </html>
