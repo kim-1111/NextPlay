@@ -64,7 +64,7 @@ class UserController
     }
 
     try {
-      $stmt = $this->conn->prepare("SELECT id_usuario, nombre, correo, contrasena, estadisticas, img FROM usuarios WHERE nombre = :username AND contrasena = :password");
+      $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE nombre = :username AND contrasena = :password");
       $stmt->execute(['username' => $username, 'password' => $passwd]);
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -82,7 +82,7 @@ class UserController
     }
 
     try {
-      $stmt = $this->conn->prepare("SELECT id_promotor, nombre, contrasena FROM promotores WHERE nombre = :username AND contrasena = :password");
+      $stmt = $this->conn->prepare("SELECT * FROM promotores WHERE nombre = :username AND contrasena = :password");
       $stmt->execute(['username' => $username, 'password' => $passwd]);
       $promotor = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -126,13 +126,19 @@ class UserController
     $rol = $_POST['rol'] ?? '';
     $username = trim(htmlspecialchars($_POST['username'] ?? ''));
     $email = trim(htmlspecialchars($_POST['email'] ?? ''));
+    $numero = $_POST['numero'] ?? '';
 
-    if (empty($rol) || empty($username) || empty($email) || empty($password) || empty($repeat_password)) {
+    if (empty($rol) || empty($username) || empty($email) || empty($numero) || empty($password) || empty($repeat_password)) {
       $_SESSION['error'] = "Todos los campos son obligatorios.";
       header("Location: ../HTML/register.php");
       exit();
     }
 
+    if (preg_match("/^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$/", $numero)!=1) {
+      $_SESSION['error'] = "El formato de numero no es valido.";
+      header("Location: ../HTML/register.php");
+      exit();
+    }
     if ($password !== $repeat_password) {
       $_SESSION['error'] = "Las contraseñas no coinciden.";
       header("Location: ../HTML/register.php");
@@ -157,11 +163,12 @@ class UserController
         exit();
       }
 
-      $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena) VALUES (:username, :email, :password)");
+      $stmt = $this->conn->prepare("INSERT INTO $tabla (nombre, correo, contrasena, numero) VALUES (:username, :email, :password, :numero)");
       $stmt->execute([
         'username' => $username,
         'email' => $email,
-        'password' => $password
+        'password' => $password,
+        'numero' => $numero
       ]);
 
       $id = $this->conn->lastInsertId();
@@ -175,6 +182,7 @@ class UserController
         'contrasena' => $password,
         'estadisticas' => '',
         'img' => '',
+        'numero' => $numero,
         'promotor' => $rol === "promotor"
       ];
 
@@ -193,6 +201,7 @@ class UserController
 
   public function update()
   {
+    require_once __DIR__ . '/User.php';
     if (session_status() === PHP_SESSION_NONE) {
       session_start();
     }
@@ -203,30 +212,33 @@ class UserController
       exit();
     }
 
-    require_once __DIR__ . '/User.php';
 
     $username = trim(htmlspecialchars($_POST['username'] ?? ''));
-    $email = trim(htmlspecialchars($_POST['email'] ?? ''));
+    $nu = trim(htmlspecialchars($_POST['email'] ?? ''));
+    $numero = $_POST['numero'] ?? '';
 
-    if (empty($username) || empty($email)) {
+    if (empty($username) || empty($nu)) {
       $_SESSION['error'] = "Nombre y correo no pueden estar vacíos.";
       header("Location: ../HTML/profile.php");
       exit();
     }
 
+
+
     $user = $_SESSION['user'];
-    $currentName = $user->getNombre();
+    $currentName = $_SESSION['user']->getNombre();
 
     try {
-      $stmt = $this->conn->prepare("UPDATE usuarios SET nombre = :username, correo = :email WHERE nombre = :currentName");
+      $stmt = $this->conn->prepare("UPDATE usuarios SET nombre = :username, correo= :email, numero = :numero WHERE nombre = :currentName");
       $stmt->execute([
         'username' => $username,
-        'email' => $email,
+        'email' => $nu,
+        'numero' => $numero,
         'currentName' => $currentName
       ]);
 
       $user->setNombre($username);
-      $user->setCorreo($email);
+      $user->setCorreo($nu);
 
       $_SESSION['user'] = $user;
 

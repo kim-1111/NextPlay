@@ -53,13 +53,20 @@
               <div class="input-container">
                 <img src="../imagenes/user-icon.png" alt="User Icon">
               </div>
-              <input type="text" name="username" required placeholder="Enter your username">
+              <input type="text" name="username" placeholder="Enter your username">
+            </label>
+            <label>
+              <div class="input-container">
+                <img src="../imagenes/phone-icon.webp" alt="numero Icon">
+              </div>
+              <input type="String" name="numero" placeholder="Enter your telephone number">
+
             </label>
             <label>
               <div class="input-container">
                 <img src="../imagenes/email-icon.png" alt="Email Icon">
               </div>
-              <input type="email" name="email" required placeholder="Enter your email">
+              <input type="email" name="email" placeholder="Enter your email">
 
             </label>
 
@@ -67,13 +74,13 @@
               <div class="input-container">
                 <img src="../imagenes/password-icon.png" alt="Password Icon">
               </div>
-              <input type="password" name="password" required placeholder="Enter your password">
+              <input type="password" name="password" placeholder="Enter your password">
             </label>
             <label>
               <div class="input-container">
                 <img src="../imagenes/password-icon.png" alt="Password Icon">
               </div>
-              <input type="password" name="repeat_password" required placeholder="Repeat password">
+              <input type="password" name="repeat_password" placeholder="Repeat password">
             </label>
             <div class="captcha">
               <div class="g-recaptcha" data-sitekey="6LcmtdQqAAAAACkTwbyhF5gil2oJ09cvcvvpPykQ"></div>
