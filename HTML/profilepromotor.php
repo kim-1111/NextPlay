@@ -18,7 +18,7 @@ $controller = new UserController();
 
 $totalEventos = $controller->returntotalevents();
 $totalJuegos = $controller->getUserInterestedGamesCount();
-$misEventos = $controller->getPromotorEvents();
+$controller->getPromotorEvents();
 
 if(empty($misEventos)){
   $misEventos[0]['total_eventos'] = 0;
@@ -177,6 +177,16 @@ $juegosInteresados = $controller->getUserInterestedGames();
                           </label>
                           <input type="text" class="form-control" name="username" id="nombre"
                             value="<?php echo $_SESSION['user']->getNombre(); ?>">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                          <label for="numero" class="form-label">
+                            <i class="fas fa-envelope"></i> Numero
+                          </label>
+                          <input type="numero" class="form-control" name="numero" id="numero"
+                            value="<?php echo $_SESSION['user']->getNumero(); ?>">
                         </div>
                       </div>
 

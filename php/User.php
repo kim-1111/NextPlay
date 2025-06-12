@@ -7,6 +7,7 @@
   private $contrasena;
   private $estadisticas;
   private $img;
+  private $numero;
   private $promotor = false;
 
   public function __construct(array $data = [])
@@ -30,6 +31,8 @@
         $this->estadisticas = $data['estadisticas'];
       if (isset($data['img']))
         $this->img = $data['img'];
+      if (isset($data['numero']))
+        $this->numero = $data['numero'];
       if (isset($data['promotor']))
         $this->promotor = $data['promotor'];
     }
@@ -192,6 +195,26 @@
   public function setPromotor($promotor)
   {
     $this->promotor = $promotor;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of numero
+   */ 
+  public function getNumero()
+  {
+    return $this->numero;
+  }
+
+  /**
+   * Set the value of numero
+   *
+   * @return  self
+   */ 
+  public function setNumero($numero)
+  {
+    $this->numero = $numero;
 
     return $this;
   }

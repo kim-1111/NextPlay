@@ -205,6 +205,16 @@ $user = $_SESSION['user'];
 
                       <div class="col-md-6 mb-3">
                         <div class="form-group">
+                          <label for="numero" class="form-label">
+                            <i class="fas fa-envelope"></i> Numero
+                          </label>
+                          <input type="numero" class="form-control" name="numero" id="numero"
+                            value="<?php echo $_SESSION['user']->getNumero(); ?>">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group">
                           <label for="email" class="form-label">
                             <i class="fas fa-envelope"></i> Email
                           </label>
